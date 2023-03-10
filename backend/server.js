@@ -108,6 +108,43 @@ app.put('/user', (req, res) => {
     })
 })
 
+//Update user information
+app.put('/user', (req, res) => {
+    const email = req.query.email
+    const user_name = req.body.password
+    const security_question = req.body.security_question
+    const security_question_answer = req.body.security_question
+
+    if (user_name){
+        const query = `UPDATE user SET user_name='${user_name}' WHERE email='${email}'`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+
+            console.log(rows)
+            res.status(200)
+        })
+    }
+    if (security_question){
+        const query = `UPDATE user SET security_question='${security_question}' WHERE email='${email}'`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+
+            console.log(rows)
+            res.status(200)
+        })
+    }
+    if (security_question_answer){
+        const query = `UPDATE user SET security_question_answer='${security_question_answer}' WHERE email='${email}'`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+
+            console.log(rows)
+            res.status(200)
+        })
+    }
+    res.send(true)
+})
+
 app.delete('/users/clear', (req, res) => {
     connection.query('DELETE FROM user;', (err, rows, feilds) => {
         if (err) throw err
