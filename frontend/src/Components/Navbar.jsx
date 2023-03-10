@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -23,9 +23,10 @@ export default function ResponsiveNavbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  useEffect(() => {
-    if (context.user) pages = ["Homepage"];
-  }, [context.user]);
+  useMemo(() => {
+    if (context.currUser) pages = ["Homepage"];
+    else pages = ["Homepage", "Login", "Sign Up"];
+  }, [context.currUser]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,7 +43,8 @@ export default function ResponsiveNavbar() {
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
     if (setting === "Logout") {
-      context.setUser(null);
+      sessionStorage.clear();
+      context.setCurrUser(null);
       navigate(`/`);
     } else {
       navigate(`/${setting.toLowerCase().replace(/\s/g, "")}`);
@@ -135,14 +137,14 @@ export default function ResponsiveNavbar() {
               </Button>
             ))}
           </Box>
-          {context.user == null ? (
+          {context.currUser == null ? (
             <></>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt={context.user.user_name}
+                    alt={context.currUser.user_name}
                     src="/static/images/avatar/2.jpg"
                   />
                 </IconButton>

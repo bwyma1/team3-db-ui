@@ -47,7 +47,7 @@ export default function SignUp() {
         data.get("sq_answer")
       )
     );
-    context.setUser(
+    context.setCurrUser(
       new user(
         data.get("email"),
         data.get("uname"),

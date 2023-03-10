@@ -17,8 +17,6 @@ export default function Homepage() {
           title="rick"
           id="rick"
           src="https://www.youtube.com/embed/V-_O7nl0Ii0"
-          frameborder="0"
-          allowfullscreen
         ></iframe>
       </Box>
     </Container>

@@ -28,7 +28,7 @@ export default function Login() {
       const response = await login(data.get("email"), data.get("password"));
 
       if (response) {
-        context.setUser(
+        context.setCurrUser(
           new user(
             response.email,
             response.user_name,
@@ -39,7 +39,7 @@ export default function Login() {
         );
         navigate("/");
       } else alert("failed to login");
-      console.log(context.user);
+      console.log(context.currUser);
     })();
   };
 
