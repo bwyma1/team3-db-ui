@@ -10,7 +10,8 @@
       "driver": "MySQL",
       "name": "DBUI",
       "database": "mysql",
-      "username": "root"
+      "username": "root",
+      "password": "coolgecko123"
     }
   ]
 }
