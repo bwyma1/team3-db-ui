@@ -29,10 +29,15 @@ export default function PasswordReset() {
           setTestUser(
             new user(
               response.email,
-              response.user_name,
-              response.password,
-              response.security_question,
-              response.security_question_answer
+            response.user_name,
+            response.password,
+            response.security_question,
+            response.security_question_answer,
+            response.user_id,
+            response.bio,
+            response.location,
+            response.phone_number,
+            response.profile_picture
             )
           );
         } else {

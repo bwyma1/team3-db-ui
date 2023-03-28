@@ -30,12 +30,12 @@ export default function Login() {
       if (response) {
         context.setCurrUser(
           new user(
-            response.user_id,
             response.email,
             response.user_name,
             response.password,
             response.security_question,
             response.security_question_answer,
+            response.user_id,
             response.bio,
             response.location,
             response.phone_number,
