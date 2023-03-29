@@ -4,6 +4,7 @@ import Login from "../Views/Login";
 import PasswordReset from "../Views/PasswordReset";
 import Profile from "../Views/Profile";
 import SignUp from "../Views/SignUp";
+import TruckRental from "../Views/TruckRental";
 import ResponsiveNavbar from "./Navbar";
 
 export const Router = () => (
@@ -15,6 +16,7 @@ export const Router = () => (
       <Route path="/" element={<Homepage />} />
       <Route path="homepage" element={<Homepage />} />
       <Route path="profile" element={<Profile />} />
+      <Route path="truckrental" element={<TruckRental />} />
       <Route path="passwordreset" element={<PasswordReset />} />
     </Routes>
   </BrowserRouter>
