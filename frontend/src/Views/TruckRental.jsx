@@ -1,70 +1,123 @@
-import React from "react";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-
-const trucks = [
-  {
-    id: 1,
-    name: "Truck 1",
-    image: "https://via.placeholder.com/350x200",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: ["Specification 1", "Specification 2", "Specification 3"],
-  },
-  {
-    id: 2,
-    name: "Truck 2",
-    image: "https://via.placeholder.com/350x200",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: ["Specification 1", "Specification 2", "Specification 3"],
-  },
-  {
-    id: 3,
-    name: "Truck 3",
-    image: "https://via.placeholder.com/350x200",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: ["Specification 1", "Specification 2", "Specification 3"],
-  },
-];
-
-const TruckRental = () => {
-  return (
-    <Container maxWidth="lg">
-      <Grid container spacing={2}>
-        {trucks.map((truck) => (
-          <Grid key={truck.id} item xs={12} sm={6} md={4}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="200"
-                image={truck.image}
-                alt={truck.name}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {truck.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {truck.description}
-                </Typography>
-                <Typography variant="h6" sx={{ mt: 2 }}>
-                  Specifications:
-                </Typography>
-                {truck.specifications.map((spec, index) => (
-                  <Typography key={index} variant="body2">
-                    {spec}
-                  </Typography>
-                ))}
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
-  );
-};
-
-export default TruckRental;
+  import React, { useContext, useEffect, useState } from "react";
+  import Button from "@mui/material/Button";
+  import CssBaseline from "@mui/material/CssBaseline";
+  import TextField from "@mui/material/TextField";
+  import Box from "@mui/material/Box";
+  import Typography from "@mui/material/Typography";
+  import Container from "@mui/material/Container";
+  import { createTheme, ThemeProvider } from "@mui/material/styles";
+  import { InputLabel, MenuItem, Select } from "@mui/material";
+  import { addUser } from "../API/Api";
+  import { user } from "../Models/user";
+  import { AppContext } from "../Context/AppContext";
+  import { useNavigate } from "react-router-dom";
+  
+  const theme = createTheme();
+  
+  const trucks = [
+    {
+      id: 1,
+      name: "Truck 1",
+      image: "https://via.placeholder.com/150",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      specifications: "Specification 1, Specification 2, Specification 3",
+    },
+    {
+      id: 2,
+      name: "Truck 2",
+      image: "https://via.placeholder.com/150",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      specifications: "Specification 1, Specification 2, Specification 3",
+    },
+    {
+      id: 3,
+      name: "Truck 3",
+      image: "https://via.placeholder.com/150",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      specifications: "Specification 1, Specification 2, Specification 3",
+    },
+    {
+        id: 4,
+        name: "Truck 4",
+        image: "https://via.placeholder.com/150",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        specifications: "Specification 1, Specification 2, Specification 3",
+      },
+      {
+        id: 5,
+        name: "Truck 5",
+        image: "https://via.placeholder.com/150",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        specifications: "Specification 1, Specification 2, Specification 3",
+      },
+  ];
+  
+  export default function TruckRental() {
+    const [selectedTruck, setSelectedTruck] = useState(null);
+  
+    const handleSelectTruck = (truck) => {
+      setSelectedTruck(truck);
+    };
+  
+    return (
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h5">
+              Truck Rental
+            </Typography>
+            <Box sx={{ width: '100%' }}>
+              {trucks.map((truck) => (
+                <Box
+                  key={truck.id}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    p: 2,
+                    borderBottom: "1px solid #ccc",
+                  }}
+                >
+                  <Box sx={{ mr: 2 }}>
+                    <img src={truck.image} alt={truck.name} width="100" />
+                  </Box>
+                  <Box>
+                    <Typography component="h2" variant="h6">
+                      {truck.name}
+                    </Typography>
+                    <Typography component="p" variant="body1">
+                      {truck.description}
+                    </Typography>
+                    <Typography component="p" variant="body2">
+                      Specifications: {truck.specifications}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      onClick={() => handleSelectTruck(truck)}
+                      sx={{ mt: 2 }}
+                    >
+                      Select
+                    </Button>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
+    );
+  }
+  
+  
+  
+  
+  
+  
+  
