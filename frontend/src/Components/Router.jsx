@@ -6,6 +6,9 @@ import Profile from "../Views/Profile";
 import ProfileEdit from "../Views/ProfileEdit";
 import SignUp from "../Views/SignUp";
 import ResponsiveNavbar from "./Navbar";
+import TruckRental from "../Views/TruckRental";
+import TruckRentalDetails from "../Views/TruckRentalDetails";
+
 
 export const Router = () => (
   <BrowserRouter>
@@ -18,6 +21,8 @@ export const Router = () => (
       <Route path="profile" element={<Profile />} />
       <Route path="passwordreset" element={<PasswordReset />} />
       <Route path="profileedit" element={<ProfileEdit />} />
+      <Route path="truckrental" element={<TruckRental />} />
+      <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
     </Routes>
   </BrowserRouter>
 );
