@@ -10,8 +10,7 @@
       "driver": "MySQL",
       "name": "DBUI",
       "database": "mysql",
-      "username": "root",
-      "editor.snippetSuggestions": "top",
+      "username": "root"
     }
   ]
 }

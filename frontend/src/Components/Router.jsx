@@ -3,6 +3,7 @@ import Homepage from "../Views/Homepage";
 import Login from "../Views/Login";
 import PasswordReset from "../Views/PasswordReset";
 import Profile from "../Views/Profile";
+import ProfileEdit from "../Views/ProfileEdit";
 import SignUp from "../Views/SignUp";
 import TruckRental from "../Views/TruckRental";
 import ResponsiveNavbar from "./Navbar";
@@ -20,6 +21,7 @@ export const Router = () => (
       <Route path="truckrental" element={<TruckRental />} />
       <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
       <Route path="passwordreset" element={<PasswordReset />} />
+      <Route path="profileedit" element={<ProfileEdit />} />
     </Routes>
   </BrowserRouter>
 );
