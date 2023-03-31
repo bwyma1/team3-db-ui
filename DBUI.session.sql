@@ -94,6 +94,8 @@ CREATE TABLE IF NOT EXISTS user_message(
 CREATE TABLE IF NOT EXISTS truck_rent_info(
     truck_rent_id INT AUTO_INCREMENT PRIMARY,
     truck_id INT NOT NULL,
+    truck_image VARCHAR(500) NOT NULL,
+    renter_id INT NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
