@@ -91,4 +91,3 @@ CREATE TABLE IF NOT EXISTS user_message(
     FOREIGN KEY (parent_id) REFERENCES user_message(message_id),
     FOREIGN KEY (child_id) REFERENCES user_message(message_id)
 );
-
