@@ -91,3 +91,10 @@ CREATE TABLE IF NOT EXISTS user_message(
     FOREIGN KEY (parent_id) REFERENCES user_message(message_id),
     FOREIGN KEY (child_id) REFERENCES user_message(message_id)
 );
+CREATE TABLE IF NOT EXISTS truck_rent_info(
+    truck_rent_id INT AUTO_INCREMENT PRIMARY,
+    truck_id INT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
+);
