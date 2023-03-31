@@ -3,6 +3,7 @@ import Homepage from "../Views/Homepage";
 import Login from "../Views/Login";
 import PasswordReset from "../Views/PasswordReset";
 import Profile from "../Views/Profile";
+import ProfileEdit from "../Views/ProfileEdit";
 import SignUp from "../Views/SignUp";
 import ResponsiveNavbar from "./Navbar";
 
@@ -16,6 +17,7 @@ export const Router = () => (
       <Route path="homepage" element={<Homepage />} />
       <Route path="profile" element={<Profile />} />
       <Route path="passwordreset" element={<PasswordReset />} />
+      <Route path="profileedit" element={<ProfileEdit />} />
     </Routes>
   </BrowserRouter>
 );

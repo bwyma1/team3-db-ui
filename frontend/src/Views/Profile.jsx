@@ -1,3 +1,5 @@
+import { Navigate, useNavigate } from "react-router-dom";
+import React, { useContext, useMemo } from "react";
 import { getUserByEmail } from "../API/Api";
 
 export default function Profile() {
@@ -7,15 +9,20 @@ export default function Profile() {
   function getUser() {
     (async () => {
       const response = await getUserByEmail(user.email);
-      console.log(response);
-
+      
       if (response) {
+        console.log(response);
         return response;
       } else {
         alert("error invalid email");
       }
     })();
   }
+
+  const navigate = useNavigate();
+  const navigateToPage = () => {
+    navigate(`/profileedit`);
+  };
   
 
   return <>
@@ -23,8 +30,9 @@ export default function Profile() {
   <p>Username: {user.user_name}</p>
   <p>Email: {user.email}</p>
   <p>Security Question: {user.security_question}</p>
-  <p>User Id: {getUser().user_id}</p>
+  <p>User Id: {getUser() ? getUser().user_id : "undefined"}</p>
   <p>Location: {user.location}</p>
   <p>Bio: {user.bio}</p>
+  <button onClick={navigateToPage}>Edit Profile</button>
   </>;
 }

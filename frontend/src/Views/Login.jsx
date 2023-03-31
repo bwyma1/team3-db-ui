@@ -26,7 +26,7 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     (async () => {
       const response = await login(data.get("email"), data.get("password"));
-      console.log(response);
+      
       if (response) {
         context.setCurrUser(
           new user(
