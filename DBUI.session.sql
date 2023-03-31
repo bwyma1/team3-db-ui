@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS truck(
     long_discount_days INT,
     long_discount_percent FLOAT,
     long_discount_flat FLOAT,
+    truck_image VARCHAR(500) NOT NULL,
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
 CREATE TABLE IF NOT EXISTS truck_review(
@@ -92,9 +93,8 @@ CREATE TABLE IF NOT EXISTS user_message(
     FOREIGN KEY (child_id) REFERENCES user_message(message_id)
 );
 CREATE TABLE IF NOT EXISTS truck_rent_info(
-    truck_rent_id INT AUTO_INCREMENT PRIMARY,
+    truck_rent_id INT AUTO_INCREMENT PRIMARY KEY,
     truck_id INT NOT NULL,
-    truck_image VARCHAR(500) NOT NULL,
     renter_id INT NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
