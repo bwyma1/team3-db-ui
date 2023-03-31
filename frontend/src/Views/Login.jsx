@@ -26,7 +26,7 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     (async () => {
       const response = await login(data.get("email"), data.get("password"));
-
+      
       if (response) {
         context.setCurrUser(
           new user(
@@ -34,7 +34,12 @@ export default function Login() {
             response.user_name,
             response.password,
             response.security_question,
-            response.security_question_answer
+            response.security_question_answer,
+            response.user_id,
+            response.bio,
+            response.location,
+            response.phone_number,
+            response.profile_picture
           )
         );
         navigate("/");

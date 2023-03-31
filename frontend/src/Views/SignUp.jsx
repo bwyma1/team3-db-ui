@@ -44,7 +44,8 @@ export default function SignUp() {
         data.get("uname"),
         data.get("password"),
         sqText,
-        data.get("sq_answer")
+        data.get("sq_answer"),
+        data.get("user_id")
       )
     );
     context.setCurrUser(
@@ -53,7 +54,8 @@ export default function SignUp() {
         data.get("uname"),
         data.get("password"),
         sqText,
-        data.get("sq_answer")
+        data.get("sq_answer"),
+        data.get("user_id")
       )
     );
     navigate("/");
