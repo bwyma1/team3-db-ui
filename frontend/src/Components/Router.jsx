@@ -8,7 +8,7 @@ import SignUp from "../Views/SignUp";
 import ResponsiveNavbar from "./Navbar";
 import TruckRental from "../Views/TruckRental";
 import TruckRentalDetails from "../Views/TruckRentalDetails";
-
+import ListATruck from "../Views/ListATruck"
 
 export const Router = () => (
   <BrowserRouter>
@@ -23,6 +23,7 @@ export const Router = () => (
       <Route path="profileedit" element={<ProfileEdit />} />
       <Route path="truckrental" element={<TruckRental />} />
       <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
+      <Route path="listatruck" element={<ListATruck />} />
     </Routes>
   </BrowserRouter>
 );
