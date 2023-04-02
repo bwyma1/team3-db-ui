@@ -88,6 +88,7 @@ export default function SignUp() {
               fullWidth
               id="email"
               label="Email Address"
+              type="email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -112,7 +113,7 @@ export default function SignUp() {
               id="password"
               autoComplete="current-password"
             />
-            <InputLabel id="security-question">Security Question</InputLabel>
+            <InputLabel id="security-question"></InputLabel>
             <Select
               labelId="security-question"
               id="sq"
@@ -120,11 +121,10 @@ export default function SignUp() {
               label="Security Question"
               onChange={sqChange}
             >
+              <menuItem value={0} disabled>Select a security question</menuItem>
               <MenuItem value={1}>What is your mothers maiden name?</MenuItem>
               <MenuItem value={2}>What is the name of your first pet?</MenuItem>
-              <MenuItem value={3}>
-                What is the name of the city you were born in?
-              </MenuItem>
+              <MenuItem value={3}>What is the name of the city you were born in?</MenuItem>
             </Select>
             {sq === 0 ? (
               <></>
