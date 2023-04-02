@@ -32,7 +32,7 @@ const ListATruck = () => {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}`);
+    console.log(`Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Start Date: ${sDate}, End Date: ${eDate}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}`);
   }
 
   let days;
@@ -250,7 +250,7 @@ const ListATruck = () => {
               </Grid>
             </FormControl>
 
-            <Button type="submit" variant="contained" color="primary">Submit</Button>
+            <Button type="submit" fullWidth variant="contained" color="primary">Submit</Button>
 
           </form>
         </Box>
