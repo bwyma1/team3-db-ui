@@ -1,5 +1,21 @@
 import React, { useState }  from "react";
-import { Box, Typography, Button, TextField, Select, MenuItem, FormControl, InputAdornment} from "@mui/material";
+import {
+        Box,
+        Typography,
+        Button,
+        TextField,
+        Select,
+        MenuItem,
+        FormControl,
+        InputAdornment,
+        ThemeProvider,
+        createTheme,
+        Container,
+        CssBaseline,
+        Grid
+      } from "@mui/material";
+
+const theme = createTheme();
 
 const ListATruck = () => {
   const [make, setMake] = useState('');
@@ -74,10 +90,10 @@ const ListATruck = () => {
           type="number"
           required
           margin="normal"
-          value={discountPCT} 
-          onChange={(event) => setDiscountPCT(event.target.value)}
+          value={discountFlat} 
+          onChange={(event) => setDiscountFlat(event.target.value)}
           InputProps={{
-            endAdornment: <InputAdornment position="start">$</InputAdornment>,
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
           }}
         />
       );
@@ -102,114 +118,144 @@ const ListATruck = () => {
   }
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography component="h1" variant="h5">
-        Create A New Truck Listing
-      </Typography>
-
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Make"
-          variant="outlined"
-          required
-          margin="normal"
-          value={make}
-          onChange={(event) => setMake(event.target.value)}
-        />
-
-        <TextField
-          label="Model"
-          variant="outlined"
-          required
-          margin="normal"
-          value={model}
-          onChange={(event) => setModel(event.target.value)}
-        />
-
-        <Select 
-          label="Year"
-          value={year}
-          required
-          margin="normal"
-          onChange={(event) => setYear(event.target.value)}
-          variant="outlined"
-          >
-
-          <MenuItem value="Year" disabled>
-            Year
-          </MenuItem>
-          
-          {renderYearOptions()}
-        </Select>
-
-        <TextField
-          label="Mileage"
-          variant="outlined"
-          type="number"
-          required
-          margin="normal"
-          value={mileage}
-          onChange={(event) => setMileage(event.target.value)}
-        />
-
-        <TextField
-          label="Max Mileage"
-          variant="outlined"
-          type="number"
-          required
-          margin="normal"
-          value={maxMileage}
-          onChange={(event) => setMaxMileage(event.target.value)}
-        />
-
-        <TextField
-          label="Date Available From"
-          variant="outlined"
-          type="date"
-          required
-          margin="normal"
-          value={sDate}
-          onChange={(event) => setSDate(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-        />
+        >
+          <Typography component="h1" variant="h5">
+            Create A New Truck Listing
+          </Typography>
 
-        <TextField
-          label="Date Available Until"
-          variant="outlined"
-          type="date"
-          required
-          margin="normal"
-          value={eDate}
-          onChange={(event) => setEDate(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+          <form onSubmit={handleSubmit}>
 
-        <FormControl margin="normal">
-          <Select label="Discount?" required value={discount} onChange={(event) => setDiscount(event.target.value)}>
-            <MenuItem value="0" disabled> Discount? </MenuItem>
-            <MenuItem value="1">No Discount</MenuItem>
-            <MenuItem value="2">Yes - % Discount</MenuItem>
-            <MenuItem value="3">Yes - Flat Discount</MenuItem>
-          </Select>
-          {days}
-          {discountField}
-        </FormControl>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Make"
+                  variant="outlined"
+                  required
+                  margin="normal"
+                  value={make}
+                  onChange={(event) => setMake(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Model"
+                  variant="outlined"
+                  required
+                  margin="normal"
+                  value={model}
+                  onChange={(event) => setModel(event.target.value)}
+                />
+              </Grid>
+            </Grid>
 
-        <Button type="submit" variant="contained" color="primary">Submit</Button>
+            <Select 
+              label="Year"
+              fullWidth
+              value={year}
+              required
+              margin="normal"
+              onChange={(event) => setYear(event.target.value)}
+              >
 
-      </form>
-    </Box>
+              <MenuItem value="Year" disabled>
+                Year
+              </MenuItem>
+              
+              {renderYearOptions()}
+            </Select>
+
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Mileage"
+                  variant="outlined"
+                  type="number"
+                  required
+                  margin="normal"
+                  value={mileage}
+                  onChange={(event) => setMileage(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Max Mileage"
+                  variant="outlined"
+                  type="number"
+                  required
+                  margin="normal"
+                  value={maxMileage}
+                  onChange={(event) => setMaxMileage(event.target.value)}
+                />
+              </Grid>
+            </Grid>
+
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Date Available From"
+                  fullWidth
+                  variant="outlined"
+                  type="date"
+                  required
+                  margin="normal"
+                  value={sDate}
+                  onChange={(event) => setSDate(event.target.value)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Date Available Until"
+                  variant="outlined"
+                  fullWidth
+                  type="date"
+                  required
+                  margin="normal"
+                  value={eDate}
+                  onChange={(event) => setEDate(event.target.value)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+            </Grid>
+
+            <FormControl fullWidth margin="normal">
+              <Select label="Discount?" required value={discount} onChange={(event) => setDiscount(event.target.value)}>
+                <MenuItem value="0" disabled> Discount? </MenuItem>
+                <MenuItem value="1">No Discount</MenuItem>
+                <MenuItem value="2">Yes - % Discount</MenuItem>
+                <MenuItem value="3">Yes - $ Discount</MenuItem>
+              </Select>
+              
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  {days}
+                </Grid>
+                <Grid item xs={6}>
+                  {discountField}
+                </Grid>
+              </Grid>
+            </FormControl>
+
+            <Button type="submit" variant="contained" color="primary">Submit</Button>
+
+          </form>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 };
 
