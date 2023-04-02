@@ -1,20 +1,30 @@
 import React, { useState }  from "react";
-import { Box, Typography, Button, TextField } from "@mui/material";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { addUser } from "../API/Api";
+import { Box, Typography, Button, TextField, Select, MenuItem} from "@mui/material";
 
 const ListATruck = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [make, setMake] = useState('');
+  const [model, setModel] = useState('');
+  const [year, setYear] = useState('Year');
+  const [mileage, setMileage] = useState('');
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Name: ${name}, Email: ${email}`);
+    console.log(`Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}`);
   }
+
+    const renderYearOptions = () => {
+      const startYear = new Date().getFullYear();
+      const endYear = 1900;
+      const yearOptions = [];
+      for (let year = startYear; year >= endYear; year--) {
+        yearOptions.push(
+          <MenuItem key={year} value={year}>
+            {year}
+          </MenuItem>
+        );
+      }
+      return yearOptions;
+    }
 
   return (
     <Box
@@ -31,18 +41,34 @@ const ListATruck = () => {
       {/*Create a form for new truck Listing*/}
       <form onSubmit={handleSubmit}>
       <TextField
-        label="Name"
+        label="Make"
         variant="outlined"
-        margin="normal"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
+        value={make}
+        onChange={(event) => setMake(event.target.value)}
       />
       <TextField
-        label="Email"
+        label="Model"
         variant="outlined"
-        margin="normal"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+        value={model}
+        onChange={(event) => setModel(event.target.value)}
+      />
+      <Select 
+        label="Year"
+        value={year}
+        onChange={(event) => setYear(event.target.value)}
+        variant="outlined"
+      >
+        <MenuItem value="Year" disabled>
+          Year
+        </MenuItem>
+        {renderYearOptions()}
+      </Select>
+      <TextField
+        label="Mileage"
+        variant="outlined"
+        type="number"
+        value={mileage}
+        onChange={(event) => setMileage(event.target.value)}
       />
       <Button type="submit" variant="contained" color="primary">Submit</Button>
     </form>
