@@ -29,6 +29,7 @@ const ListATruck = () => {
   const [discountDays, setDiscountDays] = useState('');
   const [discountPCT, setDiscountPCT] = useState('');
   const [discountFlat, setDiscountFlat] = useState('');
+  const [dailyPrice, setDailyPrice] = useState('');
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -184,6 +185,9 @@ const ListATruck = () => {
                   margin="normal"
                   value={mileage}
                   onChange={(event) => setMileage(event.target.value)}
+                  InputProps={{
+                    endAdornment: <InputAdornment position="end">mi</InputAdornment>,
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -195,6 +199,9 @@ const ListATruck = () => {
                   margin="normal"
                   value={maxMileage}
                   onChange={(event) => setMaxMileage(event.target.value)}
+                  InputProps={{
+                    endAdornment: <InputAdornment position="end">mi</InputAdornment>,
+                  }}
                 />
               </Grid>
             </Grid>
@@ -231,6 +238,19 @@ const ListATruck = () => {
                 />
               </Grid>
             </Grid>
+            <TextField 
+              label="Daily Price" 
+              variant="outlined"
+              type="number"
+              fullWidth
+              required
+              margin="normal"
+              value={dailyPrice} 
+              onChange={(event) => setDailyPrice(event.target.value)}
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              }}
+            />
 
             <FormControl fullWidth margin="normal">
               <Select label="Discount?" required value={discount} onChange={(event) => setDiscount(event.target.value)}>
