@@ -39,6 +39,17 @@ export const getUserByEmail = async (email) => {
     return response.data["0"]
 }
 
+export const getTrucksByEmail = async (email) => {
+  let response
+  try {
+    response = await axios.get(
+    url + `/user?email=${email}`
+  )} catch (err) {
+    console.log(err)
+  }
+  return response.data["0"]
+}
+
 // login user with '/user?email='someEmail'&password='somePassword'
 export const login = async (email, password) => {
     let response
