@@ -80,6 +80,18 @@ app.get('/user', (req, res) => {
     })
 })
 
+// get the owned trucks of a user with '/user_trucks?email='someEmail'
+app.get('/user_trucks', (req, res) => {
+    const email = req.query.email
+    const query = `SELECT * FROM truck a WHERE a.owner_id = (SELECT b.user_id FROM user b WHERE b.email = '${email}');`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send(rows)
+    })
+})
+
 // login user with '/user?email='someEmail'&password='somePassword'
 app.get('/login', async (req, res) => {
     const email = req.query.email
