@@ -11,8 +11,7 @@ const TruckRentalDetails = () => {
 
   const handleRentTruck = () => {
     // add truck to user's rented trucks
-    addUser(selectedTruck);
-
+    
     // navigate back to homepage
     navigate("/");
   };

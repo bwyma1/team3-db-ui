@@ -1,58 +1,52 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { InputLabel, MenuItem, Select } from "@mui/material";
-import { addUser } from "../API/Api";
-import { user } from "../Models/user";
-import { AppContext } from "../Context/AppContext";
+import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import TruckRentalDetails from "./TruckRentalDetails";
-  
-  const theme = createTheme();
-  
-  const trucks = [
-    {
-      id: 1,
-      name: "Truck 1",
-      image: "https://via.placeholder.com/150",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      specifications: "Specification 1, Specification 2, Specification 3",
-    },
-    {
-      id: 2,
-      name: "Truck 2",
-      image: "https://via.placeholder.com/150",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      specifications: "Specification 1, Specification 2, Specification 3",
-    },
-    {
-      id: 3,
-      name: "Truck 3",
-      image: "https://via.placeholder.com/150",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      specifications: "Specification 1, Specification 2, Specification 3",
-    },
-    {
-        id: 4,
-        name: "Truck 4",
-        image: "https://via.placeholder.com/150",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        specifications: "Specification 1, Specification 2, Specification 3",
-      },
-      {
-        id: 5,
-        name: "Truck 5",
-        image: "https://via.placeholder.com/150",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        specifications: "Specification 1, Specification 2, Specification 3",
-      },
-  ];
 
+const theme = createTheme();
+
+
+const trucks = [
+  {
+    id: 1,
+    name: "Truck 1",
+    image: "https://via.placeholder.com/150",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    specifications: "Specification 1, Specification 2, Specification 3",
+  },
+  {
+    id: 2,
+    name: "Truck 2",
+    image: "https://via.placeholder.com/150",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    specifications: "Specification 1, Specification 2, Specification 3",
+  },
+  {
+    id: 3,
+    name: "Truck 3",
+    image: "https://via.placeholder.com/150",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    specifications: "Specification 1, Specification 2, Specification 3",
+  },
+  {
+    id: 4,
+    name: "Truck 4",
+    image: "https://via.placeholder.com/150",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    specifications: "Specification 1, Specification 2, Specification 3",
+  },
+  {
+    id: 5,
+    name: "Truck 5",
+    image: "https://via.placeholder.com/150",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    specifications: "Specification 1, Specification 2, Specification 3",
+  },
+];
 
 
 const TruckRental = () => {
@@ -76,10 +70,10 @@ const TruckRental = () => {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h4">
             Truck Rental
           </Typography>
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: "100%", border: "4px solid", borderColor: "primary.main", borderRadius: "4px" }}>
             {trucks.map((truck) => (
               <Box
                 key={truck.id}
@@ -94,7 +88,7 @@ const TruckRental = () => {
                   <img src={truck.image} alt={truck.name} width="100" />
                 </Box>
                 <Box>
-                  <Typography component="h2" variant="h6">
+                  <Typography component="h2" variant="h6" fontWeight="bold">
                     {truck.name}
                   </Typography>
                   <Typography component="p" variant="body1">
@@ -102,6 +96,9 @@ const TruckRental = () => {
                   </Typography>
                   <Typography component="p" variant="body2">
                     Specifications: {truck.specifications}
+                  </Typography>
+                  <Typography component="p" variant="subtitle1" fontWeight="bold">
+                    Price: ${truck.price}
                   </Typography>
                   <Button
                     variant="contained"
@@ -122,14 +119,3 @@ const TruckRental = () => {
 
 export default TruckRental;
 
-
-  
-
-
-  
-  
-  
-  
-  
-  
-  
