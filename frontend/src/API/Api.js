@@ -43,7 +43,7 @@ export const getTrucksByEmail = async (email) => {
   let response
   try {
     response = await axios.get(
-    url + `/user?email=${email}`
+    url + `/user_trucks?email=${email}`
   )} catch (err) {
     console.log(err)
   }
