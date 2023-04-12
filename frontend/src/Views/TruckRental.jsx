@@ -71,13 +71,12 @@ const TruckRental = () => {
           }}
         >
           <Typography component="h1" variant="h4" sx={{
-            textAlign: "center", color: "black", padding: "1rem", width: "100%", backgroundColor: "rgba(211, 211, 211, 0.2)",
-            border: "2px solid", borderColor: "gray", borderRadius: "0px"
+            textAlign: "center", color: "black", padding: "1rem", width: "100%", backgroundColor: "rgba(211, 211, 211, 0.2)"
           }}>
             Truck Rental Selection
           </Typography>
-          <Box sx={{ width: "100%", border: "2px solid", borderColor: "gray", borderRadius: "0px",
-            marginBottom: "2rem", backgroundColor: "rgba(211, 211, 211, 0.2)" }}>
+          <Box sx={{ width: "100%", borderTop: "2px solid", borderColor: "gray", borderRadius: "0px",
+            marginBottom: "3rem", backgroundColor: "rgba(211, 211, 211, 0.2)" }}>
             {trucks.map((truck) => (
               <Box
                 key={truck.id}
@@ -89,7 +88,7 @@ const TruckRental = () => {
                 }}
               >
                 <Box sx={{ mr: 2 }}>
-                  <img src={truck.image} alt={truck.name} width="100" />
+                  <img src={truck.image} alt={truck.name} width="200" />
                 </Box>
                 <Box>
                   <Typography component="h2" variant="h6" fontWeight="bold">
