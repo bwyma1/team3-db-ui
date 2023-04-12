@@ -70,10 +70,14 @@ const TruckRental = () => {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h4">
-            Truck Rental
+          <Typography component="h1" variant="h4" sx={{
+            textAlign: "center", color: "black", padding: "1rem", width: "100%", backgroundColor: "rgba(211, 211, 211, 0.2)",
+            border: "2px solid", borderColor: "gray", borderRadius: "0px"
+          }}>
+            Truck Rental Selection
           </Typography>
-          <Box sx={{ width: "100%", border: "4px solid", borderColor: "primary.main", borderRadius: "4px" }}>
+          <Box sx={{ width: "100%", border: "2px solid", borderColor: "gray", borderRadius: "0px",
+            marginBottom: "2rem", backgroundColor: "rgba(211, 211, 211, 0.2)" }}>
             {trucks.map((truck) => (
               <Box
                 key={truck.id}
