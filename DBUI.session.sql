@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS truck(
     truck_id INT AUTO_INCREMENT PRIMARY KEY,
     owner_id INT NOT NULL,
     model VARCHAR(255) NOT NULL,
+    make VARCHAR(255) NOT NULL,
     year VARCHAR(255) NOT NULL,
     mileage VARCHAR(255) NOT NULL,
     max_miles FLOAT,
@@ -68,9 +69,11 @@ CREATE TABLE IF NOT EXISTS vehicle_bundle_profile(
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
 CREATE TABLE IF NOT EXISTS bundle_vehicle(
-    bundle_id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_bundle_id INT AUTO_INCREMENT PRIMARY KEY,
+    bundle_id INT NOT NULL,
     truck_id INT NOT NULL,
-    FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
+    FOREIGN KEY (truck_id) REFERENCES truck(truck_id),
+    FOREIGN KEY (bundle_id) REFERENCES vehicle_bundle_profile(bundle_id)
 );
 CREATE TABLE IF NOT EXISTS amenity(
     amenity_id INT AUTO_INCREMENT PRIMARY KEY,
