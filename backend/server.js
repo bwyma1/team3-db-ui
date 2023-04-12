@@ -74,6 +74,17 @@ app.post('/truck', (req, res) => {
         })
 })
 
+//Gets all trucks that are currently available for rent
+app.get('/trucks', (req, res) => {
+    connection.query('SELECT * FROM truck WHERE truck_id NOT IN (SELECT truck_id FROM truck_rent_info WHERE renter_id <> -1);', (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(rows)
+    })
+})
+
 // Creates a vehicle bundle profile connected to a users email
 app.post('/vehicle_bundle', (req, res) => {
     const {email, discount_percent, discount_flat} = req.body
