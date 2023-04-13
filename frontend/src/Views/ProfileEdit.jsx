@@ -82,7 +82,7 @@ export default function ProfileEdit() {
             alignItems: "center",
           }}
         >
-    <button onClick={backButton}>Back</button>
+    <button onClick={backButton} className="profile-button">Back</button>
     <h2>Edit Profile</h2>
     <TextField
         margin="normal"
@@ -108,7 +108,7 @@ export default function ProfileEdit() {
         value={currUser.phone_number}
         onChange={phoneChange}
     />
-    <button onClick={confirmButton}>Confirm</button>
+    <button onClick={confirmButton} className="profile-button">Confirm</button>
     </Box>
     </>;
 }

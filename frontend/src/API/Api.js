@@ -47,7 +47,7 @@ export const getTrucksByEmail = async (email) => {
   )} catch (err) {
     console.log(err)
   }
-  return response.data["0"]
+  return response.data
 }
 
 // login user with '/user?email='someEmail'&password='somePassword'

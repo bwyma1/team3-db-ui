@@ -1,3 +1,29 @@
 .App {
   text-align: center;
 }
+
+.profile-main {
+  margin-left: 1rem;
+}
+
+.profile-truck {
+  background-color: rgb(221, 221, 221);
+  border-radius: 1rem;
+  padding-left: 0.8rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.2rem;
+}
+.profile-truck>p {
+  padding-left: 1rem;
+}
+
+.profile-button {
+  background-color: rgb(98, 223, 125);
+  color: white;
+  border-radius: 1rem;
+  border: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
