@@ -187,15 +187,31 @@ app.get('/login', async (req, res) => {
 app.put('/user', (req, res) => {
     const email = req.query.email
     const password = req.body.password
+    const bio = req.body.bio
+    const prof_pic_choice = req.body.prof_pic_choice
+    const location = req.body.location
+    const phone = req.body.phone
+    
+    if(password) {
+        const query = `UPDATE user SET password='${password}' WHERE email='${email}'`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+    
+            console.log(rows)
+            res.status(200)
+            res.send(true)
+        })
+    } else {
+        const query = `UPDATE user SET bio='${bio}', prof_pic_choice='${prof_pic_choice}', location='${location}', phone='${phone}'  WHERE email='${email}'`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+    
+            console.log(rows)
+            res.status(200)
+            res.send(true)
+        })
+    }
 
-    const query = `UPDATE user SET password='${password}' WHERE email='${email}'`
-    connection.query(query, (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send(true)
-    })
 })
 
 app.delete('/users/clear', (req, res) => {

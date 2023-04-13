@@ -87,6 +87,18 @@ export const updatePassword = async (email, password) => {
     return response.data
 }
 
+export const updateProfile = async (email, bio, prof_pic_choice, location, phone) => {
+  const data = {bio:`${bio}`, prof_pic_choice: prof_pic_choice, location:`${location}`, phone:`${phone}`}
+  let response
+  try {
+    response = await axios.put(
+  url + `/user?email=${email}`, data
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data
+}
+
 export  const getUsers = () => {
     axios.get(url + '/users').then((res) => {
       alert(JSON.stringify(res.data))
