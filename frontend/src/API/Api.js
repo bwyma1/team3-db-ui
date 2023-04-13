@@ -50,6 +50,18 @@ export const getTrucksByEmail = async (email) => {
   return response.data["0"]
 }
 
+//Gets all trucks that are currently available for rent
+export const getAvailableTrucks = async () => {
+  let response
+  try {
+    response = await axios.get(
+  url + `/trucks`
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data
+}
+
 // login user with '/user?email='someEmail'&password='somePassword'
 export const login = async (email, password) => {
     let response

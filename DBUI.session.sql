@@ -103,3 +103,85 @@ CREATE TABLE IF NOT EXISTS truck_rent_info(
     end_date DATE NOT NULL,
     FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
 );
+INSERT INTO user (
+        email,
+        user_name,
+        password,
+        security_question,
+        security_question_answer
+    )
+VALUES ('bwyma@gmail.com', 'brock', '12345', '1', 'yo');
+INSERT INTO truck (
+        owner_id,
+        model,
+        make,
+        year,
+        mileage,
+        max_miles,
+        long_discount_days,
+        long_discount_percent,
+        long_discount_flat,
+        truck_image
+    )
+VALUES (
+        1,
+        'Ford-F150',
+        'make',
+        '2019',
+        '20000',
+        100000,
+        7,
+        0.10,
+        0.10,
+        'https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg'
+    );
+INSERT INTO truck_rent_info (truck_id, renter_id, start_date, end_date)
+VALUES (1, 1, '2023-10-20', '2023-10-25');
+INSERT INTO truck (
+        owner_id,
+        model,
+        make,
+        year,
+        mileage,
+        max_miles,
+        long_discount_days,
+        long_discount_percent,
+        long_discount_flat,
+        truck_image
+    )
+VALUES (
+        1,
+        'Toyota Tundra',
+        'make',
+        '2018',
+        '30000',
+        200000,
+        10,
+        0.20,
+        0.10,
+        'https://www.thedrive.com/content/2022/03/2022-Toyota-Tundra-TRD-Pro_KL_52.jpg?quality=85'
+    );
+INSERT INTO truck (
+        owner_id,
+        model,
+        make,
+        year,
+        mileage,
+        max_miles,
+        long_discount_days,
+        long_discount_percent,
+        long_discount_flat,
+        truck_image
+    )
+VALUES (
+        1,
+        'Chevrolet Colorado',
+        'make',
+        '2017',
+        '10000',
+        120000,
+        4,
+        0.15,
+        0.10,
+        'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200'
+    );
