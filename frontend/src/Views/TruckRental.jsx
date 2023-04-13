@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
@@ -6,57 +6,85 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
+import { getAvailableTrucks } from "../API/Api";
 
 const theme = createTheme();
-
-
-const trucks = [
-  {
-    id: 1,
-    name: "Truck 1",
-    image: "https://via.placeholder.com/150",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: "Specification 1, Specification 2, Specification 3",
-  },
-  {
-    id: 2,
-    name: "Truck 2",
-    image: "https://via.placeholder.com/150",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: "Specification 1, Specification 2, Specification 3",
-  },
-  {
-    id: 3,
-    name: "Truck 3",
-    image: "https://via.placeholder.com/150",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: "Specification 1, Specification 2, Specification 3",
-  },
-  {
-    id: 4,
-    name: "Truck 4",
-    image: "https://via.placeholder.com/150",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: "Specification 1, Specification 2, Specification 3",
-  },
-  {
-    id: 5,
-    name: "Truck 5",
-    image: "https://via.placeholder.com/150",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    specifications: "Specification 1, Specification 2, Specification 3",
-  },
-];
-
 
 const TruckRental = () => {
   const [selectedTruck, setSelectedTruck] = useState(null);
   const navigate = useNavigate();
+  const [trucks, setTrucks] = useState([]);
+
+  useEffect(() => {
+    const fetchAvailableTrucks = async () => {
+      const truckData = await getAvailableTrucks();
+      setTrucks(truckData);
+    };
+    fetchAvailableTrucks();
+  }, []);
 
   const handleSelectTruck = (truck) => {
     setSelectedTruck(truck);
     navigate("/truckrentaldetails", { state: { truck } });
   };
+
+  //   return (
+  //     <ThemeProvider theme={theme}>
+  //       <CssBaseline />
+  //       <Container component="main" maxWidth="md">
+  //         <Box sx={{ my: 4 }}>
+  //           <Typography variant="h4" component="h1" gutterBottom>
+  //             Truck Rental
+  //           </Typography>
+  //           <Box>
+  //             {trucks.map((truck) => (
+  //               <Box
+  //                 key={truck.id}
+  //                 sx={{
+  //                   display: "flex",
+  //                   alignItems: "center",
+  //                   p: 2,
+  //                   borderBottom: "1px solid #ccc",
+  //                 }}
+  //               >
+  //                 <Box sx={{ mr: 2 }}>
+  //                   <img src={truck.truck_image} alt={truck.model} width="200" />
+  //                 </Box>
+  //                 <Box>
+  //                   <Typography component="h2" variant="h6" fontWeight="bold">
+  //                     {truck.model} ({truck.year})
+  //                   </Typography>
+  //                   <Typography component="p" variant="body1">
+  //                     Mileage: {truck.mileage}
+  //                   </Typography>
+  //                   <Typography component="p" variant="body2">
+  //                     Max Miles: {truck.max_miles}
+  //                   </Typography>
+  //                   <Typography component="p" variant="subtitle1" fontWeight="bold">
+  //                     Refund Timer: {truck.refund_timer} hours
+  //                   </Typography>
+  //                   <Typography component="p" variant="subtitle1" fontWeight="bold">
+  //                     Long-Term Discount Days: {truck.long_discount_days} days
+  //                   </Typography>
+  //                   <Typography component="p" variant="subtitle1" fontWeight="bold">
+  //                     Long-Term Percent Discount: {truck.long_discount_percent}%
+  //                   </Typography>
+  //                   <Button
+  //                     variant="contained"
+  //                     color="primary"
+  //                     onClick={() => handleSelectTruck(truck)}
+  //                   >
+  //                     Select Truck
+  //                   </Button>
+  //                 </Box>
+  //               </Box>
+  //             ))}
+  //           </Box>
+  //         </Box>
+  //       </Container>
+  //     </ThemeProvider>
+  //   );
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -75,8 +103,10 @@ const TruckRental = () => {
           }}>
             Truck Rental Selection
           </Typography>
-          <Box sx={{ width: "100%", borderTop: "2px solid", borderColor: "gray", borderRadius: "0px",
-            marginBottom: "3rem", backgroundColor: "rgba(211, 211, 211, 0.2)" }}>
+          <Box sx={{
+            width: "100%", borderTop: "2px solid", borderColor: "gray", borderRadius: "0px",
+            marginBottom: "3rem", backgroundColor: "rgba(211, 211, 211, 0.2)"
+          }}>
             {trucks.map((truck) => (
               <Box
                 key={truck.id}
@@ -88,20 +118,27 @@ const TruckRental = () => {
                 }}
               >
                 <Box sx={{ mr: 2 }}>
-                  <img src={truck.image} alt={truck.name} width="200" />
+                  <img src={truck.truck_image} alt={truck.model} width="200" />
                 </Box>
                 <Box>
                   <Typography component="h2" variant="h6" fontWeight="bold">
-                    {truck.name}
+                    {truck.model} ({truck.year}) OwnerID: {truck.owner_id}
                   </Typography>
                   <Typography component="p" variant="body1">
-                    {truck.description}
+                    Mileage: {truck.mileage}
                   </Typography>
-                  <Typography component="p" variant="body2">
-                    Specifications: {truck.specifications}
+                  <Typography component="p" variant="body1">
+                    Max Miles: {truck.max_miles}
+                  </Typography>
+
+                  <Typography component="p" variant="subtitle1" fontWeight="bold">
+                    Refund Timer: {truck.refund_timer} hours
                   </Typography>
                   <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Price: ${truck.price}
+                    Long-Term Discount Days: {truck.long_discount_days} days
+                  </Typography>
+                  <Typography component="p" variant="subtitle1" fontWeight="bold">
+                    Long-Term Percent Discount: {truck.long_discount_percent}%
                   </Typography>
                   <Button
                     variant="contained"
