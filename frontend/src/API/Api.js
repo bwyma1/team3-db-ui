@@ -47,7 +47,7 @@ export const getTrucksByEmail = async (email) => {
   )} catch (err) {
     console.log(err)
   }
-  return response.data["0"]
+  return response.data
 }
 
 //Gets all trucks that are currently available for rent

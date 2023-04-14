@@ -1,69 +1,120 @@
-import { Navigate, useNavigate } from "react-router-dom";
-import React, { useContext, useMemo } from "react";
-import { getUserByEmail } from "../API/Api";
-import { TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { getUserByEmail, updateProfile } from "../API/Api";
+import { AppContext } from "../Context/AppContext";
+import { user } from "../Models/user";
 
 export default function ProfileEdit() {
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
+    //const currUser = JSON.parse(window.sessionStorage.getItem("user"));
+    const context = useContext(AppContext);
 
-  const navigate = useNavigate();
-  const backButton = () => {
-    navigate(`/profile`);
-  };
+    const [bio, setBio] = useState("");
+    const [location, setLocation] = useState("");
+    const [phone, setPhone] = useState("");
 
-  let event = null;
-  const data = new FormData(event.currentTarget);
-  const confirmButton = () => {
-    let newuser = new user(
-      user.email,
-      user.user_name,
-      data.get("password") || user.password,
-      user.security_question,
-      user.security_question_answer,
-      user.user_id,
-      data.get("bio") || user.bio,
-      data.get("location") || user.location,
-      data.get("phone") || user.phone_number,
-      data.get("profilepicture") || user.profile_picture
-    );
-    navigate(`/profile`);
-  };
+    const bioChange = (event) => setBio(event.target.value);
+    const locationChange = (event) => setLocation(event.target.value);
+    const phoneChange = (event) => setPhone(event.target.value);
 
-  return (
-    <>
-      <br></br>
-      <button onClick={backButton}>Back</button>
+    const navigate = useNavigate();
+    const backButton = () => {
+        navigate(`/profile`);
+    };
+
+    const [profile, setProfile] = useState({})
+  const [response, setResponse] = useState({});
+
+  useEffect(() => {
+    setProfile(JSON.parse(window.sessionStorage.getItem("user")))
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      const res = await getUserByEmail(profile.email);
+      if (res) {
+        //console.log(user);
+        console.log(res);
+        setResponse(res);
+        setBio(res.bio);
+        setLocation(res.location);
+        setPhone(res.phone);
+      } else {
+        //alert("error invalid email");
+      }
+    })();
+  }, [profile.email])
+
+    const confirmButton = () => {
+        let newuser = new user(
+          profile.email,
+          profile.user_name,
+          profile.password,
+          profile.security_question,
+          profile.security_question_answer,
+          profile.user_id,
+          bio === "" ? profile.bio : bio,
+          location === "" ? profile.location : location,
+          phone ==="" ? profile.phone_number : phone,
+          1
+        );
+        console.log(newuser);
+        
+        context.setCurrUser(new user(
+          profile.email,
+          profile.user_name,
+          profile.password,
+          profile.security_question,
+          profile.security_question_answer,
+          profile.user_id,
+          bio === "" ? profile.bio : bio,
+          location === "" ? profile.location : location,
+          phone ==="" ? profile.phone_number : phone,
+          1
+        )
+        );
+
+        (async () => {
+          await updateProfile(
+            profile.email, 
+            bio === "" ? response.bio : bio, 
+            1, 
+            location === "" ? response.location : location, 
+            phone === "" ? response.phone_number : phone
+          );
+        })();
+        navigate(`/profile`);
+    };
+
+    return<div className="profile-main"><br></br>
       <h2>Edit Profile</h2>
-      <TextField
-        margin="normal"
-        fullWidth
-        label="Bio"
-        name="bio"
-        value={user.bio}
-      />
-      <TextField
-        margin="normal"
-        fullWidth
-        label="Location"
-        name="location"
-        value={user.location}
-      />
-      <TextField
-        margin="normal"
-        fullWidth
-        name="password"
-        label="Password"
-        type="password"
-        defaultValue={user.password}
-      />
-      <TextField
-        margin="normal"
-        fullWidth
-        label="Phone Number"
-        name="phone"
-        value={user.phone_number}
-      />
-      <button onClick={confirmButton}>Confirm</button>
-    </>
-  );
+      <div className="profile-sub">
+        <p>Bio:</p>
+        <input
+            type="text"
+            label="Bio"
+            name="bio"
+            defaultValue={response.bio}
+            onChange={bioChange}
+        />
+        <br></br>
+        <p>Location:</p>
+        <input
+            label="Location"
+            name="location"
+            defaultValue={response.location}
+            onChange={locationChange}
+        />
+        <br></br>
+        <p>Phone Number:</p>
+        <input
+            label="Phone Number"
+            name="phone"
+            defaultValue={response.phone}
+            onChange={phoneChange}
+        />
+        <br></br><br></br>
+        <button onClick={backButton} className="profile-button profile-edit-button">Cancel</button>
+        <button onClick={confirmButton} className="profile-button">Save Changes</button>
+      </div>
+    </div>;
 }

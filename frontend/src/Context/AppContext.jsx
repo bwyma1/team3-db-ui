@@ -16,7 +16,12 @@ export const AppProvider = ({ children }) => {
             currUser.user_name,
             currUser.password,
             currUser.security_question,
-            currUser.security_question_answer
+            currUser.security_question_answer,
+            currUser.user_id,
+            currUser.bio,
+            currUser.location,
+            currUser.phone_number,
+            currUser.profile_picture
           )
         )
       );

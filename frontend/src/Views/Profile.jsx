@@ -1,23 +1,44 @@
-import { Navigate, useNavigate } from "react-router-dom";
-import React, { useContext, useMemo } from "react";
-import { getUserByEmail } from "../API/Api";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { getTrucksByEmail, getUserByEmail } from "../API/Api";
+//import Box from "@mui/material/Box";
+//import IconButton from "@mui/material/IconButton";
+//import Avatar from "@mui/material/Avatar";
 
 export default function Profile() {
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const [user, setUser] = useState({})
+  const [response, setResponse] = useState({});
+  const [truckList, setTruckList] = useState([]);
 
-  
-  function getUser() {
+  useEffect(() => {
+    setUser(JSON.parse(window.sessionStorage.getItem("user")))
+  }, [])
+
+  useEffect(() => {
     (async () => {
-      const response = await getUserByEmail(user.email);
-      
-      if (response) {
-        console.log(response);
-        return response;
+      const res = await getUserByEmail(user.email);
+      if (res) {
+        //console.log(res);
+        setResponse(res);
       } else {
-        alert("error invalid email");
+        //alert("error invalid email");
       }
     })();
-  }
+  }, [user.email])
+
+  useEffect(() => {
+    (async () => {
+      const res = await getTrucksByEmail(user.email);
+      if (res) {
+        //console.log(res);
+        if (res.length > 0) {
+          setTruckList(res);
+        }
+      } else {
+        //alert("error invalid email");
+      }
+    })();
+  }, [user.email])
 
   const navigate = useNavigate();
   const navigateToPage = () => {
@@ -25,14 +46,52 @@ export default function Profile() {
   };
   
 
-  return <>
-  <header>This is the profile page</header>
-  <p>Username: {user.user_name}</p>
-  <p>Email: {user.email}</p>
-  <p>Security Question: {user.security_question}</p>
-  <p>User Id: {getUser() ? getUser().user_id : "undefined"}</p>
-  <p>Location: {user.location}</p>
-  <p>Bio: {user.bio}</p>
-  <button onClick={navigateToPage}>Edit Profile</button>
-  </>;
+  return <div className="profile-main"><br></br>
+    <header><h1>Your Profile</h1></header>
+    <div className="profile-sub">
+      <div className="profile-user">
+        <button onClick={""} className="profile-avatar">
+          <img 
+            alt={user.user_name}
+            src="http://via.placeholder.com/250x250"
+          />
+        </button>
+        <div>
+          <h1>{user.user_name ?? "Loading..."}</h1>
+          <h3>{user.email ?? "Loading..."}</h3>
+        </div>
+      </div>
+      <p>User Id: {response.user_id}</p>
+      <p>Bio: {response.bio ?? "None set"}</p>
+      <p>Location: {response.location ?? "None set"}</p>
+      <p>Phone Number: {response.phone ?? "None set"}</p>
+      <button onClick={navigateToPage} className="profile-button">Edit Profile</button>
+      <h2>Your Trucks ({truckList.length}):</h2>
+      {truckList.map((truck, index) => (
+        <div>
+          <div key={index} className="profile-truck">
+            <h3>{truck.year} {truck.model}</h3>
+            <p>Mileage: {truck.mileage}</p>
+            <p>Max Miles: {truck.max_miles}</p>
+            <p>Long Discount Days: {truck.long_discount_days}</p>
+            <p>Long Discount Flat: {truck.long_discount_flat}</p>
+            <p>Long Discount Percent: {truck.long_discount_percent}%</p>
+          </div>
+          <br></br>
+        </div>
+      ))}
+      <button className="profile-button">Add Truck</button>
+    </div>
+    <br></br>
+  </div>;
 }
+
+/*
+{truckList.map((truck, index) => (
+    <div>
+      <h1>
+      {index}
+      </h1>
+    </div>
+  ))}
+*/

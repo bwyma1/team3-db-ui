@@ -61,6 +61,8 @@ export default function SignUp() {
     navigate("/");
   };
 
+  
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -100,7 +102,6 @@ export default function SignUp() {
               label="User Name"
               name="uname"
               autoComplete="uname"
-              autoFocus
             />
             <TextField
               margin="normal"
