@@ -107,7 +107,9 @@ export default function PasswordReset() {
           >
             {testUser == null && passwordIsReset === false ? (
               <TextField
-                margin="normal"
+                sx={{
+                  margin: "normal"
+                }}
                 required
                 fullWidth
                 id="email"
@@ -125,7 +127,9 @@ export default function PasswordReset() {
                   {testUser.security_question}
                 </Typography>
                 <TextField
-                  margin="normal"
+                  sx={{
+                    margin: "normal"
+                  }}
                   required
                   fullWidth
                   id="sq_answer"
@@ -134,7 +138,9 @@ export default function PasswordReset() {
                   autoFocus
                 />
                 <TextField
-                  margin="normal"
+                  sx={{
+                    margin: "normal"
+                  }}
                   required
                   fullWidth
                   name="password"
