@@ -60,9 +60,6 @@ export default function SignUp() {
     );
     navigate("/");
   };
-
-  
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -82,36 +79,30 @@ export default function SignUp() {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 1 }}
+            sx={{ mt: 0 }}
           >
             <TextField
-              sx={{
-                margin: "normal"
-              }}
+              margin="normal"
               required
               fullWidth
               id="email"
               label="Email Address"
-              type="email"
               name="email"
               autoComplete="email"
               autoFocus
             />
             <TextField
-              sx={{
-                margin: "normal"
-              }}
+              margin="normal"
               required
               fullWidth
               id="uname"
               label="User Name"
               name="uname"
               autoComplete="uname"
+              autoFocus
             />
             <TextField
-              sx={{
-                margin: "normal"
-              }}
+              margin="normal"
               required
               fullWidth
               name="password"
@@ -120,22 +111,19 @@ export default function SignUp() {
               id="password"
               autoComplete="current-password"
             />
-            <InputLabel id="security-question"></InputLabel>
+            <InputLabel id="security-question">Security Question</InputLabel>
             <Select
               labelId="security-question"
               id="sq"
-              fullWidth
-              sx={{
-                margin: "normal"
-              }}
               value={sq}
               label="Security Question"
               onChange={sqChange}
             >
-              <menuItem value={0} disabled>Select a security question</menuItem>
               <MenuItem value={1}>What is your mothers maiden name?</MenuItem>
               <MenuItem value={2}>What is the name of your first pet?</MenuItem>
-              <MenuItem value={3}>What is the name of the city you were born in?</MenuItem>
+              <MenuItem value={3}>
+                What is the name of the city you were born in?
+              </MenuItem>
             </Select>
             {sq === 0 ? (
               <></>
