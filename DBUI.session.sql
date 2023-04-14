@@ -103,6 +103,8 @@ CREATE TABLE IF NOT EXISTS truck_rent_info(
     end_date DATE NOT NULL,
     FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
 );
+
+-- Example Data
 INSERT INTO user (
         email,
         user_name,
