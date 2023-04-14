@@ -114,3 +114,15 @@ export  const getUsers = () => {
       console.log(err)
     })
   }
+
+  export const getAmenitiesByTruckId = async (truck_id) => {
+    let response;
+    try {
+      response = await axios.get(url + `/amenities?truck_id=${truck_id}`);
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(response);
+    return response.data;
+  };
+  
