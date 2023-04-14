@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { getTrucksByEmail, getUserByEmail } from "../API/Api";
-import Box from "@mui/material/Box";
+//import Box from "@mui/material/Box";
+//import IconButton from "@mui/material/IconButton";
+//import Avatar from "@mui/material/Avatar";
 
 export default function Profile() {
   const [user, setUser] = useState({})
@@ -45,31 +47,42 @@ export default function Profile() {
   
 
   return <div className="profile-main"><br></br>
-  <header>This is the profile page</header>
-  <p>Username: {user.user_name ?? ""}</p>
-  <p>Email: {user.email ?? ""}</p>
-  <p>Security Question: {user.security_question}</p>
-  <p>User Id: {response.user_id}</p>
-  <p>Location: {response.location ?? "none"}</p>
-  <p>Bio: {response.bio ?? "none"}</p>
-  <button onClick={navigateToPage} className="profile-button">Edit Profile</button>
-  <h2>Your Trucks:</h2>
-  {truckList.map((truck, index) => (
-    <div>
-    <div key={index} className="profile-truck">
-      <h3>
-      {truck.year} {truck.model}
-      </h3>
-      <p>Mileage: {truck.mileage}</p>
-      <p>Max Miles: {truck.max_miles}</p>
-      <p>Long Discount Days: {truck.long_discount_days}</p>
-      <p>Long Discount Flat: {truck.long_discount_flat}</p>
-      <p>Long Discount Percent: {truck.long_discount_percent}</p>
+    <header><h1>Your Profile</h1></header>
+    <div className="profile-sub">
+      <div className="profile-user">
+        <button onClick={""} className="profile-avatar">
+          <img 
+            alt={user.user_name}
+            src="http://via.placeholder.com/250x250"
+          />
+        </button>
+        <div>
+          <h1>{user.user_name ?? "Loading..."}</h1>
+          <h3>{user.email ?? "Loading..."}</h3>
+        </div>
+      </div>
+      <p>User Id: {response.user_id}</p>
+      <p>Bio: {response.bio ?? "None set"}</p>
+      <p>Location: {response.location ?? "None set"}</p>
+      <p>Phone Number: {response.phone ?? "None set"}</p>
+      <button onClick={navigateToPage} className="profile-button">Edit Profile</button>
+      <h2>Your Trucks ({truckList.length}):</h2>
+      {truckList.map((truck, index) => (
+        <div>
+          <div key={index} className="profile-truck">
+            <h3>{truck.year} {truck.model}</h3>
+            <p>Mileage: {truck.mileage}</p>
+            <p>Max Miles: {truck.max_miles}</p>
+            <p>Long Discount Days: {truck.long_discount_days}</p>
+            <p>Long Discount Flat: {truck.long_discount_flat}</p>
+            <p>Long Discount Percent: {truck.long_discount_percent}%</p>
+          </div>
+          <br></br>
+        </div>
+      ))}
+      <button className="profile-button">Add Truck</button>
     </div>
     <br></br>
-    </div>
-  ))}
-  <button className="profile-button">Add Truck</button>
   </div>;
 }
 

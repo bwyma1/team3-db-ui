@@ -3,7 +3,33 @@
 }
 
 .profile-main {
-  margin-left: 1rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.profile-sub {
+  background-color: rgb(240, 240, 240);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.profile-user {
+  display: flex;
+}
+
+.profile-user>div {
+  padding: 0.1rem 2rem;
+}
+
+.profile-avatar>img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 5rem;
+  border: 0;
+}
+
+.profile-avatar {
+  border: 0;
 }
 
 .profile-truck {
@@ -18,7 +44,7 @@
 }
 
 .profile-button {
-  background-color: rgb(98, 223, 125);
+  background-color: rgb(32,116,212);
   color: white;
   border-radius: 1rem;
   border: 0;
@@ -26,4 +52,8 @@
   padding-bottom: 0.5rem;
   padding-left: 1.2rem;
   padding-right: 1.2rem;
+}
+
+.profile-edit-button {
+  margin-right: 1rem;
 }

@@ -70,7 +70,7 @@ export default function ResponsiveNavbar() {
               textDecoration: "none",
             }}
           >
-            Brucks Trotha
+            Trucks Brotha
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton

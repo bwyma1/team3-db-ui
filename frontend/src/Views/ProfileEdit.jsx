@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useContext, useEffect } from "react";
-import { getUserByEmail } from "../API/Api";
-import { TextField } from "@mui/material";
-import Box from "@mui/material/Box";
+import { getUserByEmail, updateProfile } from "../API/Api";
 import { AppContext } from "../Context/AppContext";
+import { user } from "../Models/user";
 
 export default function ProfileEdit() {
-    const currUser = JSON.parse(window.sessionStorage.getItem("user"));
+    //const currUser = JSON.parse(window.sessionStorage.getItem("user"));
     const context = useContext(AppContext);
 
     const [bio, setBio] = useState("");
@@ -22,93 +21,100 @@ export default function ProfileEdit() {
         navigate(`/profile`);
     };
 
-    const [user, setUser] = useState({})
+    const [profile, setProfile] = useState({})
   const [response, setResponse] = useState({});
 
   useEffect(() => {
-    setUser(JSON.parse(window.sessionStorage.getItem("user")))
+    setProfile(JSON.parse(window.sessionStorage.getItem("user")))
   }, [])
 
   useEffect(() => {
     (async () => {
-      const res = await getUserByEmail(user.email);
+      const res = await getUserByEmail(profile.email);
       if (res) {
         //console.log(user);
         console.log(res);
         setResponse(res);
+        setBio(res.bio);
+        setLocation(res.location);
+        setPhone(res.phone);
       } else {
         //alert("error invalid email");
       }
     })();
-  }, [user.email])
+  }, [profile.email])
 
     const confirmButton = () => {
         let newuser = new user(
-            user.email,
-            user.user_name,
-            user.password,
-            user.security_question,
-            user.security_question_answer,
-            user.user_id,
-            bio || user.bio,
-            location || user.location,
-            phone || user.phone_number,
-            user.profile_picture
+          profile.email,
+          profile.user_name,
+          profile.password,
+          profile.security_question,
+          profile.security_question_answer,
+          profile.user_id,
+          bio === "" ? profile.bio : bio,
+          location === "" ? profile.location : location,
+          phone ==="" ? profile.phone_number : phone,
+          1
+        );
+        console.log(newuser);
+        
+        context.setCurrUser(new user(
+          profile.email,
+          profile.user_name,
+          profile.password,
+          profile.security_question,
+          profile.security_question_answer,
+          profile.user_id,
+          bio === "" ? profile.bio : bio,
+          location === "" ? profile.location : location,
+          phone ==="" ? profile.phone_number : phone,
+          1
+        )
+        );
+
+        (async () => {
+          await updateProfile(
+            profile.email, 
+            bio === "" ? response.bio : bio, 
+            1, 
+            location === "" ? response.location : location, 
+            phone === "" ? response.phone_number : phone
           );
-          console.log(newuser);
-          context.setCurrUser(new user(
-            user.email,
-            user.user_name,
-            user.password,
-            user.security_question,
-            user.security_question_answer,
-            user.user_id,
-            bio || user.bio,
-            location || user.location,
-            phone || user.phone_number,
-            user.profile_picture
-          )
-          );
-          //*/
+        })();
         navigate(`/profile`);
     };
 
-    return<><br></br>
-    <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-    <button onClick={backButton} className="profile-button">Back</button>
-    <h2>Edit Profile</h2>
-    <TextField
-        margin="normal"
-        fullWidth
-        label="Bio"
-        name="bio"
-        value={response.user_id}
-        onChange={bioChange}
-    />
-    <TextField
-        margin="normal"
-        fullWidth
-        label="Location"
-        name="location"
-        value={currUser.location}
-        onChange={locationChange}
-    />
-    <TextField
-        margin="normal"
-        fullWidth
-        label="Phone Number"
-        name="phone"
-        value={currUser.phone_number}
-        onChange={phoneChange}
-    />
-    <button onClick={confirmButton} className="profile-button">Confirm</button>
-    </Box>
-    </>;
+    return<div className="profile-main"><br></br>
+      <h2>Edit Profile</h2>
+      <div className="profile-sub">
+        <p>Bio:</p>
+        <input
+            type="text"
+            label="Bio"
+            name="bio"
+            defaultValue={response.bio}
+            onChange={bioChange}
+        />
+        <br></br>
+        <p>Location:</p>
+        <input
+            label="Location"
+            name="location"
+            defaultValue={response.location}
+            onChange={locationChange}
+        />
+        <br></br>
+        <p>Phone Number:</p>
+        <input
+            label="Phone Number"
+            name="phone"
+            defaultValue={response.phone}
+            onChange={phoneChange}
+        />
+        <br></br><br></br>
+        <button onClick={backButton} className="profile-button profile-edit-button">Cancel</button>
+        <button onClick={confirmButton} className="profile-button">Save Changes</button>
+      </div>
+    </div>;
 }

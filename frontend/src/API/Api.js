@@ -50,6 +50,18 @@ export const getTrucksByEmail = async (email) => {
   return response.data
 }
 
+//Gets all trucks that are currently available for rent
+export const getAvailableTrucks = async () => {
+  let response
+  try {
+    response = await axios.get(
+  url + `/trucks`
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data
+}
+
 // login user with '/user?email='someEmail'&password='somePassword'
 export const login = async (email, password) => {
     let response
@@ -73,6 +85,18 @@ export const updatePassword = async (email, password) => {
         console.log(err)
     }
     return response.data
+}
+
+export const updateProfile = async (email, bio, prof_pic_choice, location, phone) => {
+  const data = {bio:`${bio}`, prof_pic_choice: prof_pic_choice, location:`${location}`, phone:`${phone}`}
+  let response
+  try {
+    response = await axios.put(
+  url + `/user?email=${email}`, data
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data
 }
 
 export  const getUsers = () => {
