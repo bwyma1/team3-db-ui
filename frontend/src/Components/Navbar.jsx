@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,18 +15,29 @@ import MenuItem from "@mui/material/MenuItem";
 import { AppContext } from "../Context/AppContext";
 
 var pages = ["Homepage", "Login", "Sign Up"];
-var settings = ["Profile", "Logout"];
+var settings = ["Profile", "Logout", "Switch to Seller"];
 
 export default function ResponsiveNavbar() {
   const navigate = useNavigate();
   const context = useContext(AppContext);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   useMemo(() => {
-    if (context.currUser) pages = ["Homepage", "Truck Rental"];
+    if (context.currUser && !context.isSeller) pages = ["Homepage", "Truck Rental"];
+    else if (context.currUser && context.isSeller) pages = ["Homepage"];
     else pages = ["Homepage", "Login", "Sign Up"];
-  }, [context.currUser]);
+  }, [context.currUser, context.isSeller]);
+
+  useEffect(() => {
+    const storedIsSeller = sessionStorage.getItem("isSeller");
+    if (storedIsSeller === "true") {
+      settings[2] = "Switch to Renter";
+    } else if (storedIsSeller === "false") {
+      settings[2] = "Switch to Seller";
+    }
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,12 +51,26 @@ export default function ResponsiveNavbar() {
     navigate(`/${page.toLowerCase().replace(/\s/g, "")}`);
   };
 
+
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
     if (setting === "Logout") {
       sessionStorage.clear();
       context.setCurrUser(null);
+      context.setIsSeller(false);
       navigate(`/`);
+    } else if (setting === "Switch to Seller") {
+      setAnchorElUser(null);
+      context.setIsSeller(true);
+      sessionStorage.setItem("isSeller", "true");
+      navigate(`/homepage`);
+
+    } else if (setting === "Switch to Renter") {
+      setAnchorElUser(null);
+      context.setIsSeller(false);
+      sessionStorage.setItem("isSeller", "false");
+      navigate(`/homepage`);
+
     } else {
       navigate(`/${setting.toLowerCase().replace(/\s/g, "")}`);
     }

@@ -5,6 +5,9 @@ export const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
   const [currUser, setCurrUser] = useState(null);
+  const [isSeller, setIsSeller] = useState(
+    sessionStorage.getItem("isSeller") === "true"
+  );
 
   useMemo(() => {
     if (currUser && !window.sessionStorage.getItem("user")) {
@@ -26,8 +29,15 @@ export const AppProvider = ({ children }) => {
   }, [currUser]);
 
   return (
-    <AppContext.Provider value={{ currUser, setCurrUser }}>
+    <AppContext.Provider value={{ currUser, setCurrUser, isSeller, setIsSeller }}>
       {children}
     </AppContext.Provider>
   );
 };
+
+
+
+
+
+
+
