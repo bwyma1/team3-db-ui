@@ -85,6 +85,20 @@ app.get('/trucks', (req, res) => {
     })
 })
 
+// Creates new truck rent info given a truck_id
+app.post('/truck_rent_info', (req, res) => {
+    const { truck_id, renter_id, start_date, end_date } = req.body
+    const query = `INSERT INTO truck_rent_info ( truck_id, renter_id, start_date, end_date )
+        VALUES ( '${truck_id}', '${renter_id}', '${start_date}', '${end_date}' )`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(true)
+    })
+})
+
 // Creates a vehicle bundle profile connected to a users email
 app.post('/vehicle_bundle', (req, res) => {
     const {email, discount_percent, discount_flat} = req.body
@@ -150,6 +164,16 @@ app.get('/user_trucks', (req, res) => {
 app.get('/user_bundles', (req, res) => {
     const email = req.query.email
     const query = `SELECT * FROM vehicle_bundle_profile a WHERE a.owner_id = (SELECT b.user_id FROM user b WHERE b.email = '${email}');`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send(rows)
+    })
+})
+
+app.get('/truck_rent_data', (req, res) => {
+    const query = `SELECT * FROM truck_rent_info`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
@@ -246,5 +270,17 @@ app.delete('/truck/delete', (req, res) => {
 
         res.status(200)
         res.send("Successfully removed truck!")
+    })
+})
+
+app.delete('/truck_rent_info/delete', (req, res) => {
+    const truck_id = req.query.truck_id
+    const query = `DELETE FROM truck_rent_info WHERE truck_id = '${truck_id}'`
+
+    connection.query(query, (err, rows, fields) => {
+        if(err) throw err
+
+        res.status(200)
+        res.send("Successfully removed truck info!")
     })
 })
