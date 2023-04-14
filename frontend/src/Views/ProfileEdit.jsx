@@ -35,21 +35,27 @@ export default function ProfileEdit() {
       <button onClick={backButton}>Back</button>
       <h2>Edit Profile</h2>
       <TextField
-        margin="normal"
+        sx={{
+          margin: "normal"
+        }}
         fullWidth
         label="Bio"
         name="bio"
         value={user.bio}
       />
       <TextField
-        margin="normal"
+        sx={{
+          margin: "normal"
+        }}
         fullWidth
         label="Location"
         name="location"
         value={user.location}
       />
       <TextField
-        margin="normal"
+        sx={{
+          margin: "normal"
+        }}
         fullWidth
         name="password"
         label="Password"
@@ -57,7 +63,9 @@ export default function ProfileEdit() {
         defaultValue={user.password}
       />
       <TextField
-        margin="normal"
+        sx={{
+          margin: "normal"
+        }}
         fullWidth
         label="Phone Number"
         name="phone"

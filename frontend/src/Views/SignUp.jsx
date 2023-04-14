@@ -83,7 +83,9 @@ export default function SignUp() {
             sx={{ mt: 1 }}
           >
             <TextField
-              margin="normal"
+              sx={{
+                margin: "normal"
+              }}
               required
               fullWidth
               id="email"
@@ -94,7 +96,9 @@ export default function SignUp() {
               autoFocus
             />
             <TextField
-              margin="normal"
+              sx={{
+                margin: "normal"
+              }}
               required
               fullWidth
               id="uname"
@@ -104,7 +108,9 @@ export default function SignUp() {
               autoFocus
             />
             <TextField
-              margin="normal"
+              sx={{
+                margin: "normal"
+              }}
               required
               fullWidth
               name="password"
@@ -118,7 +124,9 @@ export default function SignUp() {
               labelId="security-question"
               id="sq"
               fullWidth
-              margin = "normal"
+              sx={{
+                margin: "normal"
+              }}
               value={sq}
               label="Security Question"
               onChange={sqChange}

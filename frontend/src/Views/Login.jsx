@@ -70,7 +70,9 @@ export default function Login() {
             sx={{ mt: 1 }}
           >
             <TextField
-              margin="normal"
+              sx={{
+                margin: "normal"
+              }}
               required
               fullWidth
               id="email"
@@ -81,7 +83,9 @@ export default function Login() {
               autoFocus
             />
             <TextField
-              margin="normal"
+              sx={{
+                margin: "normal"
+              }}
               required
               fullWidth
               name="password"
