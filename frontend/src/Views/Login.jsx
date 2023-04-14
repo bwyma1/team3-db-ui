@@ -70,17 +70,22 @@ export default function Login() {
             sx={{ mt: 1 }}
           >
             <TextField
-              margin="normal"
+              sx={{
+                margin: "normal"
+              }}
               required
               fullWidth
               id="email"
               label="Email Address"
               name="email"
+              type="email"
               autoComplete="email"
               autoFocus
             />
             <TextField
-              margin="normal"
+              sx={{
+                margin: "normal"
+              }}
               required
               fullWidth
               name="password"
