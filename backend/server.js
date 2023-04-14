@@ -59,6 +59,20 @@ app.post('/user', (req, res) => {
     })
 })
 
+app.post('/truck', (req, res) => {
+    const {email, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat, 
+        truck_image} = req.body
+    const query = `INSERT INTO truck (owner_id , model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, 
+        long_discount_flat, truck_image) VALUES ( (SELECT user_id AS this_user FROM user WHERE '${email}' = email), '${model}', '${make}', '${year}', '${mileage}', '${max_miles}', '${long_discount_days}', '${long_discount_percent}', '${long_discount_flat}', '${truck_image}')`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+
+            console.log(rows)
+            res.status(200)
+            res.send(true)
+        })
+})
+
 app.get('/users', (req, res) => {
     connection.query('SELECT * FROM user;', (err, rows, fields) => {
         if (err) throw err
@@ -72,6 +86,18 @@ app.get('/users', (req, res) => {
 app.get('/user', (req, res) => {
     const email = req.query.email
     const query = `SELECT * FROM user WHERE email='${email}';`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send(rows)
+    })
+})
+
+// get the owned trucks of a user with '/user_trucks?email='someEmail'
+app.get('/user_trucks', (req, res) => {
+    const email = req.query.email
+    const query = `SELECT * FROM truck a WHERE a.owner_id = (SELECT b.user_id FROM user b WHERE b.email = '${email}');`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 

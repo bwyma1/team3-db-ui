@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS truck(
     truck_id INT AUTO_INCREMENT PRIMARY KEY,
     owner_id INT NOT NULL,
     model VARCHAR(255) NOT NULL,
+    make VARCHAR(255) NOT NULL,
     year VARCHAR(255) NOT NULL,
     mileage VARCHAR(255) NOT NULL,
     max_miles FLOAT,
