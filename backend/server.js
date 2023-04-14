@@ -237,3 +237,14 @@ app.delete('/users/clear', (req, res) => {
 app.listen(port, () => {
     console.log(`Example listening on port ${port}`)
 })
+
+app.delete('/truck/delete', (req, res) => {
+    const truck_id = req.query.truck_id
+    const query = `DELETE FROM truck WHERE truck_id = '${truck_id}'`
+    connection.query(query, (err, rows, fields) => {
+        if(err) throw err
+
+        res.status(200)
+        res.send("Successfully removed truck!")
+    })
+})
