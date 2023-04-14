@@ -50,9 +50,7 @@ const ListATruck = () => {
           variant="outlined"
           type="number"
           required
-          sx={{
-            margin: "normal"
-          }}
+          margin="normal"
           value={discountDays}
           onChange={(event) => setDiscountDays(event.target.value)}
         />
@@ -64,9 +62,7 @@ const ListATruck = () => {
           variant="outlined"
           type="number"
           required
-          sx={{
-            margin: "normal"
-          }}
+          margin="normal"
           value={discountPCT} 
           onChange={(event) => setDiscountPCT(event.target.value)}
           InputProps={{
@@ -82,9 +78,7 @@ const ListATruck = () => {
           variant="outlined"
           type="number"
           required
-          sx={{
-            margin: "normal"
-          }}
+          margin="normal"
           value={discountDays}
           onChange={(event) => setDiscountDays(event.target.value)}
         />
@@ -96,9 +90,7 @@ const ListATruck = () => {
           variant="outlined"
           type="number"
           required
-          sx={{
-            margin: "normal"
-          }}
+          margin="normal"
           value={discountFlat} 
           onChange={(event) => setDiscountFlat(event.target.value)}
           InputProps={{
@@ -150,9 +142,7 @@ const ListATruck = () => {
                   label="Make"
                   variant="outlined"
                   required
-                  sx={{
-                    margin: "normal"
-                  }}
+                  margin="normal"
                   value={make}
                   onChange={(event) => setMake(event.target.value)}
                 />
@@ -162,9 +152,7 @@ const ListATruck = () => {
                   label="Model"
                   variant="outlined"
                   required
-                  sx={{
-                    margin: "normal"
-                  }}
+                  margin="normal"
                   value={model}
                   onChange={(event) => setModel(event.target.value)}
                 />
@@ -176,9 +164,6 @@ const ListATruck = () => {
               fullWidth
               value={year}
               required
-              sx={{
-                margin: "normal"
-              }}
               onChange={(event) => setYear(event.target.value)}
               >
 
@@ -196,10 +181,8 @@ const ListATruck = () => {
                   variant="outlined"
                   type="number"
                   required
-                  sx={{
-                    margin: "normal"
-                  }}
                   value={mileage}
+                  margin="normal"
                   onChange={(event) => setMileage(event.target.value)}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">mi</InputAdornment>,
@@ -212,9 +195,7 @@ const ListATruck = () => {
                   variant="outlined"
                   type="number"
                   required
-                  sx={{
-                    margin: "normal"
-                  }}
+                  margin="normal"
                   value={maxMileage}
                   onChange={(event) => setMaxMileage(event.target.value)}
                   InputProps={{
@@ -232,9 +213,7 @@ const ListATruck = () => {
                   variant="outlined"
                   type="date"
                   required
-                  sx={{
-                    margin: "normal"
-                  }}
+                  margin="normal"
                   value={sDate}
                   onChange={(event) => setSDate(event.target.value)}
                   InputLabelProps={{
@@ -250,6 +229,7 @@ const ListATruck = () => {
                   type="date"
                   required
                   value={eDate}
+                  margin="normal"
                   onChange={(event) => setEDate(event.target.value)}
                   InputLabelProps={{
                     shrink: true,
@@ -263,9 +243,7 @@ const ListATruck = () => {
               type="number"
               fullWidth
               required
-              sx={{
-                margin: "normal"
-              }}
+              margin="normal"
               value={dailyPrice} 
               onChange={(event) => setDailyPrice(event.target.value)}
               InputProps={{
