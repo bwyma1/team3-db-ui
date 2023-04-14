@@ -198,6 +198,17 @@ app.put('/user', (req, res) => {
     })
 })
 
+app.get('/amenities', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const query = `SELECT * FROM amenity WHERE truck_id='${truck_id}';`;
+    connection.query(query, (err, rows, fields) => {
+      if (err) throw err;
+
+      res.status(200);
+      res.send(rows);
+    });
+  });
+
 app.delete('/users/clear', (req, res) => {
     connection.query('DELETE FROM user;', (err, rows, feilds) => {
         if (err) throw err

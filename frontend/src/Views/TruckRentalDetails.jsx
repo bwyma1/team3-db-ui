@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import TruckAmenities from "./TruckAmenities";
+
 
 const TruckRentalDetails = () => {
   const { id } = useParams();
@@ -10,6 +12,7 @@ const TruckRentalDetails = () => {
 
   const handleRentTruck = () => {
     // add truck to user's rented trucks
+
 
     // navigate back to homepage
     navigate("/");
@@ -45,24 +48,25 @@ const TruckRentalDetails = () => {
             <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="200" />
           </Box>
           <Box>
-          <Typography component="h2" variant="h6" fontWeight="bold">
-                    {selectedTruck.model} ({selectedTruck.year}) OwnerID: {selectedTruck.owner_id}
-                  </Typography>
-                  <Typography component="p" variant="body1">
-                    Mileage: {selectedTruck.mileage}
-                  </Typography>
-                  <Typography component="p" variant="body1">
-                    Max Miles: {selectedTruck.max_miles}
-                  </Typography>
-                  <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Refund Timer: {selectedTruck.refund_timer} hours
-                  </Typography>
-                  <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Long-Term Discount Days: {selectedTruck.long_discount_days} days
-                  </Typography>
-                  <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
-                  </Typography>
+            <Typography component="h2" variant="h6" fontWeight="bold">
+              {selectedTruck.model} ({selectedTruck.year}) OwnerID: {selectedTruck.owner_id}
+            </Typography>
+            <Typography component="p" variant="body1">
+              Mileage: {selectedTruck.mileage}
+            </Typography>
+            <Typography component="p" variant="body1">
+              Max Miles: {selectedTruck.max_miles}
+            </Typography>
+            <Typography component="p" variant="subtitle1" fontWeight="bold">
+              Long-Term Discount Days: {selectedTruck.long_discount_days} days
+            </Typography>
+            <Typography component="p" variant="subtitle1" fontWeight="bold">
+              Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
+            </Typography>
+            <Typography component="p" variant="subtitle1" fontWeight="bold">
+              Flat Discount: {selectedTruck.long_discount_flat}
+            </Typography>
+            <TruckAmenities truck_id={selectedTruck.truck_id} />
             <Button variant="contained" onClick={handleRentTruck} sx={{ mt: 2, mr: 2 }}>
               Rent this truck
             </Button>

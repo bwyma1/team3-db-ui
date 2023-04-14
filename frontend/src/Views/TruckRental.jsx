@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import { getAvailableTrucks } from "../API/Api";
 
+
 const theme = createTheme();
 
 const TruckRental = () => {
@@ -27,65 +28,7 @@ const TruckRental = () => {
     setSelectedTruck(truck);
     navigate("/truckrentaldetails", { state: { truck } });
   };
-
-  //   return (
-  //     <ThemeProvider theme={theme}>
-  //       <CssBaseline />
-  //       <Container component="main" maxWidth="md">
-  //         <Box sx={{ my: 4 }}>
-  //           <Typography variant="h4" component="h1" gutterBottom>
-  //             Truck Rental
-  //           </Typography>
-  //           <Box>
-  //             {trucks.map((truck) => (
-  //               <Box
-  //                 key={truck.id}
-  //                 sx={{
-  //                   display: "flex",
-  //                   alignItems: "center",
-  //                   p: 2,
-  //                   borderBottom: "1px solid #ccc",
-  //                 }}
-  //               >
-  //                 <Box sx={{ mr: 2 }}>
-  //                   <img src={truck.truck_image} alt={truck.model} width="200" />
-  //                 </Box>
-  //                 <Box>
-  //                   <Typography component="h2" variant="h6" fontWeight="bold">
-  //                     {truck.model} ({truck.year})
-  //                   </Typography>
-  //                   <Typography component="p" variant="body1">
-  //                     Mileage: {truck.mileage}
-  //                   </Typography>
-  //                   <Typography component="p" variant="body2">
-  //                     Max Miles: {truck.max_miles}
-  //                   </Typography>
-  //                   <Typography component="p" variant="subtitle1" fontWeight="bold">
-  //                     Refund Timer: {truck.refund_timer} hours
-  //                   </Typography>
-  //                   <Typography component="p" variant="subtitle1" fontWeight="bold">
-  //                     Long-Term Discount Days: {truck.long_discount_days} days
-  //                   </Typography>
-  //                   <Typography component="p" variant="subtitle1" fontWeight="bold">
-  //                     Long-Term Percent Discount: {truck.long_discount_percent}%
-  //                   </Typography>
-  //                   <Button
-  //                     variant="contained"
-  //                     color="primary"
-  //                     onClick={() => handleSelectTruck(truck)}
-  //                   >
-  //                     Select Truck
-  //                   </Button>
-  //                 </Box>
-  //               </Box>
-  //             ))}
-  //           </Box>
-  //         </Box>
-  //       </Container>
-  //     </ThemeProvider>
-  //   );
-  // };
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="md">
@@ -122,7 +65,7 @@ const TruckRental = () => {
                 </Box>
                 <Box>
                   <Typography component="h2" variant="h6" fontWeight="bold">
-                    {truck.model} ({truck.year}) OwnerID: {truck.owner_id}
+                    {truck.model} ({truck.year}) Owner ID: {truck.owner_id}
                   </Typography>
                   <Typography component="p" variant="body1">
                     Mileage: {truck.mileage}
@@ -130,15 +73,14 @@ const TruckRental = () => {
                   <Typography component="p" variant="body1">
                     Max Miles: {truck.max_miles}
                   </Typography>
-
-                  <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Refund Timer: {truck.refund_timer} hours
-                  </Typography>
                   <Typography component="p" variant="subtitle1" fontWeight="bold">
                     Long-Term Discount Days: {truck.long_discount_days} days
                   </Typography>
                   <Typography component="p" variant="subtitle1" fontWeight="bold">
                     Long-Term Percent Discount: {truck.long_discount_percent}%
+                  </Typography>
+                  <Typography component="p" variant="subtitle1" fontWeight="bold">
+                    Flat Discount: {truck.long_discount_flat}
                   </Typography>
                   <Button
                     variant="contained"

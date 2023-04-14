@@ -118,30 +118,7 @@ INSERT INTO truck (
         year,
         mileage,
         max_miles,
-        long_discount_days,INSERT INTO truck (
-                owner_id,
-                model,
-                make,
-                year,
-                mileage,
-                max_miles,
-                long_discount_days,
-                long_discount_percent,
-                long_discount_flat,
-                truck_image
-            )
-        VALUES (
-                1,
-                'Chevrolet Colorado',
-                'make',
-                '2017',
-                '10000',
-                120000,
-                4,
-                0.15,
-                0.10,
-                'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200'
-            );
+        long_discount_days,
         long_discount_percent,
         long_discount_flat,
         truck_image
@@ -208,3 +185,9 @@ VALUES (
         0.10,
         'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200'
     );
+
+INSERT INTO amenity (truck_id, amenity_name, amenity_price)
+VALUES (3, 'Air Conditioning', 50),
+       (2, 'Navigation System', 100),
+       (1, 'Bluetooth Connectivity', 30),
+       (1, 'Rearview Camera', 70);
