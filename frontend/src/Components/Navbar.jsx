@@ -62,12 +62,14 @@ export default function ResponsiveNavbar() {
     } else if (setting === "Switch to Seller") {
       setAnchorElUser(null);
       context.setIsSeller(true);
+      settings[2] = "Switch to Renter";
       sessionStorage.setItem("isSeller", "true");
       navigate(`/homepage`);
 
     } else if (setting === "Switch to Renter") {
       setAnchorElUser(null);
       context.setIsSeller(false);
+      settings[2] = "Switch to Seller";
       sessionStorage.setItem("isSeller", "false");
       navigate(`/homepage`);
 
