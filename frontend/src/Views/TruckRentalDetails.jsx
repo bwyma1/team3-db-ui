@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import TruckAmenities from "./TruckAmenities";
+import { updateTruckAvailability } from "../API/Api";
 
 
 const TruckRentalDetails = () => {
@@ -10,12 +11,15 @@ const TruckRentalDetails = () => {
   const location = useLocation();
   const selectedTruck = location.state.truck;
 
-  const handleRentTruck = () => {
-    // add truck to user's rented trucks
-
-
-    // navigate back to homepage
-    navigate("/");
+  const handleRentTruck = async () => {
+    try {
+      const response = await updateTruckAvailability(selectedTruck.truck_id, false);
+      console.log(response);
+      // Navigate back to the truck list page after successfully updating the truck availability
+      navigate("/truckrental");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

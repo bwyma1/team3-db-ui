@@ -74,17 +74,17 @@ app.post('/truck', (req, res) => {
         })
 })
 
-//Gets all trucks that are currently available for rent
+// get available trucks
 app.get('/trucks', (req, res) => {
-    connection.query('SELECT * FROM truck WHERE truck_id NOT IN (SELECT truck_id FROM truck_rent_info WHERE renter_id <> -1);', (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send(rows)
-    })
-})
-
+    connection.query('SELECT * FROM truck WHERE is_available = 1 AND truck_id NOT IN (SELECT truck_id FROM truck_rent_info WHERE renter_id <> -1);', (err, rows, fields) => {
+      if (err) throw err;
+  
+      console.log(rows);
+      res.status(200);
+      res.send(rows);
+    });
+  });
+  
 // Creates a vehicle bundle profile connected to a users email
 app.post('/vehicle_bundle', (req, res) => {
     const {email, discount_percent, discount_flat} = req.body
@@ -238,13 +238,15 @@ app.listen(port, () => {
     console.log(`Example listening on port ${port}`)
 })
 
-app.delete('/truck/delete', (req, res) => {
-    const truck_id = req.query.truck_id
-    const query = `DELETE FROM truck WHERE truck_id = '${truck_id}'`
+app.put('/truck/update_availability', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const is_available = req.query.is_available;
+  
+    const query = `UPDATE truck SET is_available = ${is_available} WHERE truck_id = '${truck_id}'`;
     connection.query(query, (err, rows, fields) => {
-        if(err) throw err
-
-        res.status(200)
-        res.send("Successfully removed truck!")
-    })
-})
+      if (err) throw err;
+  
+      res.status(200);
+      res.send("Successfully updated truck availability!");
+    });
+  });

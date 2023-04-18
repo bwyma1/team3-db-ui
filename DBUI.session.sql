@@ -137,6 +137,9 @@ VALUES (
         0.10,
         'https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg'
     );
+    
+ALTER TABLE truck ADD is_available BOOLEAN DEFAULT true;
+
 INSERT INTO truck_rent_info (truck_id, renter_id, start_date, end_date)
 VALUES (1, 1, '2023-10-20', '2023-10-25');
 INSERT INTO truck (
