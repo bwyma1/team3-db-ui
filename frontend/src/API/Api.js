@@ -140,3 +140,27 @@ export const updateTruckAvailability = async (truck_id, is_available) => {
     console.log(err);
   }
 };
+
+export const addReview = async (truck_id, userName, rating, comment) => {
+  try {
+    const response = await axios.post(url + '/reviews', {
+      truck_id,
+      userName,
+      review_rating: rating,
+      review_text: comment,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getReviewsByTruckId = async (truck_id) => {
+  try {
+    const response = await axios.get(url + `/reviews?truck_id=${truck_id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};

@@ -3,13 +3,35 @@ import { Box, Typography, Button } from "@mui/material";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import TruckAmenities from "./TruckAmenities";
 import { updateTruckAvailability } from "../API/Api";
+import { getReviewsByTruckId, addReview } from "../API/Api";
+import { useEffect, useState } from "react";
+import ReviewForm from "./reviewForm";
+import ReviewList from "./reviewList";
 
 
 const TruckRentalDetails = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const selectedTruck = location.state.truck;
+  const [truckReviews, setTruckReviews] = useState([]);
+  
+    useEffect(() => {
+      const fetchTruckReviews = async () => {
+        const reviews = await getReviewsByTruckId(selectedTruck.truck_id);
+        setTruckReviews(reviews);
+      }
+      fetchTruckReviews();
+    }, [selectedTruck.truck_id]);
+
+
+    const handleReviewAdded = async (review) => {
+      try {
+        const createdReview = await addReview(selectedTruck.truck_id, review.userName, review.rating, review.comment);
+        setTruckReviews([...truckReviews, createdReview]);
+      } catch (error) {
+        console.error('Error adding review:', error);
+      }
+    };
 
   const handleRentTruck = async () => {
     try {
@@ -79,6 +101,10 @@ const TruckRentalDetails = () => {
             </Button>
           </Box>
         </Box>
+        <Box sx={{ p: 10 }}>
+          <ReviewList reviews={truckReviews} />
+          <ReviewForm truckId={selectedTruck.truck_id} onReviewAdded={handleReviewAdded} />
+          </Box>
       </Box>
     </Box>
   );

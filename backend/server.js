@@ -250,3 +250,42 @@ app.put('/truck/update_availability', (req, res) => {
       res.send("Successfully updated truck availability!");
     });
   });
+
+  app.post('/reviews', (req, res) => {
+    const { truck_id, userName, review_rating, review_text } = req.body;
+    const query = `INSERT INTO truck_review (truck_id, userName, review_text, review_rating) VALUES (${truck_id}, '${userName}', '${review_text}', ${review_rating})`;
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(`Error adding review: ${error.stack}`);
+        res.status(500).send('Error adding review');
+        return;
+      }
+      const review_id = results.insertId;
+      connection.query( (error, results) => {
+        console.log(`Review added with ID: ${review_id}`);
+        res.status(201).send({
+          review_id,
+          truck_id,
+          userName,
+          review_rating,
+          review_text,
+        });
+      });
+    });
+  });
+  
+  // Get all reviews for a specific truck
+  app.get('/reviews', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const query = `SELECT * FROM truck_review WHERE truck_id=${truck_id}`;
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(`Error retrieving reviews: ${error.stack}`);
+        res.status(500).send('Error retrieving reviews');
+        return;
+      }
+      console.log(`Retrieved ${results.length} reviews`);
+      res.status(200).send(results);
+    });
+  });
+  
