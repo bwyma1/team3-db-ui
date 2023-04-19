@@ -44,10 +44,12 @@ CREATE TABLE IF NOT EXISTS truck(
 );
 CREATE TABLE IF NOT EXISTS truck_review(
     review_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     truck_id INT NOT NULL,
     review_text VARCHAR(1000) NOT NULL,
     review_rating INT NOT NULL,
-    FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
+    FOREIGN KEY (truck_id) REFERENCES truck(truck_id),
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 CREATE TABLE IF NOT EXISTS truck_owner_rating(
     owner_review_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -103,7 +105,6 @@ CREATE TABLE IF NOT EXISTS truck_rent_info(
     end_date DATE NOT NULL,
     FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
 );
-
 -- Example Data
 INSERT INTO user (
         email,
@@ -187,9 +188,24 @@ VALUES (
         0.10,
         'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200'
     );
-
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
 VALUES (3, 'Air Conditioning', 50),
-       (2, 'Navigation System', 100),
-       (1, 'Bluetooth Connectivity', 30),
-       (1, 'Rearview Camera', 70);
+    (2, 'Navigation System', 100),
+    (1, 'Bluetooth Connectivity', 30),
+    (1, 'Rearview Camera', 70);
+INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
+VALUES (1, 1, "Awesome Truck! Worked very well", "4");
+INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
+VALUES (
+        1,
+        1,
+        "Ehh, it got the job done, but it did break down once...",
+        "1"
+    );
+INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
+VALUES (
+        1,
+        2,
+        "Very cool truck, the added bungie cord was a big help!",
+        "5"
+    );

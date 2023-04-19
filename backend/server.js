@@ -85,6 +85,34 @@ app.get('/trucks', (req, res) => {
     })
 })
 
+//Gets reviews on a truck
+app.get('/truck_review', (req, res) => {
+    const truck_id = req.query.truck_id
+    connection.query(`SELECT * FROM truck_review WHERE truck_id='${truck_id}';`, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(rows)
+    })
+})
+
+// Posts truck review to truck_review
+app.post('/truck_review', (req, res) => {
+    const truck_id = req.query.truck_id
+    const user_id =  req.body.user_id
+    const review_text = req.body.review_text
+    const review_rating = req.body.review_rating
+    const query = `INSERT INTO truck_review (user_id, truck_id, review_text, review_rating) VALUES (${user_id},${truck_id},'${review_text}','${review_rating}')`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+
+            console.log(rows)
+            res.status(200)
+            res.send(true)
+        })
+})
+
 // Creates a vehicle bundle profile connected to a users email
 app.post('/vehicle_bundle', (req, res) => {
     const {email, discount_percent, discount_flat} = req.body
