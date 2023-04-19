@@ -28,7 +28,7 @@ const TruckRental = () => {
     setSelectedTruck(truck);
     navigate("/truckrentaldetails", { state: { truck } });
   };
-  
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="md">
@@ -65,13 +65,16 @@ const TruckRental = () => {
                 </Box>
                 <Box>
                   <Typography component="h2" variant="h6" fontWeight="bold">
-                    {truck.model} ({truck.year}) Owner ID: {truck.owner_id}
+                    {truck.model} ({truck.year}) ${truck.price}/day
                   </Typography>
                   <Typography component="p" variant="body1">
                     Mileage: {truck.mileage}
                   </Typography>
                   <Typography component="p" variant="body1">
                     Max Miles: {truck.max_miles}
+                  </Typography>
+                  <Typography component="p" variant="body1">
+                    Owner ID: {truck.owner_id}
                   </Typography>
                   <Typography component="p" variant="subtitle1" fontWeight="bold">
                     Long-Term Discount Days: {truck.long_discount_days} days

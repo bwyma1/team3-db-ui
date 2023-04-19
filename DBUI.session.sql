@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS truck(
     long_discount_percent FLOAT,
     long_discount_flat FLOAT,
     truck_image VARCHAR(500) NOT NULL,
+    is_available BOOLEAN DEFAULT 1,
+    price FLOAT,
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
 
@@ -107,6 +109,7 @@ CREATE TABLE IF NOT EXISTS truck_rent_info(
     FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
 );
 
+-- ...
 -- Example Data
 INSERT INTO user (
         email,
@@ -126,7 +129,9 @@ INSERT INTO truck (
         long_discount_days,
         long_discount_percent,
         long_discount_flat,
-        truck_image
+        truck_image,
+        price,
+        is_available
     )
 VALUES (
         1,
@@ -138,11 +143,11 @@ VALUES (
         7,
         0.10,
         0.10,
-        'https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg'
+        'https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg',
+        200,
+        1
     );
     
-ALTER TABLE truck ADD is_available BOOLEAN DEFAULT true;
-
 INSERT INTO truck_rent_info (truck_id, renter_id, start_date, end_date)
 VALUES (1, 1, '2023-10-20', '2023-10-25');
 INSERT INTO truck (
@@ -155,7 +160,9 @@ INSERT INTO truck (
         long_discount_days,
         long_discount_percent,
         long_discount_flat,
-        truck_image
+        truck_image,
+        price,
+        is_available
     )
 VALUES (
         1,
@@ -167,7 +174,9 @@ VALUES (
         10,
         0.20,
         0.10,
-        'https://www.thedrive.com/content/2022/03/2022-Toyota-Tundra-TRD-Pro_KL_52.jpg?quality=85'
+        'https://www.thedrive.com/content/2022/03/2022-Toyota-Tundra-TRD-Pro_KL_52.jpg?quality=85',
+        150,
+        1
     );
 INSERT INTO truck (
         owner_id,
@@ -179,7 +188,9 @@ INSERT INTO truck (
         long_discount_days,
         long_discount_percent,
         long_discount_flat,
-        truck_image
+        truck_image,
+        price,
+        is_available
     )
 VALUES (
         1,
@@ -191,11 +202,13 @@ VALUES (
         4,
         0.15,
         0.10,
-        'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200'
+        'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200',
+        250,
+        1
     );
 
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
-VALUES (3, 'Air Conditioning', 50),
+VALUES (1, 'Air Conditioning', 50),
        (2, 'Navigation System', 100),
        (1, 'Bluetooth Connectivity', 30),
        (1, 'Rearview Camera', 70);
