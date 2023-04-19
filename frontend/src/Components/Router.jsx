@@ -11,6 +11,7 @@ import TruckRentalDetails from "../Views/TruckRentalDetails";
 import TruckAmenities from "../Views/TruckAmenities";
 import ListATruck from "../Views/ListATruck";
 import Chat from "../Views/chat";
+import ListAnAmenity from "../Views/ListAnAmenity";
 
 export const Router = () => (
   <BrowserRouter>
@@ -27,6 +28,7 @@ export const Router = () => (
       <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
       <Route path="truckamenities" element={<TruckAmenities />} />
       <Route path="listatruck" element={<ListATruck />} />
+      <Route path="listanamenity" element={<ListAnAmenity />} />
       <Route path="chat" element={<Chat />} />
     </Routes>
   </BrowserRouter>

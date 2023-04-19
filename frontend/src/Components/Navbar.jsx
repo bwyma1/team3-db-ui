@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState, useEffect } from "react";
+import React, { useContext, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -26,7 +26,7 @@ export default function ResponsiveNavbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   useMemo(() => {
-    if (context.currUser) pages = ["Homepage", "Truck Rental", "List A Truck"];
+    if (context.currUser) pages = ["Homepage", "Truck Rental", "List A Truck", "List An Amenity"];
     else pages = ["Homepage", "Login", "Sign Up"];
   }, [context.currUser, context.isSeller]);
 
