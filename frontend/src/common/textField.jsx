@@ -1,17 +1,15 @@
 import React from 'react';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { TextField } from '@mui/material';
 
-const textField = ({ label, value, setValue }) => {
+const TextFieldComponent = ({ label, value, setValue }) => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   return (
-    <FormGroup>
-      <Label for={`form-${label}`}>{label}</Label>
-      <Input type="text" id={`form-${label}`} value={value} onChange={handleChange} />
-    </FormGroup>
+    <TextField fullWidth label={label} value={value} onChange={handleChange} />
   );
 };
 
-export default textField;
+export default TextFieldComponent;
+

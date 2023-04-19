@@ -1,23 +1,26 @@
 import React from 'react';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-const SelectField = ({ label, value, setValue, options, optionValueKey = 'id', optionLabelKey = 'name' }) => {
-
+const SelectField = ({ label, value, setValue, options }) => {
   const handleValueChange = (e) => {
     setValue(e.target.value);
-  }
+  };
 
   return (
-    <div className="form-group">
-      <label htmlFor={label}>{label}</label>
-      <select id={label} className="form-control form-select" value={value} onChange={handleValueChange}>
-        {options.map(option => (
-          <option key={option[optionValueKey]} value={option[optionValueKey]}>{option[optionLabelKey]}</option>
+    <FormControl fullWidth>
+      <InputLabel sx={{ fontSize: '1.5rem', paddingBottom: "2rem" }}></InputLabel>
+      <Select value={value} onChange={handleValueChange}>
+        {options.map((option) => (
+          <MenuItem key={option.id} value={option.id}>
+            {option.name}
+          </MenuItem>
         ))}
-      </select>
-    </div>
+      </Select>
+    </FormControl>
   );
-}
+};
 
 export default SelectField;
+
 
 

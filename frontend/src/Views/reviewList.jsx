@@ -1,31 +1,48 @@
 import React from 'react';
-import { Card, CardBody, CardHeader } from 'reactstrap';
+import {
+  Container,
+  Box,
+  Typography,
+  Card,
+  CardContent,
+} from '@mui/material';
 import Rating from '../common/rating';
-
 
 const ReviewList = ({ reviews }) => {
   return (
-    <div>
-      <h3 style={{ paddingTop: "2rem" }}>Product Reviews <span className="text-muted">({reviews.length})</span></h3>
-      {reviews.length === 0 && <p className="text-muted bg-light p-3">Be the first to add a review!</p>}
+    <Container maxWidth="lg">
+      <Box mt={1}>
+        <Typography variant="h5">
+          Reviews <span className="text-muted">({reviews.length})</span>
+        </Typography>
+        {reviews.length === 0 && (
+          <Box p={2} textAlign="center">
+            <Typography variant="body1" color="textSecondary">
+              Be the first to add a review!
+            </Typography>
+          </Box>
+        )}
         {reviews.map((review, index) => (
-          <Card key={index} className="border-top mb-3 bg-light">
-            <CardHeader className='p-lg-3'>
-              <Rating rating={review.review_rating} />
-            </CardHeader>
-            <CardBody>
-              <div className='d-flex justify-content-between'>
-                <span className="text-muted ms-2 mb-2">{review.userName}</span>
-                <span className="text-muted">{review.date}</span>
-              </div>
-              <p className="ms-2 mb-2">"{review.review_text}"</p>
-            </CardBody>
+          <Card key={index} variant="outlined" sx={{ mb: 2 }}>
+            <CardContent>
+              <Box display="flex" justifyContent="space-between" mb={1}>
+                <Rating rating={review.review_rating} />
+                <Typography variant="body2" color="textSecondary">
+                  {review.date}
+                </Typography>
+              </Box>
+              <Typography variant="subtitle1">{review.userName}</Typography>
+              <Typography variant="body1" gutterBottom>
+                "{review.review_text}"
+              </Typography>
+            </CardContent>
           </Card>
         ))}
-    </div>
+      </Box>
+    </Container>
   );
 };
 
-
 export default ReviewList;
+
 

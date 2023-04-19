@@ -1,4 +1,5 @@
 import React from 'react';
+import { TextField } from '@mui/material';
 
 const TextAreaField = ({ label, value, setValue }) => {
   const handleChange = (event) => {
@@ -6,11 +7,16 @@ const TextAreaField = ({ label, value, setValue }) => {
   };
 
   return (
-    <div className="mb-0">
-      <label className="form-label">{label}</label>
-      <textarea className="form-control" style={{resize: 'none'}} value={value} rows="5" onChange={handleChange } />
-    </div>
+    <TextField
+      fullWidth
+      label={label}
+      value={value}
+      onChange={handleChange}
+      multiline
+      rows={5}
+    />
   );
 };
 
 export default TextAreaField;
+

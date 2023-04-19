@@ -1,20 +1,19 @@
 import React from 'react';
-import './rating.css';
+import { Rating as MuiRating } from '@mui/material';
 
 const Rating = ({ rating }) => {
   return (
-    <span className="stars">
-      {[1, 2, 3, 4, 5].map(x => (
-        <i
-          key={x}
-          className={x <= +rating ? 'full-star' : 'empty-star'}
-        ></i>
-      ))}
-    </span>
+    <MuiRating
+      value={rating}
+      precision={1}
+      readOnly
+      size="small"
+    />
   );
 };
 
 export default Rating;
+
 
 
 
