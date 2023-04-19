@@ -115,6 +115,7 @@ export default function SignUp() {
             <Select
               labelId="security-question"
               id="sq"
+              fullWidth
               value={sq}
               label="Security Question"
               onChange={sqChange}
