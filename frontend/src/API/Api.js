@@ -1,27 +1,51 @@
 import axios from "axios";
 const url = 'http://localhost:8000'
 
- export const checkAPI = () => {
+export const checkAPI = () => {
     axios.get(url + '/').then((res) => {
       alert(res.data)
     }).catch((err) => {
       console.log(err)
     })
-  }
+}
 
 
- export const sendJSON = (user) => {
+export const sendJSON = (user) => {
     console.log(user)
     axios.put(url + '/parse', user).then((res) => {
       alert(res.data)
     }).catch((err) => {
       console.log(err)
     })
+}
+
+
+///██╗░░░██╗░██████╗███████╗██████╗░
+///██║░░░██║██╔════╝██╔════╝██╔══██╗
+///██║░░░██║╚█████╗░█████╗░░██████╔╝
+///██║░░░██║░╚═══██╗██╔══╝░░██╔══██╗
+///╚██████╔╝██████╔╝███████╗██║░░██║
+///░╚═════╝░╚═════╝░╚══════╝╚═╝░░╚═╝
+
+export const addUser = (user) => {
+   axios.post(url + '/user', user).then((res) => {
+     console.log(JSON.stringify(res.data))
+   }).catch((err) => {
+         console.log(err)
+  })
+}
+
+  export  const getUsers = () => {
+    axios.get(url + '/users').then((res) => {
+      alert(JSON.stringify(res.data))
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
- export const addUser = (user) => {
-    axios.post(url + '/user', user).then((res) => {
-      console.log(JSON.stringify(res.data))
+ export const clearUsers = () => {
+    axios.delete(url + '/users/clear').then((res) => {
+      alert(res.data)
     }).catch((err) => {
       console.log(err)
     })
@@ -39,11 +63,79 @@ export const getUserByEmail = async (email) => {
     return response.data["0"]
 }
 
+// login user with '/user?email='someEmail'&password='somePassword'
+export const login = async (email, password) => {
+  let response
+  try {
+    response = await axios.get(
+  url + `/login?email=${email}&password=${password}`
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data["0"]
+};
+
+// get user with '/user?user_id='someUser_id'
+export const getUserById = async (user_id) => {
+  let response
+  try {
+    response = await axios.get(
+  url + `/user?user_id=${user_id}`
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data["0"]
+}
+
+// update password at '/user?email='someEmail'' with parameter password
+export const updatePassword = async (email, password) => {
+  const data = {password:`${password}`}
+  let response
+  try {
+    response = await axios.put(
+  url + `/user?email=${email}`, data
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data
+}
+
+export const updateProfile = async (email, bio, prof_pic_choice, location, phone) => {
+  const data = {bio:`${bio}`, prof_pic_choice: prof_pic_choice, location:`${location}`, phone:`${phone}`}
+  let response
+  try {
+    response = await axios.put(
+  url + `/user?email=${email}`, data
+  )} catch (err) {
+      console.log(err)
+  }
+  return response.data
+}
+
+
+///████████╗██████╗░██╗░░░██╗░█████╗░██╗░░██╗░░░░██╗░█████╗░███╗░░░███╗███████╗███╗░░██╗██╗████████╗██╗░░░██╗
+///╚══██╔══╝██╔══██╗██║░░░██║██╔══██╗██║░██╔╝░░░██╔╝██╔══██╗████╗░████║██╔════╝████╗░██║██║╚══██╔══╝╚██╗░██╔╝
+///░░░██║░░░██████╔╝██║░░░██║██║░░╚═╝█████═╝░░░██╔╝░███████║██╔████╔██║█████╗░░██╔██╗██║██║░░░██║░░░░╚████╔╝░
+///░░░██║░░░██╔══██╗██║░░░██║██║░░██╗██╔═██╗░░██╔╝░░██╔══██║██║╚██╔╝██║██╔══╝░░██║╚████║██║░░░██║░░░░░╚██╔╝░░
+///░░░██║░░░██║░░██║╚██████╔╝╚█████╔╝██║░╚██╗██╔╝░░░██║░░██║██║░╚═╝░██║███████╗██║░╚███║██║░░░██║░░░░░░██║░░░
+///░░░╚═╝░░░╚═╝░░╚═╝░╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝╚═╝░░░╚═╝░░░░░░╚═╝░░░
+
 export const getTrucksByEmail = async (email) => {
   let response
   try {
     response = await axios.get(
     url + `/user_trucks?email=${email}`
+  )} catch (err) {
+    console.log(err)
+  }
+  return response.data
+}
+
+export const getTruckById = async (truck_id) => {
+  let response
+  try {
+    response = await axios.get(
+    url + `/truck?truck_id=${truck_id}`
   )} catch (err) {
     console.log(err)
   }
@@ -60,31 +152,6 @@ export const getAvailableTrucks = async () => {
       console.log(err)
   }
   return response.data
-}
-
-// login user with '/user?email='someEmail'&password='somePassword'
-export const login = async (email, password) => {
-    let response
-    try {
-	    response = await axios.get(
-		url + `/login?email=${email}&password=${password}`
-    )} catch (err) {
-        console.log(err)
-    }
-    return response.data["0"]
-};
-
-// update password at '/user?email='someEmail'' with parameter password
-export const updatePassword = async (email, password) => {
-    const data = {password:`${password}`}
-    let response
-    try {
-	    response = await axios.put(
-		url + `/user?email=${email}`, data
-    )} catch (err) {
-        console.log(err)
-    }
-    return response.data
 }
 
 export const getTruckReviews = async (truck_id) => {
@@ -110,6 +177,29 @@ export const addTruckReview = async (user_id,truck_id,review_text,review_rating)
   return response.data
 }
 
+export const getTruckAmenities = async (truck_id) => {
+  let response
+  try {
+    response = await axios.get(
+    url + `/amenity?truck_id=${truck_id}`
+  )} catch (err) {
+    console.log(err)
+  }
+  return response.data
+}
+
+export const addTruckAmenity = async (truck_id,amenity_name,amenity_price) => {
+  const data = { amenity_name:`${amenity_name}`,amenity_price:amenity_price}
+  let response
+  try {
+    response = await axios.post(
+    url + `/amenity?truck_id=${truck_id}`, data
+  )} catch (err) {
+    console.log(err)
+  }
+  return response.data
+}
+
 export const addTruck = async (email, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat,truck_image) => {
   const data = {email:`${email}`, model:`${model}`, make:`${make}`, year:`${year}`, mileage:`${mileage}`, max_miles:max_miles, long_discount_days:long_discount_days, 
     long_discount_percent:long_discount_percent, long_discount_flat:long_discount_flat,truck_image:`${truck_image}`}
@@ -123,54 +213,61 @@ export const addTruck = async (email, model, make, year, mileage, max_miles, lon
   return response.data
 }
 
+
+///██████╗░██╗░░░██╗███╗░░██╗██████╗░██╗░░░░░███████╗░██████╗
+///██╔══██╗██║░░░██║████╗░██║██╔══██╗██║░░░░░██╔════╝██╔════╝
+///██████╦╝██║░░░██║██╔██╗██║██║░░██║██║░░░░░█████╗░░╚█████╗░
+///██╔══██╗██║░░░██║██║╚████║██║░░██║██║░░░░░██╔══╝░░░╚═══██╗
+///██████╦╝╚██████╔╝██║░╚███║██████╔╝███████╗███████╗██████╔╝
+///╚═════╝░░╚═════╝░╚═╝░░╚══╝╚═════╝░╚══════╝╚══════╝╚═════╝░
+
+/// creates a truck bundle for a user
 export const createVehicleBundle = async (email,discount_percent,discount_flat) => {
   const data = {email:`${email}`, discount_percent:discount_percent,discount_flat:discount_flat}
   let response
   try {
     response = await axios.post(
-    url + `/vehicle_bundle`, data
+    url + `/vehicle_bundle_profile`, data
   )} catch (err) {
     console.log(err)
   }
   return response.data
 }
 
-export const updateProfile = async (email, bio, prof_pic_choice, location, phone) => {
-  const data = {bio:`${bio}`, prof_pic_choice: prof_pic_choice, location:`${location}`, phone:`${phone}`}
+/// gets all truck bundles of a user
+export const getUserTruckBundles = async (email) => {
   let response
   try {
-    response = await axios.put(
-  url + `/user?email=${email}`, data
+    response = await axios.get(
+    url + `/vehicle_bundle_profile?email=${email}`
   )} catch (err) {
-      console.log(err)
+    console.log(err)
   }
   return response.data
 }
 
-export  const getUsers = () => {
-    axios.get(url + '/users').then((res) => {
-      alert(JSON.stringify(res.data))
-    }).catch((err) => {
-      console.log(err)
-    })
+/// adds a vehicle to a bundle given a bundle_id and the truck_id of the truck you wish to add
+export const addVehicleToBundle = async (bundle_id,truck_id) => {
+  const data = {bundle_id:bundle_id, truck_id:truck_id}
+  let response
+  try {
+    response = await axios.post(
+    url + `/vehicle_to_bundle`, data
+  )} catch (err) {
+    console.log(err)
   }
+  return response.data
+}
 
- export const clearUsers = () => {
-    axios.delete(url + '/users/clear').then((res) => {
-      alert(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
+/// return a list of the trucks in a bundle
+export const getBundleTrucks = async (bundle_id) => {
+  let response
+  try {
+    response = await axios.get(
+    url + `/bundle_vehicle?bundle_id=${bundle_id}`
+  )} catch (err) {
+    console.log(err)
   }
-
-  export const getAmenitiesByTruckId = async (truck_id) => {
-    let response;
-    try {
-      response = await axios.get(url + `/amenities?truck_id=${truck_id}`);
-    } catch (err) {
-      console.log(err);
-    }
-    console.log(response);
-    return response.data;
-  };
+  return response.data
+}
   
