@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import Rating from '../common/rating';
+import Rating from '../reviews/rating';
 
 const ReviewList = ({ reviews }) => {
   return (

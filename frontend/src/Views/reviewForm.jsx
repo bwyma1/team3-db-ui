@@ -9,10 +9,10 @@ import {
   FormControl,
   FormGroup,
 } from '@mui/material';
-import Rating from '../common/rating';
-import SelectField from '../common/selectField';
-import TextAreaField from '../common/textAreaField';
-import TextField from '../common/textField';
+import Rating from '../reviews/rating';
+import SelectField from '../reviews/selectField';
+import TextAreaField from '../reviews/textAreaField';
+import TextField from '../reviews/textField';
 
 const ratingOptions = [
   { id: 0, name: 'Rating' },
