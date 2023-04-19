@@ -75,13 +75,16 @@ const TruckRentalDetails = () => {
           </Box>
           <Box>
             <Typography component="h2" variant="h6" fontWeight="bold">
-              {selectedTruck.model} ({selectedTruck.year}) OwnerID: {selectedTruck.owner_id}
+              {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
             </Typography>
             <Typography component="p" variant="body1">
               Mileage: {selectedTruck.mileage}
             </Typography>
             <Typography component="p" variant="body1">
               Max Miles: {selectedTruck.max_miles}
+            </Typography>
+            <Typography component="p" variant="body1">
+              Owner ID: {selectedTruck.owner_id}
             </Typography>
             <Typography component="p" variant="subtitle1" fontWeight="bold">
               Long-Term Discount Days: {selectedTruck.long_discount_days} days

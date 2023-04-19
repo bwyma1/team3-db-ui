@@ -208,7 +208,7 @@ VALUES (
     );
 
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
-VALUES (1, 'Air Conditioning', 50),
+VALUES (3, 'Air Conditioning', 50),
        (2, 'Navigation System', 100),
        (1, 'Bluetooth Connectivity', 30),
        (1, 'Rearview Camera', 70);
