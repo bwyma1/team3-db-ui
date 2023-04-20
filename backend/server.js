@@ -74,56 +74,17 @@ app.post('/truck', (req, res) => {
         })
 })
 
-//Gets all trucks that are currently available for rent
+// get available trucks
 app.get('/trucks', (req, res) => {
-    connection.query('SELECT * FROM truck WHERE truck_id NOT IN (SELECT truck_id FROM truck_rent_info WHERE renter_id <> -1);', (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send(rows)
-    })
-})
-
-app.get('/truck', (req, res) => {
-    const truck_id = req.query.truck_id
-    connection.query(`SELECT * FROM truck WHERE truck_id=${truck_id};`, (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send(rows)
-    })
-})
-
-//Gets reviews on a truck
-app.get('/truck_review', (req, res) => {
-    const truck_id = req.query.truck_id
-    connection.query(`SELECT * FROM truck_review WHERE truck_id='${truck_id}';`, (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send(rows)
-    })
-})
-
-// Posts truck review to truck_review
-app.post('/truck_review', (req, res) => {
-    const truck_id = req.query.truck_id
-    const user_id =  req.body.user_id
-    const review_text = req.body.review_text
-    const review_rating = req.body.review_rating
-    const query = `INSERT INTO truck_review (user_id, truck_id, review_text, review_rating) VALUES (${user_id},${truck_id},'${review_text}','${review_rating}')`
-        connection.query(query, (err, rows, fields) => {
-            if (err) throw err
-
-            console.log(rows)
-            res.status(200)
-            res.send(true)
-        })
-})
-
+    connection.query('SELECT * FROM truck WHERE is_available = 1 AND truck_id NOT IN (SELECT truck_id FROM truck_rent_info WHERE renter_id <> -1);', (err, rows, fields) => {
+      if (err) throw err;
+  
+      console.log(rows);
+      res.status(200);
+      res.send(rows);
+    });
+  });
+  
 // Creates a vehicle bundle profile connected to a users email
 app.post('/vehicle_bundle_profile', (req, res) => {
     const {email, discount_percent, discount_flat} = req.body
@@ -331,13 +292,54 @@ app.listen(port, () => {
     console.log(`Example listening on port ${port}`)
 })
 
-app.delete('/truck/delete', (req, res) => {
-    const truck_id = req.query.truck_id
-    const query = `DELETE FROM truck WHERE truck_id = '${truck_id}'`
+app.put('/truck/update_availability', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const is_available = req.query.is_available;
+  
+    const query = `UPDATE truck SET is_available = ${is_available} WHERE truck_id = '${truck_id}'`;
     connection.query(query, (err, rows, fields) => {
-        if(err) throw err
+      if (err) throw err;
+  
+      res.status(200);
+      res.send("Successfully updated truck availability!");
+    });
+  });
 
-        res.status(200)
-        res.send("Successfully removed truck!")
-    })
-})
+  app.post('/reviews', (req, res) => {
+    const { truck_id, userName, review_rating, review_text } = req.body;
+    const query = `INSERT INTO truck_review (truck_id, userName, review_text, review_rating) VALUES (${truck_id}, '${userName}', '${review_text}', ${review_rating})`;
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(`Error adding review: ${error.stack}`);
+        res.status(500).send('Error adding review');
+        return;
+      }
+      const review_id = results.insertId;
+      connection.query( (error, results) => {
+        console.log(`Review added with ID: ${review_id}`);
+        res.status(201).send({
+          review_id,
+          truck_id,
+          userName,
+          review_rating,
+          review_text,
+        });
+      });
+    });
+  });
+  
+  // Get all reviews for a specific truck
+  app.get('/reviews', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const query = `SELECT * FROM truck_review WHERE truck_id=${truck_id}`;
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(`Error retrieving reviews: ${error.stack}`);
+        res.status(500).send('Error retrieving reviews');
+        return;
+      }
+      console.log(`Retrieved ${results.length} reviews`);
+      res.status(200).send(results);
+    });
+  });
+  

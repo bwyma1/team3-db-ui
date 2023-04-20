@@ -53,14 +53,15 @@ export const addUser = (user) => {
 
 // get user with '/user?email='someEmail'
 export const getUserByEmail = async (email) => {
-    let response
-    try {
-	    response = await axios.get(
-		url + `/user?email=${email}`
-    )} catch (err) {
-        console.log(err)
-    }
-    return response.data["0"]
+  let response
+  try {
+    response = await axios.get(
+      url + `/user?email=${email}`
+    )
+  } catch (err) {
+    console.log(err)
+  }
+  return response.data["0"]
 }
 
 // login user with '/user?email='someEmail'&password='somePassword'
@@ -101,13 +102,14 @@ export const updatePassword = async (email, password) => {
 }
 
 export const updateProfile = async (email, bio, prof_pic_choice, location, phone) => {
-  const data = {bio:`${bio}`, prof_pic_choice: prof_pic_choice, location:`${location}`, phone:`${phone}`}
+  const data = { bio: `${bio}`, prof_pic_choice: prof_pic_choice, location: `${location}`, phone: `${phone}` }
   let response
   try {
     response = await axios.put(
-  url + `/user?email=${email}`, data
-  )} catch (err) {
-      console.log(err)
+      url + `/user?email=${email}`, data
+    )
+  } catch (err) {
+    console.log(err)
   }
   return response.data
 }

@@ -2,20 +2,46 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import TruckAmenities from "./TruckAmenities";
+import { updateTruckAvailability } from "../API/Api";
+import { getReviewsByTruckId, addReview } from "../API/Api";
+import { useEffect, useState } from "react";
+import ReviewForm from "./reviewForm";
+import ReviewList from "./reviewList";
 
 
 const TruckRentalDetails = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const selectedTruck = location.state.truck;
+  const [truckReviews, setTruckReviews] = useState([]);
+  
+    useEffect(() => {
+      const fetchTruckReviews = async () => {
+        const reviews = await getReviewsByTruckId(selectedTruck.truck_id);
+        setTruckReviews(reviews);
+      }
+      fetchTruckReviews();
+    }, [selectedTruck.truck_id]);
 
-  const handleRentTruck = () => {
-    // add truck to user's rented trucks
 
+    const handleReviewAdded = async (review) => {
+      try {
+        const createdReview = await addReview(selectedTruck.truck_id, review.userName, review.rating, review.comment);
+        setTruckReviews([...truckReviews, createdReview]);
+      } catch (error) {
+        console.error('Error adding review:', error);
+      }
+    };
 
-    // navigate back to homepage
-    navigate("/");
+  const handleRentTruck = async () => {
+    try {
+      const response = await updateTruckAvailability(selectedTruck.truck_id, false);
+      console.log(response);
+      // Navigate back to the truck list page after successfully updating the truck availability
+      navigate("/truckrental");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -49,13 +75,16 @@ const TruckRentalDetails = () => {
           </Box>
           <Box>
             <Typography component="h2" variant="h6" fontWeight="bold">
-              {selectedTruck.model} ({selectedTruck.year}) OwnerID: {selectedTruck.owner_id}
+              {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
             </Typography>
             <Typography component="p" variant="body1">
               Mileage: {selectedTruck.mileage}
             </Typography>
             <Typography component="p" variant="body1">
               Max Miles: {selectedTruck.max_miles}
+            </Typography>
+            <Typography component="p" variant="body1">
+              Owner ID: {selectedTruck.owner_id}
             </Typography>
             <Typography component="p" variant="subtitle1" fontWeight="bold">
               Long-Term Discount Days: {selectedTruck.long_discount_days} days
@@ -75,6 +104,10 @@ const TruckRentalDetails = () => {
             </Button>
           </Box>
         </Box>
+        <Box sx={{ p: 10 }}>
+          <ReviewList reviews={truckReviews} />
+          <ReviewForm truckId={selectedTruck.truck_id} onReviewAdded={handleReviewAdded} />
+          </Box>
       </Box>
     </Box>
   );
