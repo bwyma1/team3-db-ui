@@ -137,11 +137,11 @@ export const getTruckById = async (truck_id) => {
   let response
   try {
     response = await axios.get(
-    url + `/truck?truck_id=${truck_id}`
+    url + `/user_trucks_id?truck_id=${truck_id}`
   )} catch (err) {
     console.log(err)
   }
-  return response.data
+  return response.data["0"]
 }
 
 //Gets all trucks that are currently available for rent

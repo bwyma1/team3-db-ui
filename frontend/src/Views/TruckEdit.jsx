@@ -10,23 +10,23 @@ export default function TruckEdit() {
     const [profile, setProfile] = useState({});
     const [response, setResponse] = useState({});
 
-    const [year, setYear] = useState("");
-    const [make, setMake] = useState("");
-    const [model, setModel] = useState("");
-    const [mileage, setMileage] = useState("");
-    const [maxMiles, setMaxMiles] = useState("");
-    const [lDDays, setLDDays] = useState("");
-    const [lDFlat, setLDFlat] = useState("");
-    const [lDPercent, setLDPercent] = useState("");
+    const [truck, setTruck] = useState(null);
 
-    const yearChange = (event) => setYear(event.target.value);
-    const makeChange = (event) => setMake(event.target.value);
-    const modelChange = (event) => setModel(event.target.value);
-    const mileageChange = (event) => setMileage(event.target.value);
-    const maxMilesChange = (event) => setMaxMiles(event.target.value);
-    const lDDaysChange = (event) => setLDDays(event.target.value);
-    const lDFlatChange = (event) => setLDFlat(event.target.value);
-    const lDPercentChange = (event) => setLDPercent(event.target.value);
+    function updateTruck(field, value) {
+      setTruck((truck) => ({
+        [field]: value,
+        ...truck,
+      }))
+    }
+
+    const yearChange = (event) => updateTruck('year', event.target.value);
+    const makeChange = (event) => updateTruck('make', event.target.value);
+    const modelChange = (event) => updateTruck('model', event.target.value);
+    const mileageChange = (event) => updateTruck('mileage', event.target.value);
+    const maxMilesChange = (event) => updateTruck('max_miles', event.target.value);
+    const lDDaysChange = (event) => updateTruck('long_distance_days', event.target.value);
+    const lDFlatChange = (event) => updateTruck('long_distance_flat', event.target.value);
+    const lDPercentChange = (event) => updateTruck('long_distance_percent', event.target.value);
 
 
     useEffect(() => {
@@ -50,14 +50,7 @@ export default function TruckEdit() {
             //console.log(user);
             console.log(res);
             setResponse(res);
-            setYear(res.year);
-            setMake(res.make);
-            setModel(res.model);
-            setMileage(res.mileage);
-            setMaxMiles(res.max_miles);
-            setLDDays(res.long_distance_days);
-            setLDFlat(res.long_distance_flat);
-            setLDPercent(res.long_distance_percent);
+            setTruck(res);
           } else {
             //alert("error invalid email");
           }
@@ -89,6 +82,41 @@ export default function TruckEdit() {
             name="phone"
             defaultValue={response.model}
             onChange={modelChange}
+        />
+        <p>Mileage:</p>
+        <input
+            label="Phone Number"
+            name="phone"
+            defaultValue={response.mileage}
+            onChange={mileageChange}
+        />
+        <p>Max Miles:</p>
+        <input
+            label="Phone Number"
+            name="phone"
+            defaultValue={response.max_miles}
+            onChange={maxMilesChange}
+        />
+        <p>Long Discount Days:</p>
+        <input
+            label="Phone Number"
+            name="phone"
+            defaultValue={response.long_discount_days}
+            onChange={lDDaysChange}
+        />
+        <p>Long Discount Flat:</p>
+        <input
+            label="Phone Number"
+            name="phone"
+            defaultValue={response.long_discount_flat}
+            onChange={lDFlatChange}
+        />
+        <p>Long Discount Percent:</p>
+        <input
+            label="Phone Number"
+            name="phone"
+            defaultValue={response.long_discount_percent}
+            onChange={lDPercentChange}
         />
         <br></br><br></br>
         <button onClick={backButton} className="profile-button profile-edit-button">Cancel</button>
