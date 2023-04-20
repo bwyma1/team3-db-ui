@@ -30,7 +30,7 @@ export default function Profile() {
     (async () => {
       const res = await getTrucksByEmail(user.email);
       if (res) {
-        //console.log(res);
+        console.log(res[0]);
         if (res.length > 0) {
           setTruckList(res);
         }
@@ -43,6 +43,10 @@ export default function Profile() {
   const navigate = useNavigate();
   const navigateToPage = () => {
     navigate(`/profileedit`);
+  };
+
+  function navigateToTruckEditPage(index) {
+    navigate(`/truckedit/${index}`);
   };
   
 
@@ -70,12 +74,21 @@ export default function Profile() {
       {truckList.map((truck, index) => (
         <div>
           <div key={index} className="profile-truck">
-            <h3>{truck.year} {truck.model}</h3>
-            <p>Mileage: {truck.mileage}</p>
-            <p>Max Miles: {truck.max_miles}</p>
-            <p>Long Discount Days: {truck.long_discount_days}</p>
-            <p>Long Discount Flat: {truck.long_discount_flat}</p>
-            <p>Long Discount Percent: {truck.long_discount_percent}%</p>
+            <div className="profile-truck-display">
+              <h3>{truck.year} {truck.model}</h3> 
+              <button onClick={() => navigateToTruckEditPage(truck.truck_id)} className="profile-button profile-truck-edit-button">Edit</button>
+              <button className="profile-button profile-truck-edit-button">Add to Bundle</button>
+            </div>
+            <div className="profile-truck-display">
+              <img src={truck.truck_image} alt={truck.model} className="profile-truck-image"/>
+              <div className="profile-truck-text">
+                <p>Mileage: {truck.mileage}</p>
+                <p>Max Miles: {truck.max_miles}</p>
+                <p>Long Discount Days: {truck.long_discount_days}</p>
+                <p>Long Discount Flat: {truck.long_discount_flat}</p>
+                <p>Long Discount Percent: {truck.long_discount_percent}%</p>
+              </div>
+            </div>
           </div>
           <br></br>
         </div>

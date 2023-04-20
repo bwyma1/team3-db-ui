@@ -39,9 +39,24 @@
   padding-top: 0.1rem;
   padding-bottom: 0.2rem;
 }
-.profile-truck>p {
+.profile-truck-text>p {
   padding-left: 1rem;
 }
+
+.profile-truck-image {
+  width: 300px;
+  border-radius: 0.5rem;
+}
+
+.profile-truck-edit-button {
+  margin: 1rem;
+}
+
+.profile-truck-display {
+  display: flex;
+}
+
+
 
 .profile-button {
   background-color: rgb(32,116,212);
