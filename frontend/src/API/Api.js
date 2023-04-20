@@ -286,4 +286,14 @@ export const updateTruckAvailability = async (truck_id, is_available) => {
   }
 };
 
+export const getTruckCities = async (truck_id) => {
+  try {
+    const response = await axios.get(url + `/truck_cities?truck_id=${truck_id}`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
   

@@ -3,10 +3,11 @@ import { Box, Typography, Button } from "@mui/material";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import TruckAmenities from "./TruckAmenities";
 import { updateTruckAvailability } from "../API/Api";
-import { getReviewsByTruckId, addReview } from "../API/Api";
+import { getReviewsByTruckId, addReview, getTruckCities } from "../API/Api";
 import { useEffect, useState } from "react";
 import ReviewForm from "./reviewForm";
 import ReviewList from "./reviewList";
+import { Select, MenuItem } from "@mui/material";
 
 
 const TruckRentalDetails = () => {
@@ -14,25 +15,40 @@ const TruckRentalDetails = () => {
   const location = useLocation();
   const selectedTruck = location.state.truck;
   const [truckReviews, setTruckReviews] = useState([]);
-
-  
-    useEffect(() => {
-      const fetchTruckReviews = async () => {
-        const reviews = await getReviewsByTruckId(selectedTruck.truck_id);
-        setTruckReviews(reviews);
-      }
-      fetchTruckReviews();
-    }, [selectedTruck.truck_id]);
+  const [truckCities, setTruckCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
 
 
-    const handleReviewAdded = async (review) => {
-      try {
-        const createdReview = await addReview(selectedTruck.owner_id, selectedTruck.truck_id, review.userName, review.rating, review.comment);
-        setTruckReviews([...truckReviews, createdReview]);
-      } catch (error) {
-        console.error('Error adding review:', error);
-      }
+  useEffect(() => {
+    const fetchTruckReviews = async () => {
+      const reviews = await getReviewsByTruckId(selectedTruck.truck_id);
+      setTruckReviews(reviews);
+    }
+    fetchTruckReviews();
+  }, [selectedTruck.truck_id]);
+
+  useEffect(() => {
+    const fetchTruckCities = async () => {
+      const cities = await getTruckCities(selectedTruck.truck_id);
+      setTruckCities(cities);
+      if (cities.length > 0) setSelectedCity(cities[0].name);
     };
+    fetchTruckCities();
+  }, [selectedTruck.truck_id]);
+
+  const handleCityChange = (event) => {
+    setSelectedCity(event.target.value);
+  };
+
+
+  const handleReviewAdded = async (review) => {
+    try {
+      const createdReview = await addReview(selectedTruck.owner_id, selectedTruck.truck_id, review.userName, review.rating, review.comment);
+      setTruckReviews([...truckReviews, createdReview]);
+    } catch (error) {
+      console.error('Error adding review:', error);
+    }
+  };
 
   const handleRentTruck = async () => {
     try {
@@ -97,6 +113,25 @@ const TruckRentalDetails = () => {
               Flat Discount: {selectedTruck.long_discount_flat}
             </Typography>
             <TruckAmenities truck_id={selectedTruck.truck_id} />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                marginLeft: 4,
+              }}
+            >
+              <Typography component="p" variant="subtitle1" fontWeight="bold">
+                Location:
+              </Typography>
+              <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
+                {truckCities.map((city) => (
+                  <MenuItem key={city.city_id} value={city.name}>
+                    {city.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
             <Button variant="contained" onClick={handleRentTruck} sx={{ mt: 2, mr: 2 }}>
               Rent this truck
             </Button>
@@ -108,7 +143,7 @@ const TruckRentalDetails = () => {
         <Box sx={{ p: 10 }}>
           <ReviewList reviews={truckReviews} />
           <ReviewForm userId={selectedTruck.owner_id} truckId={selectedTruck.truck_id} onReviewAdded={handleReviewAdded} />
-          </Box>
+        </Box>
       </Box>
     </Box>
   );

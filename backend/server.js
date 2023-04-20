@@ -341,4 +341,17 @@ app.put('/truck/update_availability', (req, res) => {
       res.status(200).send(results);
     });
   });
+
+  app.get('/truck_cities', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const query = `SELECT c.name FROM city c
+                   JOIN truck_city tc ON c.city_id = tc.city_id
+                   WHERE tc.truck_id = '${truck_id}';`;
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err;
+        res.status(200);
+        res.send(rows);
+    });
+});
+
   

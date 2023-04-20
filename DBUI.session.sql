@@ -111,6 +111,20 @@ CREATE TABLE IF NOT EXISTS truck_rent_info(
     FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
 );
 
+CREATE TABLE IF NOT EXISTS city(
+    city_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS truck_city(
+    truck_id INT NOT NULL,
+    city_id INT NOT NULL,
+    PRIMARY KEY (truck_id, city_id),
+    FOREIGN KEY (truck_id) REFERENCES truck(truck_id),
+    FOREIGN KEY (city_id) REFERENCES city(city_id)
+);
+
+
 -- ...
 -- Example Data
 INSERT INTO user (
@@ -230,3 +244,16 @@ VALUES (
         "Very cool truck, the added bungie cord was a big help!",
         "5"
     );
+
+INSERT INTO city (name) VALUES ('San Francisco');
+INSERT INTO city (name) VALUES ('Los Angeles');
+INSERT INTO city (name) VALUES ('San Diego');
+INSERT INTO city (name) VALUES ('Sacramento');
+
+-- Link trucks to multiple cities
+INSERT INTO truck_city (truck_id, city_id) VALUES (1, 1); -- Ford F-150 in San Francisco
+INSERT INTO truck_city (truck_id, city_id) VALUES (1, 2); -- Ford F-150 in Los Angeles
+INSERT INTO truck_city (truck_id, city_id) VALUES (2, 1); -- Toyota Tundra in San Francisco
+INSERT INTO truck_city (truck_id, city_id) VALUES (2, 3); -- Toyota Tundra in San Diego
+INSERT INTO truck_city (truck_id, city_id) VALUES (3, 2); -- Chevrolet Colorado in Los Angeles
+INSERT INTO truck_city (truck_id, city_id) VALUES (3, 4); -- Chevrolet Colorado in Sacramento
