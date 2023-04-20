@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS truck_review(
     review_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     truck_id INT NOT NULL,
-    userName VARCHAR(255) NOT NULL,
+    userName VARCHAR(255) NOT NULL DEFAULT ' ',
     review_text VARCHAR(1000) NOT NULL,
     review_rating INT NOT NULL,
     FOREIGN KEY (truck_id) REFERENCES truck(truck_id),

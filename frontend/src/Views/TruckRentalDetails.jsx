@@ -14,6 +14,7 @@ const TruckRentalDetails = () => {
   const location = useLocation();
   const selectedTruck = location.state.truck;
   const [truckReviews, setTruckReviews] = useState([]);
+
   
     useEffect(() => {
       const fetchTruckReviews = async () => {
@@ -26,7 +27,7 @@ const TruckRentalDetails = () => {
 
     const handleReviewAdded = async (review) => {
       try {
-        const createdReview = await addReview(selectedTruck.truck_id, review.userName, review.rating, review.comment);
+        const createdReview = await addReview(selectedTruck.owner_id, selectedTruck.truck_id, review.userName, review.rating, review.comment);
         setTruckReviews([...truckReviews, createdReview]);
       } catch (error) {
         console.error('Error adding review:', error);
@@ -106,7 +107,7 @@ const TruckRentalDetails = () => {
         </Box>
         <Box sx={{ p: 10 }}>
           <ReviewList reviews={truckReviews} />
-          <ReviewForm truckId={selectedTruck.truck_id} onReviewAdded={handleReviewAdded} />
+          <ReviewForm userId={selectedTruck.owner_id} truckId={selectedTruck.truck_id} onReviewAdded={handleReviewAdded} />
           </Box>
       </Box>
     </Box>

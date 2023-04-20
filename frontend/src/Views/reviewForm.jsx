@@ -23,7 +23,7 @@ const ratingOptions = [
   { id: 5, name: '5 stars' },
 ];
 
-export default function ReviewForm({ onReviewAdded, truckId }) {
+export default function ReviewForm({ onReviewAdded, truckId, userId }) {
   const [userName, setUserName] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -31,6 +31,7 @@ export default function ReviewForm({ onReviewAdded, truckId }) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     onReviewAdded({
+      userId,
       truckId,
       userName,
       rating,

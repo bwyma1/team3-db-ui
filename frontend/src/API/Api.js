@@ -293,9 +293,10 @@ export const updateTruckAvailability = async (truck_id, is_available) => {
   }
 };
 
-export const addReview = async (truck_id, userName, rating, comment) => {
+export const addReview = async (user_id, truck_id, userName, rating, comment) => {
   try {
     const response = await axios.post(url + '/reviews', {
+      user_id,
       truck_id,
       userName,
       review_rating: rating,

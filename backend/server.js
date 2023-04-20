@@ -306,8 +306,8 @@ app.put('/truck/update_availability', (req, res) => {
   });
 
   app.post('/reviews', (req, res) => {
-    const { truck_id, userName, review_rating, review_text } = req.body;
-    const query = `INSERT INTO truck_review (truck_id, userName, review_text, review_rating) VALUES (${truck_id}, '${userName}', '${review_text}', ${review_rating})`;
+    const { user_id, truck_id, userName, review_rating, review_text } = req.body;
+    const query = `INSERT INTO truck_review (user_id, truck_id, userName, review_text, review_rating) VALUES (${user_id}, ${truck_id}, '${userName}', '${review_text}', ${review_rating})`;
     connection.query(query, (error, results) => {
       if (error) {
         console.error(`Error adding review: ${error.stack}`);
@@ -316,9 +316,8 @@ app.put('/truck/update_availability', (req, res) => {
       }
       const review_id = results.insertId;
       connection.query( (error, results) => {
-        console.log(`Review added with ID: ${review_id}`);
         res.status(201).send({
-          review_id,
+          user_id,
           truck_id,
           userName,
           review_rating,
