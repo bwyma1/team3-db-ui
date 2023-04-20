@@ -156,39 +156,42 @@ export const getAvailableTrucks = async () => {
   return response.data
 }
 
-export const getTruckReviews = async (truck_id) => {
-  let response
+export const getReviewsByTruckId = async (truck_id) => {
   try {
-    response = await axios.get(
-    url + `/truck_review?truck_id=${truck_id}`
-  )} catch (err) {
-    console.log(err)
+    const response = await axios.get(url + `/reviews?truck_id=${truck_id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
-  return response.data
-}
+};
 
-export const addTruckReview = async (user_id,truck_id,review_text,review_rating) => {
-  const data = {user_id:user_id, review_text:`${review_text}`,review_rating:`${review_rating}`}
-  let response
+// to truck listing
+export const addReview = async (user_id, truck_id, userName, rating, comment) => {
   try {
-    response = await axios.post(
-    url + `/truck_review?truck_id=${truck_id}`, data
-  )} catch (err) {
-    console.log(err)
+    const response = await axios.post(url + '/reviews', {
+      user_id,
+      truck_id,
+      userName,
+      review_rating: rating,
+      review_text: comment,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
-  return response.data
-}
+};
 
-export const getTruckAmenities = async (truck_id) => {
-  let response
+export const getAmenitiesByTruckId = async (truck_id) => {
+  let response;
   try {
-    response = await axios.get(
-    url + `/amenity?truck_id=${truck_id}`
-  )} catch (err) {
-    console.log(err)
+    response = await axios.get(url + `/amenity?truck_id=${truck_id}`);
+  } catch (err) {
+    console.log(err);
   }
-  return response.data
-}
+  console.log(response);
+  return response.data;
+};
 
 export const addTruckAmenity = async (truck_id,amenity_name,amenity_price) => {
   const data = { amenity_name:`${amenity_name}`,amenity_price:amenity_price}
@@ -273,17 +276,7 @@ export const getBundleTrucks = async (bundle_id) => {
   return response.data
 }
 
-export const getAmenitiesByTruckId = async (truck_id) => {
-  let response;
-  try {
-    response = await axios.get(url + `/amenities?truck_id=${truck_id}`);
-  } catch (err) {
-    console.log(err);
-  }
-  console.log(response);
-  return response.data;
-};
-
+// to remove from rental page when rented
 export const updateTruckAvailability = async (truck_id, is_available) => {
   try {
     const response = await axios.put(url + `/truck/update_availability?truck_id=${truck_id}&is_available=${is_available}`);
@@ -293,28 +286,4 @@ export const updateTruckAvailability = async (truck_id, is_available) => {
   }
 };
 
-export const addReview = async (user_id, truck_id, userName, rating, comment) => {
-  try {
-    const response = await axios.post(url + '/reviews', {
-      user_id,
-      truck_id,
-      userName,
-      review_rating: rating,
-      review_text: comment,
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getReviewsByTruckId = async (truck_id) => {
-  try {
-    const response = await axios.get(url + `/reviews?truck_id=${truck_id}`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
   
