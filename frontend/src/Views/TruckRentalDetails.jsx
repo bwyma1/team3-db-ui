@@ -88,7 +88,7 @@ const TruckRentalDetails = () => {
           }}
         >
           <Box sx={{ mr: 2 }}>
-            <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="200" />
+            <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="700" />
           </Box>
           <Box>
             <Typography component="h2" variant="h6" fontWeight="bold">
