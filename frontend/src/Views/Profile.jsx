@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { createVehicleBundle, getBundleTrucks, getTrucksByEmail, getUserByEmail, getUserTruckBundles } from "../API/Api";
+import { addVehicleToBundle, createVehicleBundle, getTrucksByEmail, getUserByEmail, getUserTruckBundles } from "../API/Api";
+import BundleContent from "./BundleContent";
+import AddToBundle from "./AddToBundle";
 //import Box from "@mui/material/Box";
 //import IconButton from "@mui/material/IconButton";
 //import Avatar from "@mui/material/Avatar";
@@ -78,21 +80,24 @@ export default function Profile() {
         50, 
         100
       );
-    })();
-  }
-
-  const getTrucksInBundle = (bundleId) => {
-    (async () => {
-      const res = await getBundleTrucks(bundleId);
+      (async () => {
+      const res = await getUserTruckBundles(user.email);
       if (res) {
-        console.log("trucks in bundle: ", res);
-        return res;
+        if (res.length > 0) {
+          console.log(res);
+          setBundleList(res);
+        }
       } else {
         //alert("error invalid email");
       }
+     })();
     })();
   }
+
   
+
+  
+
 
   return <div className="profile-main"><br></br>
     <header><h1>Your Profile</h1></header>
@@ -130,9 +135,9 @@ export default function Profile() {
               <div key={index}>
                 <div  className="profile-truck">
                   <div className="profile-truck-display">
-                    <h3>{truck.year} {truck.model}</h3> 
+                    <h3>{truck.year} {truck.make} {truck.model}</h3> 
                     <button onClick={() => navigateToTruckEditPage(truck.truck_id)} className="profile-button profile-truck-edit-button">Edit</button>
-                    <button className="profile-button profile-truck-edit-button">Add to Bundle</button>
+                    <AddToBundle bundleList={bundleList} truckId={truck.truck_id} />
                   </div>
                   <div className="profile-truck-display">
                     <img src={truck.truck_image} alt={truck.model} className="profile-truck-image"/>
@@ -152,19 +157,7 @@ export default function Profile() {
           </>) : (<>
             {bundleList.map((bundle, index) => (
               <div key={index}>
-                <div  className="profile-truck">
-                  {(getTrucksInBundle(bundle.bundle_id)) ? (<>
-                    <h2>Bundle {index} ({getTrucksInBundle(bundle.bundle_id).length} trucks)</h2>
-                    {getTrucksInBundle(bundle.bundle_id).map((truck, index2) => (
-                      <div key={index2}>
-                        <p>{truck.year} {truck.make} {truck.model}</p>
-                      </div>
-                    ))}
-                  </>) : (<>
-                  <h2>Bundle {index} (0 trucks)</h2>
-                  </>)}
-                </div>
-                <br></br>
+                <BundleContent bundleId={bundle.bundle_id} bundleNumber={index + 1} />
               </div>
             ))}
             <button onClick={addBundle} className="profile-button">Add Bundle</button>
