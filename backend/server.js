@@ -9,11 +9,10 @@ app.use(cors())
 
 const mysql = require('mysql')
 const connection = mysql.createConnection({
-    host: 'containers-us-west-55.railway.app',
+    host: 'localhost',
     user: 'root',
-    password: 'XVv5ef4z85S0DYpS0Vex',
-    database: 'railway',
-    port: 5996
+    password: 'coolgecko123',
+    database: 'DBUI'
 })
 
 connection.connect()
