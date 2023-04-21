@@ -33,6 +33,7 @@ const ListATruck = () => {
   const [discountFlat, setDiscountFlat] = useState('');
   const [dailyPrice, setDailyPrice] = useState('');
   const [currUser, setCurrUser] = useState({})
+  const [truckImage, setTruckImage] = useState('');
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,7 +41,18 @@ const ListATruck = () => {
       alert("Please fill out all fields!");
     }
     else{
-      const addedTruck = addTruck(currUser.email, make, model, year, mileage, maxMileage, sDate, eDate, discount, discountDays, discountPCT, discountFlat, dailyPrice);
+      if(discount === 1){
+        discountDays = 0;
+        discountPCT = 0;
+        discountFlat = 0;
+      }
+      else if(discount === 2){
+        discountFlat = 0;
+      }
+      else if(discount === 3){
+        discountPCT = 0;
+      }
+      const addedTruck = addTruck(currUser.email, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage);
       event.target.reset();
     }
     console.log(`Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Start Date: ${sDate}, End Date: ${eDate}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}`);
@@ -263,6 +275,16 @@ const ListATruck = () => {
               InputProps={{
                 startAdornment: <InputAdornment position="start">$</InputAdornment>,
               }}
+            />
+            
+            <TextField
+              label="Truck Image URL"
+              variant="outlined"
+              required
+              fullWidth
+              margin="normal"
+              value={truckImage}
+              onChange={(event) => setTruckImage(event.target.value)}
             />
 
             <FormControl  fullWidth
