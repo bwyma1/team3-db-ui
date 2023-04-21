@@ -70,9 +70,9 @@ export default function Homepage() {
             ) : (
               <Grid item xs={8} md={2}>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg"
+                  src="https://upload.wikimedia.org/wikipedia/commons/8/8f/2011_Ram_Pickup_--_2011_DC.jpg"
                   alt="Truck"
-                  style={{ maxWidth: '30rem', maxHeight: 'auto', borderRadius: '2rem'}}
+                  style={{ maxWidth: '32rem', maxHeight: 'auto', borderRadius: '3rem'}}
                 />
               </Grid>
             )}
