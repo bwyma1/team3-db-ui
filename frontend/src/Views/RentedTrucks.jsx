@@ -6,6 +6,16 @@ const RentedTrucks = () => {
   const [user, setUser] = useState({});
   const [rentedTrucks, setRentedTrucks] = useState([]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+
+
   useEffect(() => {
     setUser(JSON.parse(window.sessionStorage.getItem("user")));
   }, []);
@@ -40,10 +50,10 @@ const RentedTrucks = () => {
         }}
       >
         {rentedTrucks.map((rentedTruck) => (
-          <Card key={rentedTruck.rent_id} sx={{ minWidth: 300 }}>
+          <Card key={rentedTruck.rent_id} sx={{ minWidth: "35rem", marginBottom: "2rem" }}>
             <CardMedia
               component="img"
-              height="140"
+              height="220rem"
               image={rentedTruck.truck_image}
               alt={rentedTruck.model}
             />
@@ -55,10 +65,13 @@ const RentedTrucks = () => {
                 Price: ${rentedTruck.price}/day
               </Typography>
               <Typography component="p" variant="h5" mb={1}>
-                Start Date: {rentedTruck.start_date}
+                Location: {rentedTruck.selectedCity}
               </Typography>
               <Typography component="p" variant="h5" mb={1}>
-                End Date: {rentedTruck.end_date}
+                Start Date: {formatDate(rentedTruck.start_date)}
+              </Typography>
+              <Typography component="p" variant="h5" mb={1}>
+                End Date: {formatDate(rentedTruck.end_date)}
               </Typography>
             </CardContent>
           </Card>

@@ -310,8 +310,8 @@ export const removeVehicleFromBundle = async (bundle_id,truck_id) => {
 }
 
 // Add a rented truck by user_id, truck_id, start_date, and end_date
-export const addToUserRentedTrucks = async (user_id, truck_id, start_date, end_date) => {
-  const data = { user_id, truck_id, start_date, end_date };
+export const addToUserRentedTrucks = async (user_id, truck_id, start_date, end_date, city) => {
+  const data = { user_id, truck_id, start_date, end_date, city };
   let response;
   try {
     response = await axios.post(url + '/user_rented_trucks', data);

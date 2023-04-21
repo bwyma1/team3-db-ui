@@ -34,6 +34,7 @@ const TruckRentalDetails = () => {
   
     return days;
   };
+  
   const navigate = useNavigate();
   const location = useLocation();
   const selectedTruck = location.state.truck;
@@ -91,7 +92,7 @@ const TruckRentalDetails = () => {
     try {
       await updateTruckAvailability(selectedTruck.truck_id, false);
       const today = new Date().toISOString().split("T")[0];
-      await addToUserRentedTrucks(user.user_id, selectedTruck.truck_id, today, selectedEndDate);
+      await addToUserRentedTrucks(user.user_id, selectedTruck.truck_id, today, selectedEndDate, selectedCity);
       navigate("/currentrentals");
     } catch (err) {
       console.log(err);

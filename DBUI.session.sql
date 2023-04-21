@@ -103,13 +103,16 @@ CREATE TABLE IF NOT EXISTS user_message(
     FOREIGN KEY (parent_id) REFERENCES user_message(message_id),
     FOREIGN KEY (child_id) REFERENCES user_message(message_id)
 );
+
 CREATE TABLE IF NOT EXISTS truck_rent_info(
     truck_rent_id INT AUTO_INCREMENT PRIMARY KEY,
     truck_id INT NOT NULL,
     renter_id INT NOT NULL,
+    city VARCHAR(255) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
+    FOREIGN KEY (truck_id) REFERENCES truck(truck_id),
+    FOREIGN KEY (renter_id) REFERENCES user(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS city(
@@ -165,8 +168,8 @@ VALUES (
         1
     );
     
-INSERT INTO truck_rent_info (truck_id, renter_id, start_date, end_date)
-VALUES (1, 1, '2023-10-20', '2023-10-25');
+INSERT INTO truck_rent_info (truck_id, renter_id, city, start_date, end_date)
+VALUES (1, 1, 'Los Angeles','2023-10-20', '2023-10-25');
 INSERT INTO truck (
         owner_id,
         model,
