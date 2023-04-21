@@ -1,7 +1,8 @@
 import { 
         Box,
         Container,
-        Typography
+        Typography,
+        Button,
 } from "@mui/material";
 
 export default function chat() {
@@ -14,10 +15,13 @@ export default function chat() {
           flexDirection: "column",
           alignItems: "center",
         }}
-      >
+        >
         <Typography component="h1" variant="h5">
             Inbox
         </Typography>
+
+        <Button fullWidth variant="contained" color="primary">Send Message</Button>
+
       </Box>
     </Container>
   );

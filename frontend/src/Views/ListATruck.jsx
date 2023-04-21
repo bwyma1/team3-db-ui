@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState, useEffect }  from "react";
 import {
         Box,
         Typography,
@@ -14,6 +14,8 @@ import {
         CssBaseline,
         Grid
       } from "@mui/material";
+import { addTruck } from "../API/Api";
+      
 
 const theme = createTheme();
 
@@ -30,11 +32,23 @@ const ListATruck = () => {
   const [discountPCT, setDiscountPCT] = useState('');
   const [discountFlat, setDiscountFlat] = useState('');
   const [dailyPrice, setDailyPrice] = useState('');
+  const [currUser, setCurrUser] = useState({})
   
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || sDate === '' || eDate === '' || discount === 0 || dailyPrice === '') {
+      alert("Please fill out all fields!");
+    }
+    else{
+      const addedTruck = addTruck(currUser.email, make, model, year, mileage, maxMileage, sDate, eDate, discount, discountDays, discountPCT, discountFlat, dailyPrice);
+      event.target.reset();
+    }
     console.log(`Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Start Date: ${sDate}, End Date: ${eDate}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}`);
   }
+
+  useEffect(() => {
+    setCurrUser(JSON.parse(window.sessionStorage.getItem("user")))
+}  , [])
 
   let days;
   let discountField;
@@ -273,7 +287,7 @@ const ListATruck = () => {
               </Grid>
             </FormControl>
 
-            <Button type="submit" fullWidth variant="contained" color="primary">Submit</Button>
+            <Button type="submit" fullWidth variant="contained" margin="normal" color="primary">Submit</Button>
 
           </form>
         </Box>

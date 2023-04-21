@@ -8,7 +8,10 @@ import SignUp from "../Views/SignUp";
 import ResponsiveNavbar from "./Navbar";
 import TruckRental from "../Views/TruckRental";
 import TruckRentalDetails from "../Views/TruckRentalDetails";
-import TruckEdit from "../Views/TruckEdit";
+import TruckAmenities from "../Views/TruckAmenities";
+import ListATruck from "../Views/ListATruck";
+import RentedTrucks from "../Views/RentedTrucks";
+import Chat from "../Views/chat";
 
 
 export const Router = () => (
@@ -24,7 +27,11 @@ export const Router = () => (
       <Route path="profileedit" element={<ProfileEdit />} />
       <Route path="truckrental" element={<TruckRental />} />
       <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
-      <Route path="truckedit/:id" element={<TruckEdit />} />
+      <Route path="truckamenities" element={<TruckAmenities />} />
+      <Route path="listatruck" element={<ListATruck />} />
+      <Route path="chat" element={<Chat />} />
+      <Route path="currentrentals" element={<RentedTrucks />} />
     </Routes>
   </BrowserRouter>
 );
+
