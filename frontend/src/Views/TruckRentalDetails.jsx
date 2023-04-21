@@ -71,7 +71,7 @@ const TruckRentalDetails = () => {
       }}
     >
       <Typography component="h1" variant="h4" sx={{
-        textAlign: "center", color: "black", padding: "1rem", width: "100%", backgroundColor: "rgba(211, 211, 211, 0.2)"
+        textAlign: "center", color: "black", padding: "2rem", width: "100%", backgroundColor: "rgba(211, 211, 211, 0.2)"
       }}>
         Truck Rental Details
       </Typography>
@@ -83,7 +83,7 @@ const TruckRentalDetails = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            p: 2,
+            p: 3,
             borderBottom: "1px solid #ccc",
           }}
         >
@@ -91,27 +91,31 @@ const TruckRentalDetails = () => {
             <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="700" />
           </Box>
           <Box>
-            <Typography component="h2" variant="h6" fontWeight="bold">
+            <Typography component="h2" variant="h6" fontWeight="bold" mb={1}>
               {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
             </Typography>
-            <Typography component="p" variant="body1">
+            <Typography component="p" variant="h5" mb={1}>
               Mileage: {selectedTruck.mileage}
             </Typography>
-            <Typography component="p" variant="body1">
+            <Typography component="p" variant="h5" mb={1}>
               Max Miles: {selectedTruck.max_miles}
             </Typography>
-            <Typography component="p" variant="body1">
+            <Typography component="p" variant="h5" mb={1}>
+              Truck Capacity: {selectedTruck.truck_capacity} seats 
+            </Typography>
+            <Typography component="p" variant="h5" mb={1}>
               Owner ID: {selectedTruck.owner_id}
             </Typography>
-            <Typography component="p" variant="subtitle1" fontWeight="bold">
+            <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
               Long-Term Discount Days: {selectedTruck.long_discount_days} days
             </Typography>
-            <Typography component="p" variant="subtitle1" fontWeight="bold">
+            <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
               Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
             </Typography>
-            <Typography component="p" variant="subtitle1" fontWeight="bold">
+            <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
               Flat Discount: {selectedTruck.long_discount_flat}
             </Typography>
+            <div>
             <TruckAmenities truck_id={selectedTruck.truck_id} />
             <Box
               sx={{
@@ -138,6 +142,7 @@ const TruckRentalDetails = () => {
             <Button variant="outlined" sx={{ mt: 2 }} onClick={() => navigate("/truckrental")}>
               Back to Truck Rental
             </Button>
+            </div>
           </Box>
         </Box>
         <Box sx={{ p: 10 }}>

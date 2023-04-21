@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS truck(
     long_discount_flat FLOAT,
     truck_image VARCHAR(500) NOT NULL,
     is_available BOOLEAN DEFAULT 1,
+    truck_capacity FLOAT DEFAULT 4,
     price FLOAT,
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
@@ -178,6 +179,7 @@ INSERT INTO truck (
         long_discount_flat,
         truck_image,
         price,
+        truck_capacity,
         is_available
     )
 VALUES (
@@ -192,6 +194,7 @@ VALUES (
         0.10,
         'https://www.thedrive.com/content/2022/03/2022-Toyota-Tundra-TRD-Pro_KL_52.jpg?quality=85',
         150,
+        6,
         1
     );
 INSERT INTO truck (
@@ -206,6 +209,7 @@ INSERT INTO truck (
         long_discount_flat,
         truck_image,
         price,
+        truck_capacity,
         is_available
     )
 VALUES (
@@ -220,6 +224,7 @@ VALUES (
         0.10,
         'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200',
         250,
+        5,
         1
     );
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
