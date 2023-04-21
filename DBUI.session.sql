@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS truck(
     truck_image VARCHAR(500) NOT NULL,
     is_available BOOLEAN DEFAULT 1,
     truck_capacity FLOAT DEFAULT 4,
+    cargo_capacity FLOAT DEFAULT 0,
     price FLOAT,
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
@@ -150,8 +151,10 @@ INSERT INTO truck (
         long_discount_percent,
         long_discount_flat,
         truck_image,
-        price,
-        is_available
+        is_available,
+        truck_capacity,
+        cargo_capacity,
+        price
     )
 VALUES (
         1,
@@ -162,10 +165,12 @@ VALUES (
         100000,
         7,
         0.10,
-        0.10,
+        0,
         'https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg',
-        200,
-        1
+        1,
+        4,
+        50,
+        200
     );
     
 INSERT INTO truck_rent_info (truck_id, renter_id, city, start_date, end_date)
@@ -181,9 +186,10 @@ INSERT INTO truck (
         long_discount_percent,
         long_discount_flat,
         truck_image,
-        price,
+        is_available,
         truck_capacity,
-        is_available
+        cargo_capacity,
+        price
     )
 VALUES (
         1,
@@ -194,11 +200,12 @@ VALUES (
         200000,
         10,
         0.20,
-        0.10,
+        0,
         'https://www.thedrive.com/content/2022/03/2022-Toyota-Tundra-TRD-Pro_KL_52.jpg?quality=85',
-        150,
-        6,
-        1
+        1,
+        4,
+        50,
+        400
     );
 INSERT INTO truck (
         owner_id,
@@ -211,9 +218,10 @@ INSERT INTO truck (
         long_discount_percent,
         long_discount_flat,
         truck_image,
-        price,
+        is_available,
         truck_capacity,
-        is_available
+        cargo_capacity,
+        price
     )
 VALUES (
         1,
@@ -224,11 +232,12 @@ VALUES (
         120000,
         4,
         0.15,
-        0.10,
+        0,
         'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200',
-        250,
-        5,
-        1
+        1,
+        4,
+        75,
+        350
     );
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
 VALUES (3, 'Dolly', 50),
