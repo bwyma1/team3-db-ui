@@ -270,4 +270,17 @@ export const getBundleTrucks = async (bundle_id) => {
   }
   return response.data
 }
+
+/// removes a vehicle to a bundle given a bundle_id and the truck_id of the truck you wish to delete
+export const removeVehicleFromBundle = async (bundle_id,truck_id) => {
+  const data = {bundle_id:bundle_id, truck_id:truck_id}
+  let response
+  try {
+    response = await axios.delete(
+    url + `/vehicle_to_bundle`, data
+  )} catch (err) {
+    console.log(err)
+  }
+  return response.data
+}
   
