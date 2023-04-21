@@ -194,24 +194,24 @@ export const getAmenitiesByTruckId = async (truck_id) => {
 };
 
 export const addTruckAmenity = async (truck_id, amenity_name, amenity_price) => {
-  const data = { amenity_name:`${amenity_name}`, amenity_price:`${amenity_price}`}
+  const data = { amenity_name:`${amenity_name}`, amenity_price:amenity_price}
   let response
   try {
     response = await axios.post(
-    url + `/amenity?truck_id=${truck_id}`, data
+    url + `/amenity?truck_id=${truck_id}`, {data:data}
   )} catch (err) {
     console.log(err)
   }
   return response.data
 }
 
-export const addTruck = async (email, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat,truck_image) => {
+export const addTruck = async (email, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat,truck_image, is_available, truck_capacity, cargo_capacity, price) => {
   const data = {email:`${email}`, model:`${model}`, make:`${make}`, year:`${year}`, mileage:`${mileage}`, max_miles:max_miles, long_discount_days:long_discount_days, 
-    long_discount_percent:long_discount_percent, long_discount_flat:long_discount_flat,truck_image:`${truck_image}`}
+    long_discount_percent:long_discount_percent, long_discount_flat:long_discount_flat, truck_image:`${truck_image}`, is_available:is_available, truck_capacity:truck_capacity, cargo_capacity:cargo_capacity, price:price}
   let response
   try {
     response = await axios.post(
-    url + `/truck`, data
+    url + `/truck`, {data:data}
   )} catch (err) {
     console.log(err)
   }

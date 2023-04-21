@@ -34,10 +34,12 @@ const ListATruck = () => {
   const [dailyPrice, setDailyPrice] = useState('');
   const [currUser, setCurrUser] = useState({})
   const [truckImage, setTruckImage] = useState('');
+  const [truckCapcity, setTruckCapacity] = useState('');
+  const [truckLoad, setTruckLoad] = useState('');
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || sDate === '' || eDate === '' || discount === 0 || dailyPrice === '') {
+    if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || sDate === '' || eDate === '' || discount === 0 || discountDays === '' || discountPCT === '' || discountFlat === '' || dailyPrice === '' || truckImage === '' || truckCapcity === '' || truckLoad === '') {
       alert("Please fill out all fields!");
     }
     else{
@@ -52,7 +54,7 @@ const ListATruck = () => {
       else if(discount === 3){
         discountPCT = 0;
       }
-      const addedTruck = addTruck(currUser.email, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage);
+      const addedTruck = addTruck(currUser.email, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, true, truckCapcity, truckLoad, dailyPrice);
       event.target.reset();
     }
     console.log(`Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Start Date: ${sDate}, End Date: ${eDate}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}`);
@@ -184,6 +186,28 @@ const ListATruck = () => {
                 />
               </Grid>
             </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Passengers"
+                  variant="outlined"
+                  required
+                  margin="normal"
+                  value={truckCapcity}
+                  onChange={(event) => truckCapcity(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Load Capacity"
+                  variant="outlined"
+                  required
+                  margin="normal"
+                  value={truckLoad}
+                  onChange={(event) => truckLoad(event.target.value)}
+                />
+              </Grid>
+            </Grid>
 
             <Select 
               label="Year"
@@ -276,7 +300,7 @@ const ListATruck = () => {
                 startAdornment: <InputAdornment position="start">$</InputAdornment>,
               }}
             />
-            
+
             <TextField
               label="Truck Image URL"
               variant="outlined"
