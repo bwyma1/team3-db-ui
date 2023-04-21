@@ -9,9 +9,9 @@ import ResponsiveNavbar from "./Navbar";
 import TruckRental from "../Views/TruckRental";
 import TruckRentalDetails from "../Views/TruckRentalDetails";
 import TruckAmenities from "../Views/TruckAmenities";
-import ListATruck from "../Views/ListATruck";
 import RentedTrucks from "../Views/RentedTrucks";
 import Chat from "../Views/chat";
+import Listing from "../Views/Listing";
 
 
 export const Router = () => (
@@ -28,7 +28,7 @@ export const Router = () => (
       <Route path="truckrental" element={<TruckRental />} />
       <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
       <Route path="truckamenities" element={<TruckAmenities />} />
-      <Route path="listatruck" element={<ListATruck />} />
+      <Route path="listing" element={<Listing />} />
       <Route path="chat" element={<Chat />} />
       <Route path="currentrentals" element={<RentedTrucks />} />
     </Routes>
