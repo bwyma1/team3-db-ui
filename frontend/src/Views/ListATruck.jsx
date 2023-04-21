@@ -30,14 +30,15 @@ const ListATruck = () => {
   const [discountPCT, setDiscountPCT] = useState('');
   const [discountFlat, setDiscountFlat] = useState('');
   const [dailyPrice, setDailyPrice] = useState('');
-  const [currUser, setCurrUser] = useState({})
+  const [user, setUser] = useState({})
   const [truckImage, setTruckImage] = useState('');
   const [truckCapcity, setTruckCapacity] = useState('');
   const [truckLoad, setTruckLoad] = useState('');
+
   
   useEffect(() => {
-    setCurrUser(JSON.parse(window.sessionStorage.getItem("user")))
-  }  , [])
+    setUser(JSON.parse(window.sessionStorage.getItem("user")));
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -56,8 +57,8 @@ const ListATruck = () => {
       else if(discount === 3){
         discountPCT = 0;
       }
-      console.log(`ID: ${currUser.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapcity}, Truck Load: ${truckLoad}`)
-      const addedTruck = addTruck(currUser.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, true, truckCapcity, truckLoad, dailyPrice);
+      console.log(`ID: ${user.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapcity}, Truck Load: ${truckLoad}`)
+      const addedTruck = addTruck(user.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, true, truckCapcity, truckLoad, dailyPrice);
       event.target.reset();
     }
   }

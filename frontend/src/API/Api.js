@@ -205,8 +205,8 @@ export const addTruckAmenity = async (truck_id, amenity_name, amenity_price) => 
   return response.data
 }
 
-export const addTruck = async (userID, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat,truck_image, is_available, truck_capacity, cargo_capacity, price) => {
-  const data = {owner_id:`${userID}`, model:`${model}`, make:`${make}`, year:year, mileage:mileage, max_miles:max_miles, long_discount_days:long_discount_days, 
+export const addTruck = async (user_id, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat,truck_image, is_available, truck_capacity, cargo_capacity, price) => {
+  const data = {user_id:`${user_id}`, model:`${model}`, make:`${make}`, year:year, mileage:mileage, max_miles:max_miles, long_discount_days:long_discount_days, 
     long_discount_percent:long_discount_percent, long_discount_flat:long_discount_flat, truck_image:`${truck_image}`, is_available:is_available, truck_capacity:truck_capacity, cargo_capacity:cargo_capacity, price:price}
     console.log(data)
   let response
