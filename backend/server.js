@@ -62,9 +62,10 @@ app.post('/user', (req, res) => {
 // Creates a truck and attaches it to a user by their email
 app.post('/truck', (req, res) => {
     const {email, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat, 
-        truck_image} = req.body
+        truck_image, truck_capacity, cargo_capacity, price} = req.body
     const query = `INSERT INTO truck (owner_id , model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, 
-        long_discount_flat, truck_image) VALUES ( (SELECT user_id AS this_user FROM user WHERE '${email}' = email), '${model}', '${make}', '${year}', '${mileage}', '${max_miles}', '${long_discount_days}', '${long_discount_percent}', '${long_discount_flat}', '${truck_image}')`
+        long_discount_flat, truck_image, is_available, truck_capacity, cargo_capacity, price) 
+        VALUES ( (SELECT user_id AS this_user FROM user WHERE '${email}' = email), '${model}', '${make}', '${year}', '${mileage}', '${max_miles}', '${long_discount_days}', '${long_discount_percent}', '${long_discount_flat}', '${truck_image}', 1, '${truck_capacity}', '${cargo_capacity}', '${price}')`
         connection.query(query, (err, rows, fields) => {
             if (err) throw err
 
