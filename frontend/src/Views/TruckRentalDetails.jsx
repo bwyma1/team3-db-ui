@@ -21,20 +21,20 @@ import ReviewList from "./reviewList";
 
 
 const TruckRentalDetails = () => {
-  
+
   const getNextFiveDays = () => {
     const days = [];
     const today = new Date();
-  
-    for (let i = 1; i <= 5; i++) {
+
+    for (let i = 1; i <= 12; i++) {
       const nextDay = new Date(today);
       nextDay.setDate(today.getDate() + i);
       days.push(nextDay.toISOString().split("T")[0]);
     }
-  
+
     return days;
   };
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   const selectedTruck = location.state.truck;
@@ -148,10 +148,10 @@ const TruckRentalDetails = () => {
               Long-Term Discount Days: {selectedTruck.long_discount_days} days
             </Typography>
             <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-              Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
+              Long-Term Percent Discount: {selectedTruck.long_discount_percent * 100}%
             </Typography>
             <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-              Flat Discount: {selectedTruck.long_discount_flat}
+              Flat Discount: {selectedTruck.long_discount_flat * 100}%
             </Typography>
             <div>
               <TruckAmenities truck_id={selectedTruck.truck_id} />
