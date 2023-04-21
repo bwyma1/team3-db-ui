@@ -50,7 +50,7 @@ const RentedTrucks = () => {
         }}
       >
         {rentedTrucks.map((rentedTruck) => (
-          <Card key={rentedTruck.rent_id} sx={{ minWidth: "35rem", marginBottom: "2rem" }}>
+          <Card key={rentedTruck.truck_id} sx={{ minWidth: "35rem", marginBottom: "2rem" }}>
             <CardMedia
               component="img"
               height="220rem"

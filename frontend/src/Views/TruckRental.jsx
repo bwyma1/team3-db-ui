@@ -52,7 +52,7 @@ const TruckRental = () => {
           }}>
             {trucks.map((truck) => (
               <Box
-                key={truck.id}
+                key={truck.truck_id}
                 sx={{
                   display: "flex",
                   alignItems: "center",
