@@ -19,7 +19,7 @@ const theme = createTheme();
 
 const ListAnAmenity = () => {
 
-    const [truckId, setTruckId] = useState('');
+    const [truckId, setTruckId] = useState(0);
     const [amenityName, setAmenityName] = useState('');
     const [amenityPrice, setAmenityPrice] = useState('');
     const [truckList, setTruckList] = useState([]);
@@ -29,7 +29,7 @@ const ListAnAmenity = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(`Truck ID: ${truckId}, Amenity Name: ${amenityName}, Amenity Price: ${amenityPrice}`);
-      }
+    }
 
     useEffect(() => {
         setCurrUser(JSON.parse(window.sessionStorage.getItem("user")))
@@ -63,7 +63,7 @@ const ListAnAmenity = () => {
 
     return (
         <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
+          <Container component="main" maxWidth="md">
             <CssBaseline />
             <Box
               sx={{
@@ -78,24 +78,9 @@ const ListAnAmenity = () => {
                 </Typography>
     
                 <form onSubmit={handleSubmit}>
-
-                <Select 
-                  label="Truck"
-                  fullWidth
-                  value={truckId}
-                  required
-                  onChange={(event) => setTruckId(event.target.value)}
-                  >
-    
-                  <MenuItem value="0" disabled>
-                    Select a Truck
-                  </MenuItem>
-                  
-                  {renderUserTrucks()}
-                </Select>
     
                 <Grid container spacing={2}>
-                  <Grid item xs={6}>
+                  <Grid item md={6}>
                     <TextField
                       label="Amenity Name"
                       variant="outlined"
@@ -105,7 +90,7 @@ const ListAnAmenity = () => {
                       onChange={(event) => setAmenityName(event.target.value)}
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item md={6}>
                     <TextField
                       label="Amenity Price"
                       variant="outlined"
@@ -121,7 +106,23 @@ const ListAnAmenity = () => {
                     />
                   </Grid>
                 </Grid>
+
+                <Select 
+                  label="Truck"
+                  fullWidth
+                  value={truckId}
+                  required
+                  onChange={(event) => setTruckId(event.target.value)}
+                >
     
+                  <MenuItem value="0" disabled>
+                    Select a Truck
+                  </MenuItem>
+                  
+                  {renderUserTrucks()}
+                </Select>
+    
+
                 <Button type="submit" fullWidth variant="contained" color="primary">Submit</Button>
     
               </form>

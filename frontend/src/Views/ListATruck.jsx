@@ -273,7 +273,7 @@ const ListATruck = () => {
               </Grid>
             </FormControl>
 
-            <Button type="submit" fullWidth variant="contained" color="primary">Submit</Button>
+            <Button type="submit" fullWidth variant="contained" margin="normal" color="primary">Submit</Button>
 
           </form>
         </Box>

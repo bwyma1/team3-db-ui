@@ -16,7 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { AppContext } from "../Context/AppContext";
 
 var pages = ["Homepage", "Login", "Sign Up"];
-var settings = ["Profile", "Logout", "Switch to Seller"];
+var settings = ["Profile", "Logout", "Switch to Seller", "Report Issue"];
 
 export default function ResponsiveNavbar() {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function ResponsiveNavbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   useMemo(() => {
-    if (context.currUser) pages = ["Homepage", "Truck Rental", "List A Truck", "List An Amenity"];
+    if (context.currUser) pages = ["Homepage", "Truck Rental", "Listing"];
     else pages = ["Homepage", "Login", "Sign Up"];
   }, [context.currUser, context.isSeller]);
 
