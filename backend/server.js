@@ -211,18 +211,6 @@ app.get('/user_trucks', (req, res) => {
     })
 })
 
-// get the owned trucks of a user with '/user_trucks?email='someEmail'
-app.get('/user_trucks_id', (req, res) => {
-    const id = req.query.truck_id;
-    const query = `SELECT * FROM truck WHERE truck_id = ${id};`
-    connection.query(query, (err, rows, fields) => {
-        if (err) throw err
-        res.status(200)
-        console.log("ROWS", rows);
-        res.send(rows)
-    })
-})
-
 // get the bundles of a specific user with '/user_bundles?email='someEmail'
 app.get('/user_bundles', (req, res) => {
     const email = req.query.email
@@ -289,6 +277,17 @@ app.put('/user', (req, res) => {
         })
     }
 
+})
+
+app.delete('/vehicle_to_bundle', (req, res) => {
+    const {bundle_id, truck_id} = req.body
+    console.log(req.body)
+    connection.query(`DELETE FROM bundle_vehicle AS bv WHERE bv.bundle_id=${bundle_id} AND bv.truck_id=${truck_id};`, (err, rows, fields) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send(true)
+    })
 })
 
 app.delete('/users/clear', (req, res) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBundleTrucks } from "../API/Api";
+import { getBundleTrucks, removeVehicleFromBundle } from "../API/Api";
 
 export default function BundleContent(props) {
 
@@ -17,6 +17,14 @@ export default function BundleContent(props) {
     })();
     }, [props.bundleId])
 
+    const removeTruckFromBundle = (bundleId, truckId) => {
+        if (bundleId === 0) { return; }
+        (async () => {
+            console.log("Removing truckID: ", truckId, " from bundleID: ", bundleId);
+            await removeVehicleFromBundle(bundleId, truckId);
+        })();
+    }
+
     return<>
     <div className="profile-truck">
         {truckList ? (<>
@@ -26,8 +34,9 @@ export default function BundleContent(props) {
             <h2>Bundle {props.bundleNumber} ({truckList.length} trucks)</h2>
         </>)}
         {truckList.map((truck, index) => (
-            <div key={index}>
-            <p>{truck.year} {truck.make} {truck.model}</p>
+            <div key={index} className="profile-flex-display">
+                <p>{truck.year} {truck.make} {truck.model}</p>
+                <button onClick={() => removeTruckFromBundle(props.bundleId, truck.truck_id)} className="profile-truck-edit-button">Remove</button>
             </div>
         ))}
         </>) : (<>

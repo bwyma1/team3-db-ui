@@ -137,11 +137,11 @@ export const getTruckById = async (truck_id) => {
   let response
   try {
     response = await axios.get(
-    url + `/user_trucks_id?truck_id=${truck_id}`
+    url + `/truck?truck_id=${truck_id}`
   )} catch (err) {
     console.log(err)
   }
-  return response.data["0"]
+  return response.data
 }
 
 //Gets all trucks that are currently available for rent
@@ -294,3 +294,16 @@ export const getTruckCities = async (truck_id) => {
     console.log(err);
   }
 };
+
+
+/// removes a vehicle to a bundle given a bundle_id and the truck_id of the truck you wish to delete
+export const removeVehicleFromBundle = async (bundle_id,truck_id) => {
+  const data = {bundle_id, truck_id}
+  console.log("data: ", data);
+  try {
+    await axios.delete(
+    url + `/vehicle_to_bundle`, {data:data}
+  )} catch (err) {
+    console.log(err)
+  }
+}
