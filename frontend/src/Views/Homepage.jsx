@@ -22,7 +22,7 @@ export default function Homepage() {
         }}
       >
         <Paper sx={{ p: 4, borderRadius: 2, backgroundColor: '#fff' }}>
-          <Typography component="h1" variant="h1" sx={{textAlign: "center"}}>
+          <Typography component="h1" variant="h1" sx={{ textAlign: "center" }}>
             Welcome to Truck Bros. Rental!
           </Typography>
           <Typography component="p" variant="h5" sx={{ mt: 2, textAlign: 'center' }}>
@@ -39,13 +39,13 @@ export default function Homepage() {
               <Typography component="p" variant="body1" sx={{ mt: 1, fontSize: "1.5rem" }}>
                 - Wide range of truck models and sizes
               </Typography>
-              <Typography component="p" variant="body1" sx={{fontSize: "1.5rem"}}>
+              <Typography component="p" variant="body1" sx={{ fontSize: "1.5rem" }}>
                 - Competitive pricing and discounts
               </Typography>
-              <Typography component="p" variant="body" sx={{fontSize: "1.5rem"}}>
+              <Typography component="p" variant="body" sx={{ fontSize: "1.5rem" }}>
                 - Convenient locations and availability
               </Typography>
-              <Typography component="p" variant="body1" sx={{fontSize: "1.5rem"}}>
+              <Typography component="p" variant="body1" sx={{ fontSize: "1.5rem" }}>
                 - Secure and hassle-free rental process
               </Typography>
             </Grid>
@@ -54,7 +54,7 @@ export default function Homepage() {
                 <Button
                   variant="contained"
                   onClick={() => handleNavigate('/signup')}
-                  sx={{ mt: 2, backgroundColor: '1976d2', borderColor: '#1976d2', color: '#fff', width: '20rem', mb: 2 }}
+                  sx={{ mt: 2, backgroundColor: '#1976d2', borderColor: '#1976d2', color: '#fff', width: '20rem', mb: 2 }}
                 >
                   Create an Account Right Now!
                 </Button>
@@ -67,7 +67,15 @@ export default function Homepage() {
                   Log in!
                 </Button>
               </Grid>
-            ) : null}
+            ) : (
+              <Grid item xs={8} md={2}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/8/8f/2011_Ram_Pickup_--_2011_DC.jpg"
+                  alt="Truck"
+                  style={{ maxWidth: '32rem', maxHeight: 'auto', borderRadius: '3rem'}}
+                />
+              </Grid>
+            )}
           </Grid>
         </Paper>
       </Box>

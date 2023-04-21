@@ -61,7 +61,7 @@ const TruckRental = () => {
                 }}
               >
                 <Box sx={{ mr: 2 }}>
-                  <img src={truck.truck_image} alt={truck.model} width="200" />
+                  <img src={truck.truck_image} alt={truck.model} width="400" />
                 </Box>
                 <Box>
                   <Typography component="h2" variant="h6" fontWeight="bold">
@@ -80,10 +80,10 @@ const TruckRental = () => {
                     Long-Term Discount Days: {truck.long_discount_days} days
                   </Typography>
                   <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Long-Term Percent Discount: {truck.long_discount_percent}%
+                    Long-Term Percent Discount: {truck.long_discount_percent * 100}%
                   </Typography>
                   <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Flat Discount: {truck.long_discount_flat}
+                    Flat Discount: {truck.long_discount_flat * 100}%
                   </Typography>
                   <Button
                     variant="contained"

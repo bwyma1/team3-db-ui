@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS truck(
     long_discount_flat FLOAT,
     truck_image VARCHAR(500) NOT NULL,
     is_available BOOLEAN DEFAULT 1,
+    truck_capacity FLOAT DEFAULT 4,
     price FLOAT,
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
@@ -102,13 +103,16 @@ CREATE TABLE IF NOT EXISTS user_message(
     FOREIGN KEY (parent_id) REFERENCES user_message(message_id),
     FOREIGN KEY (child_id) REFERENCES user_message(message_id)
 );
+
 CREATE TABLE IF NOT EXISTS truck_rent_info(
     truck_rent_id INT AUTO_INCREMENT PRIMARY KEY,
     truck_id INT NOT NULL,
     renter_id INT NOT NULL,
+    city VARCHAR(255) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    FOREIGN KEY (truck_id) REFERENCES truck(truck_id)
+    FOREIGN KEY (truck_id) REFERENCES truck(truck_id),
+    FOREIGN KEY (renter_id) REFERENCES user(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS city(
@@ -164,8 +168,8 @@ VALUES (
         1
     );
     
-INSERT INTO truck_rent_info (truck_id, renter_id, start_date, end_date)
-VALUES (1, 1, '2023-10-20', '2023-10-25');
+INSERT INTO truck_rent_info (truck_id, renter_id, city, start_date, end_date)
+VALUES (1, 1, 'Los Angeles','2023-10-20', '2023-10-25');
 INSERT INTO truck (
         owner_id,
         model,
@@ -178,6 +182,7 @@ INSERT INTO truck (
         long_discount_flat,
         truck_image,
         price,
+        truck_capacity,
         is_available
     )
 VALUES (
@@ -192,6 +197,7 @@ VALUES (
         0.10,
         'https://www.thedrive.com/content/2022/03/2022-Toyota-Tundra-TRD-Pro_KL_52.jpg?quality=85',
         150,
+        6,
         1
     );
 INSERT INTO truck (
@@ -206,6 +212,7 @@ INSERT INTO truck (
         long_discount_flat,
         truck_image,
         price,
+        truck_capacity,
         is_available
     )
 VALUES (
@@ -220,13 +227,14 @@ VALUES (
         0.10,
         'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200',
         250,
+        5,
         1
     );
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
-VALUES (3, 'Air Conditioning', 50),
-    (2, 'Navigation System', 100),
-    (1, 'Bluetooth Connectivity', 30),
-    (1, 'Rearview Camera', 70);
+VALUES (3, 'Dolly', 50),
+    (2, 'Bungee Cord', 25),
+    (1, 'Cooler', 30),
+    (1, 'Leather Seat Covers', 25);
     
 INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
 VALUES (1, 1, "Awesome Truck! Worked very well", "4");
