@@ -35,6 +35,10 @@ const ListATruck = () => {
   const [truckCapcity, setTruckCapacity] = useState('');
   const [truckLoad, setTruckLoad] = useState('');
   
+  useEffect(() => {
+    setCurrUser(JSON.parse(window.sessionStorage.getItem("user")))
+  }  , [])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || dailyPrice === '' || truckImage === '' || truckCapcity === '' || truckLoad === '') {
@@ -52,13 +56,11 @@ const ListATruck = () => {
       else if(discount === 3){
         discountPCT = 0;
       }
-      const addedTruck = addTruck(currUser.email, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, true, truckCapcity, truckLoad, dailyPrice);
+      console.log(`ID: ${currUser.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapcity}, Truck Load: ${truckLoad}`)
+      const addedTruck = addTruck(currUser.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, true, truckCapcity, truckLoad, dailyPrice);
       event.target.reset();
     }
   }
-  useEffect(() => {
-    setCurrUser(JSON.parse(window.sessionStorage.getItem("user")))
-}  , [])
 
   let days;
   let discountField;
