@@ -308,4 +308,26 @@ export const removeVehicleFromBundle = async (bundle_id,truck_id) => {
   }
   return response.data
 }
-  
+
+// Add a rented truck by user_id, truck_id, start_date, and end_date
+export const addToUserRentedTrucks = async (user_id, truck_id, start_date, end_date) => {
+  const data = { user_id, truck_id, start_date, end_date };
+  let response;
+  try {
+    response = await axios.post(url + '/user_rented_trucks', data);
+  } catch (err) {
+    console.log(err);
+  }
+  return response.data;
+};
+
+// Get user rented trucks by user_id
+export const getUserRentedTrucks = async (user_id) => {
+  let response;
+  try {
+    response = await axios.get(url + `/user_rented_trucks?user_id=${user_id}`);
+  } catch (err) {
+    console.log(err);
+  }
+  return response.data;
+};

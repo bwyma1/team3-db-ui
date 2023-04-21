@@ -1,23 +1,57 @@
-import React from "react";
-import { Box, Typography, Button } from "@mui/material";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Typography,
+  Button,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 import TruckAmenities from "./TruckAmenities";
-import { updateTruckAvailability } from "../API/Api";
-import { getReviewsByTruckId, addReview, getTruckCities } from "../API/Api";
-import { useEffect, useState } from "react";
+import {
+  updateTruckAvailability,
+  getReviewsByTruckId,
+  addReview,
+  getTruckCities,
+  addToUserRentedTrucks,
+} from "../API/Api";
 import ReviewForm from "./reviewForm";
 import ReviewList from "./reviewList";
-import { Select, MenuItem } from "@mui/material";
+
 
 
 const TruckRentalDetails = () => {
+  
+  const getNextFiveDays = () => {
+    const days = [];
+    const today = new Date();
+  
+    for (let i = 1; i <= 5; i++) {
+      const nextDay = new Date(today);
+      nextDay.setDate(today.getDate() + i);
+      days.push(nextDay.toISOString().split("T")[0]);
+    }
+  
+    return days;
+  };
   const navigate = useNavigate();
   const location = useLocation();
   const selectedTruck = location.state.truck;
   const [truckReviews, setTruckReviews] = useState([]);
   const [truckCities, setTruckCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
+  const [user, setUser] = useState({});
+  const [selectedEndDate, setSelectedEndDate] = useState("");
+  const availableDates = getNextFiveDays();
 
+  useEffect(() => {
+    setUser(JSON.parse(window.sessionStorage.getItem("user")));
+    setSelectedEndDate(availableDates[0]);
+  }, []);
+
+  const handleEndDateChange = (event) => {
+    setSelectedEndDate(event.target.value);
+  };
 
   useEffect(() => {
     const fetchTruckReviews = async () => {
@@ -27,6 +61,7 @@ const TruckRentalDetails = () => {
     fetchTruckReviews();
   }, [selectedTruck.truck_id]);
 
+
   useEffect(() => {
     const fetchTruckCities = async () => {
       const cities = await getTruckCities(selectedTruck.truck_id);
@@ -35,6 +70,7 @@ const TruckRentalDetails = () => {
     };
     fetchTruckCities();
   }, [selectedTruck.truck_id]);
+
 
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
@@ -50,12 +86,13 @@ const TruckRentalDetails = () => {
     }
   };
 
+
   const handleRentTruck = async () => {
     try {
-      const response = await updateTruckAvailability(selectedTruck.truck_id, false);
-      console.log(response);
-      // Navigate back to the truck list page after successfully updating the truck availability
-      navigate("/truckrental");
+      await updateTruckAvailability(selectedTruck.truck_id, false);
+      const today = new Date().toISOString().split("T")[0];
+      await addToUserRentedTrucks(user.user_id, selectedTruck.truck_id, today, selectedEndDate);
+      navigate("/currentrentals");
     } catch (err) {
       console.log(err);
     }
@@ -101,7 +138,7 @@ const TruckRentalDetails = () => {
               Max Miles: {selectedTruck.max_miles}
             </Typography>
             <Typography component="p" variant="h5" mb={1}>
-              Truck Capacity: {selectedTruck.truck_capacity} seats 
+              Truck Capacity: {selectedTruck.truck_capacity} seats
             </Typography>
             <Typography component="p" variant="h5" mb={1}>
               Owner ID: {selectedTruck.owner_id}
@@ -116,32 +153,42 @@ const TruckRentalDetails = () => {
               Flat Discount: {selectedTruck.long_discount_flat}
             </Typography>
             <div>
-            <TruckAmenities truck_id={selectedTruck.truck_id} />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                marginLeft: 4,
-              }}
-            >
-              <Typography component="p" variant="subtitle1" fontWeight="bold">
-                Location:
-              </Typography>
-              <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
-                {truckCities.map((city) => (
-                  <MenuItem key={city.city_id} value={city.name}>
-                    {city.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
-            <Button variant="contained" onClick={handleRentTruck} sx={{ mt: 2, mr: 2 }}>
-              Rent this truck
-            </Button>
-            <Button variant="outlined" sx={{ mt: 2 }} onClick={() => navigate("/truckrental")}>
-              Back to Truck Rental
-            </Button>
+              <TruckAmenities truck_id={selectedTruck.truck_id} />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  marginLeft: 4,
+                }}
+              >
+                <Typography component="p" variant="subtitle1" fontWeight="bold">
+                  Location:
+                </Typography>
+                <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
+                  {truckCities.map((city) => (
+                    <MenuItem key={city.city_id} value={city.name}>
+                      {city.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Typography component="p" variant="subtitle1" fontWeight="bold" mt={2}>
+                  End Date:
+                </Typography>
+                <Select value={selectedEndDate} onChange={handleEndDateChange} sx={{ marginTop: 1 }}>
+                  {availableDates.map((date) => (
+                    <MenuItem key={date} value={date}>
+                      {date}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Box>
+              <Button variant="contained" onClick={handleRentTruck} sx={{ mt: 2, mr: 2 }}>
+                Rent this truck
+              </Button>
+              <Button variant="outlined" sx={{ mt: 2 }} onClick={() => navigate("/truckrental")}>
+                Back to Truck Rental
+              </Button>
             </div>
           </Box>
         </Box>

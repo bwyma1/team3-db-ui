@@ -228,10 +228,10 @@ VALUES (
         1
     );
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
-VALUES (3, 'Air Conditioning', 50),
-    (2, 'Navigation System', 100),
-    (1, 'Bluetooth Connectivity', 30),
-    (1, 'Rearview Camera', 70);
+VALUES (3, 'Dolly', 50),
+    (2, 'Bungee Cord', 25),
+    (1, 'Cooler', 30),
+    (1, 'Leather Seat Covers', 25);
     
 INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
 VALUES (1, 1, "Awesome Truck! Worked very well", "4");
