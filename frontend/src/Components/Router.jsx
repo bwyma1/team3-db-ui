@@ -12,6 +12,7 @@ import TruckAmenities from "../Views/TruckAmenities";
 import RentedTrucks from "../Views/RentedTrucks";
 import Chat from "../Views/chat";
 import Listing from "../Views/Listing";
+import ReportIssue from "../Views/ReportIssue";
 
 
 export const Router = () => (
@@ -31,6 +32,7 @@ export const Router = () => (
       <Route path="listing" element={<Listing />} />
       <Route path="chat" element={<Chat />} />
       <Route path="currentrentals" element={<RentedTrucks />} />
+      <Route path="reportissue" element={<ReportIssue />} />
     </Routes>
   </BrowserRouter>
 );
