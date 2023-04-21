@@ -281,7 +281,8 @@ app.put('/user', (req, res) => {
 
 app.delete('/vehicle_to_bundle', (req, res) => {
     const {bundle_id, truck_id} = req.body
-    connection.query(`DELETE FROM bundle_vehicle AS bv WHERE bv.bundle_id=${bundle_id} AND bv.truck_id=${truck_id};`, (err, rows, feilds) => {
+    console.log(req.body)
+    connection.query(`DELETE FROM bundle_vehicle AS bv WHERE bv.bundle_id=${bundle_id} AND bv.truck_id=${truck_id};`, (err, rows, fields) => {
         if (err) throw err
 
         res.status(200)
@@ -363,5 +364,3 @@ app.put('/truck/update_availability', (req, res) => {
         res.send(rows);
     });
 });
-
-  
