@@ -279,6 +279,16 @@ app.put('/user', (req, res) => {
 
 })
 
+app.delete('/vehicle_to_bundle', (req, res) => {
+    const {bundle_id, truck_id} = req.body
+    connection.query(`DELETE FROM bundle_vehicle AS bv WHERE bv.bundle_id=${bundle_id} AND bv.truck_id=${truck_id};`, (err, rows, feilds) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send(true)
+    })
+})
+
 app.delete('/users/clear', (req, res) => {
     connection.query('DELETE FROM user;', (err, rows, feilds) => {
         if (err) throw err
