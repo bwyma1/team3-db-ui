@@ -25,8 +25,6 @@ const ListATruck = () => {
   const [year, setYear] = useState('Year');
   const [mileage, setMileage] = useState('');
   const [maxMileage, setMaxMileage] = useState('');
-  const [sDate, setSDate] = useState('');
-  const [eDate, setEDate] = useState('');
   const [discount, setDiscount] = useState(0);
   const [discountDays, setDiscountDays] = useState('');
   const [discountPCT, setDiscountPCT] = useState('');
@@ -39,7 +37,7 @@ const ListATruck = () => {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || sDate === '' || eDate === '' || discount === 0 || discountDays === '' || discountPCT === '' || discountFlat === '' || dailyPrice === '' || truckImage === '' || truckCapcity === '' || truckLoad === '') {
+    if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || dailyPrice === '' || truckImage === '' || truckCapcity === '' || truckLoad === '') {
       alert("Please fill out all fields!");
     }
     else{
@@ -57,9 +55,7 @@ const ListATruck = () => {
       const addedTruck = addTruck(currUser.email, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, true, truckCapcity, truckLoad, dailyPrice);
       event.target.reset();
     }
-    console.log(`Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Start Date: ${sDate}, End Date: ${eDate}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}`);
   }
-
   useEffect(() => {
     setCurrUser(JSON.parse(window.sessionStorage.getItem("user")))
 }  , [])
@@ -194,7 +190,7 @@ const ListATruck = () => {
                   required
                   margin="normal"
                   value={truckCapcity}
-                  onChange={(event) => truckCapcity(event.target.value)}
+                  onChange={(event) => setTruckCapacity(event.target.value)}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -204,7 +200,7 @@ const ListATruck = () => {
                   required
                   margin="normal"
                   value={truckLoad}
-                  onChange={(event) => truckLoad(event.target.value)}
+                  onChange={(event) => setTruckLoad(event.target.value)}
                 />
               </Grid>
             </Grid>
@@ -250,39 +246,6 @@ const ListATruck = () => {
                   onChange={(event) => setMaxMileage(event.target.value)}
                   InputProps={{
                     endAdornment: <InputAdornment position="end">mi</InputAdornment>,
-                  }}
-                />
-              </Grid>
-            </Grid>
-
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <TextField
-                  label="Date Available From"
-                  fullWidth
-                  variant="outlined"
-                  type="date"
-                  required
-                  margin="normal"
-                  value={sDate}
-                  onChange={(event) => setSDate(event.target.value)}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="Date Available Until"
-                  variant="outlined"
-                  fullWidth
-                  type="date"
-                  required
-                  value={eDate}
-                  margin="normal"
-                  onChange={(event) => setEDate(event.target.value)}
-                  InputLabelProps={{
-                    shrink: true,
                   }}
                 />
               </Grid>
