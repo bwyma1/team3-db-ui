@@ -1,5 +1,5 @@
 import React, { useState, useEffect }  from "react";
-import { getTrucksByEmail} from "../API/Api";
+import { addTruckAmenity, getTrucksByEmail} from "../API/Api";
 import {
         Box,
         Typography,
@@ -28,6 +28,13 @@ const ListAnAmenity = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if(truckId === 0 || amenityName === '' || amenityPrice === ''){
+            alert("Please fill out all fields!");
+        }
+        else{
+            const addedAmenity = addTruckAmenity(truckId, amenityName, amenityPrice);
+            event.target.reset();
+        }
         console.log(`Truck ID: ${truckId}, Amenity Name: ${amenityName}, Amenity Price: ${amenityPrice}`);
     }
 
