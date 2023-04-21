@@ -193,8 +193,8 @@ export const getAmenitiesByTruckId = async (truck_id) => {
   return response.data;
 };
 
-export const addTruckAmenity = async (truck_id,amenity_name,amenity_price) => {
-  const data = { amenity_name:`${amenity_name}`,amenity_price:amenity_price}
+export const addTruckAmenity = async (truck_id, amenity_name, amenity_price) => {
+  const data = { amenity_name:`${amenity_name}`, amenity_price:`${amenity_price}`}
   let response
   try {
     response = await axios.post(
