@@ -33,15 +33,56 @@
 }
 
 .profile-truck {
-  background-color: rgb(221, 221, 221);
+  background-color: rgb(200, 200, 200);
   border-radius: 1rem;
   padding-left: 0.8rem;
   padding-top: 0.1rem;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.6rem;
 }
-.profile-truck>p {
+.profile-truck-text>p {
   padding-left: 1rem;
 }
+
+.profile-truck-image {
+  width: 300px;
+  border-radius: 0.5rem;
+}
+
+.profile-truck-edit-button {
+  margin: 1rem 0.1rem 1rem 0.6rem;
+}
+
+.profile-truck-display {
+  display: flex;
+}
+
+.profile-flex-display {
+  display: flex;
+}
+
+.profile-bundle-select {
+  margin-left: 0.6rem;
+  border-radius: 0.3rem;
+}
+
+.profile-bundle-button {
+  margin: 0;
+  background-color: rgb(32,116,212);
+  color: white;
+  border: 0;
+}
+
+.profile-bundle-outer {
+  background-color: rgb(32,116,212);
+  color: white;
+  border-radius: 1rem;
+  border: 0;
+  padding-top: 0.2rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
 
 .profile-button {
   background-color: rgb(32,116,212);
@@ -52,6 +93,38 @@
   padding-bottom: 0.5rem;
   padding-left: 1.2rem;
   padding-right: 1.2rem;
+}
+
+.profile-tab-selected {
+  background-color: rgb(221, 221, 221);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border: 0;
+  font-size: large;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 1rem 2rem;
+  font-weight: bold;
+}
+
+.profile-tab-unselected {
+  background-color: rgb(196, 196, 196);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border: 0;
+  font-size: large;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 1rem 2rem;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.profile-tab-content {
+  background-color: rgb(221, 221, 221);
+  border-radius: 1rem;
+  border: 0;
+  padding: 1rem;
 }
 
 .profile-edit-button {

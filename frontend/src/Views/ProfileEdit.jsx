@@ -4,6 +4,7 @@ import { getUserByEmail, updateProfile } from "../API/Api";
 import { AppContext } from "../Context/AppContext";
 import { user } from "../Models/user";
 
+
 export default function ProfileEdit() {
     //const currUser = JSON.parse(window.sessionStorage.getItem("user"));
     const context = useContext(AppContext);

@@ -74,17 +74,17 @@ app.post('/truck', (req, res) => {
         })
 })
 
-//Gets all trucks that are currently available for rent
+// get available trucks
 app.get('/trucks', (req, res) => {
-    connection.query('SELECT * FROM truck WHERE truck_id NOT IN (SELECT truck_id FROM truck_rent_info WHERE renter_id <> -1);', (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send(rows)
-    })
-})
-
+    connection.query('SELECT * FROM truck WHERE is_available = 1 AND truck_id NOT IN (SELECT truck_id FROM truck_rent_info WHERE renter_id <> -1);', (err, rows, fields) => {
+      if (err) throw err;
+  
+      console.log(rows);
+      res.status(200);
+      res.send(rows);
+    });
+  });
+  
 // Creates new truck rent info given a truck_id
 app.post('/truck_rent_info', (req, res) => {
     const { truck_id, renter_id, start_date, end_date } = req.body
@@ -100,7 +100,7 @@ app.post('/truck_rent_info', (req, res) => {
 })
 
 // Creates a vehicle bundle profile connected to a users email
-app.post('/vehicle_bundle', (req, res) => {
+app.post('/vehicle_bundle_profile', (req, res) => {
     const {email, discount_percent, discount_flat} = req.body
     const query = `INSERT INTO vehicle_bundle_profile (owner_id, discount_percent, discount_flat)
         VALUES ( (SELECT user_id AS this_user FROM user WHERE '${email}' = email), '${discount_percent}', '${discount_flat}')`
@@ -110,6 +110,19 @@ app.post('/vehicle_bundle', (req, res) => {
         console.log(rows)
         res.status(200)
         res.send(true)
+    })
+})
+
+// Gets vehicle_bundle from email
+app.get('/vehicle_bundle_profile', (req, res) => {
+    const email = req.query.email
+    const query = `SELECT * FROM vehicle_bundle_profile WHERE owner_id IN (SELECT user_id FROM user WHERE email='${email}')`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(rows)
     })
 })
 
@@ -127,6 +140,46 @@ app.post('/vehicle_to_bundle', (req, res) => {
     })
 })
 
+// Gets vehicles with bundle_id=bundle_id
+app.get('/bundle_vehicle', (req, res) => {
+    const bundle_id = req.query.bundle_id
+    const query = `SELECT truck.* FROM truck JOIN bundle_vehicle AS bv ON truck.truck_id=bv.truck_id WHERE bv.bundle_id=${bundle_id}`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(rows)
+    })
+})
+
+// Adding amenities
+app.post('/amenity', (req, res) => {
+    const truck_id = req.query.truck_id
+    const {amenity_name,amenity_price} = req.body
+    const query = `INSERT INTO amenity (truck_id, amenity_name, amenity_price)
+        VALUES (${truck_id},'${bundle_id}', '${truck_id}')`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(true)
+    })
+})
+
+//Gets amenities on truck
+app.get('/amenity', (req, res) => {
+    const truck_id = req.query.truck_id
+    connection.query(`SELECT * FROM amenity WHERE truck_id='${truck_id}';`, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(rows)
+    })
+})
+
 app.get('/users', (req, res) => {
     connection.query('SELECT * FROM user;', (err, rows, fields) => {
         if (err) throw err
@@ -139,13 +192,25 @@ app.get('/users', (req, res) => {
 // get user with '/user?email='someEmail'
 app.get('/user', (req, res) => {
     const email = req.query.email
-    const query = `SELECT * FROM user WHERE email='${email}';`
-    connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+    const user_id = req.query.user_id
+    if(email){
+        const query = `SELECT * FROM user WHERE email='${email}';`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
 
-        res.status(200)
-        res.send(rows)
-    })
+            res.status(200)
+            res.send(rows)
+        })
+    }
+    else{
+        const query = `SELECT * FROM user WHERE user_id='${user_id}';`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+
+            res.status(200)
+            res.send(rows)
+        })
+    }
 })
 
 // get the owned trucks of a user with '/user_trucks?email='someEmail'
@@ -238,16 +303,16 @@ app.put('/user', (req, res) => {
 
 })
 
-app.get('/amenities', (req, res) => {
-    const truck_id = req.query.truck_id;
-    const query = `SELECT * FROM amenity WHERE truck_id='${truck_id}';`;
-    connection.query(query, (err, rows, fields) => {
-      if (err) throw err;
+app.delete('/vehicle_to_bundle', (req, res) => {
+    const {bundle_id, truck_id} = req.body
+    console.log(req.body)
+    connection.query(`DELETE FROM bundle_vehicle AS bv WHERE bv.bundle_id=${bundle_id} AND bv.truck_id=${truck_id};`, (err, rows, fields) => {
+        if (err) throw err
 
-      res.status(200);
-      res.send(rows);
-    });
-  });
+        res.status(200)
+        res.send(true)
+    })
+})
 
 app.delete('/users/clear', (req, res) => {
     connection.query('DELETE FROM user;', (err, rows, feilds) => {
@@ -262,25 +327,64 @@ app.listen(port, () => {
     console.log(`Example listening on port ${port}`)
 })
 
-app.delete('/truck/delete', (req, res) => {
-    const truck_id = req.query.truck_id
-    const query = `DELETE FROM truck WHERE truck_id = '${truck_id}'`
+app.put('/truck/update_availability', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const is_available = req.query.is_available;
+  
+    const query = `UPDATE truck SET is_available = ${is_available} WHERE truck_id = '${truck_id}'`;
     connection.query(query, (err, rows, fields) => {
-        if(err) throw err
+      if (err) throw err;
+  
+      res.status(200);
+      res.send("Successfully updated truck availability!");
+    });
+  });
 
-        res.status(200)
-        res.send("Successfully removed truck!")
-    })
-})
+  app.post('/reviews', (req, res) => {
+    const { user_id, truck_id, userName, review_rating, review_text } = req.body;
+    const query = `INSERT INTO truck_review (user_id, truck_id, userName, review_text, review_rating) VALUES (${user_id}, ${truck_id}, '${userName}', '${review_text}', ${review_rating})`;
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(`Error adding review: ${error.stack}`);
+        res.status(500).send('Error adding review');
+        return;
+      }
+      const review_id = results.insertId;
+      connection.query( (error, results) => {
+        res.status(201).send({
+          user_id,
+          truck_id,
+          userName,
+          review_rating,
+          review_text,
+        });
+      });
+    });
+  });
+  
+  // Get all reviews for a specific truck
+  app.get('/reviews', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const query = `SELECT * FROM truck_review WHERE truck_id=${truck_id}`;
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(`Error retrieving reviews: ${error.stack}`);
+        res.status(500).send('Error retrieving reviews');
+        return;
+      }
+      console.log(`Retrieved ${results.length} reviews`);
+      res.status(200).send(results);
+    });
+  });
 
-app.delete('/truck_rent_info/delete', (req, res) => {
-    const truck_id = req.query.truck_id
-    const query = `DELETE FROM truck_rent_info WHERE truck_id = '${truck_id}'`
-
+  app.get('/truck_cities', (req, res) => {
+    const truck_id = req.query.truck_id;
+    const query = `SELECT c.name FROM city c
+                   JOIN truck_city tc ON c.city_id = tc.city_id
+                   WHERE tc.truck_id = '${truck_id}';`;
     connection.query(query, (err, rows, fields) => {
-        if(err) throw err
-
-        res.status(200)
-        res.send("Successfully removed truck info!")
-    })
-})
+        if (err) throw err;
+        res.status(200);
+        res.send(rows);
+    });
+});

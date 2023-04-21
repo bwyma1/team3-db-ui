@@ -1,0 +1,20 @@
+.stars {
+    font-size: 1.5rem;
+    font-style: normal;
+    position: relative;
+    top: -.1rem;
+}
+
+.stars i {
+    font-style: normal;
+    padding-right: .5rem;
+}
+
+.full-star:after {
+    content: "\2605";
+}
+
+.empty-star:after {
+    content: "\2606";
+}
+
