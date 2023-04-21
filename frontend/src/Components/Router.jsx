@@ -10,6 +10,10 @@ import TruckRental from "../Views/TruckRental";
 import TruckRentalDetails from "../Views/TruckRentalDetails";
 import TruckEdit from "../Views/TruckEdit";
 
+import TruckAmenities from "../Views/TruckAmenities";
+import Chat from "../Views/chat";
+import ReportIssue from "../Views/ReportIssue";
+import Listing from "../Views/Listing";
 
 export const Router = () => (
   <BrowserRouter>
@@ -25,6 +29,10 @@ export const Router = () => (
       <Route path="truckrental" element={<TruckRental />} />
       <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
       <Route path="truckedit/:id" element={<TruckEdit />} />
+      <Route path="truckamenities" element={<TruckAmenities />} />
+      <Route path="listing" element={<Listing />} />
+      <Route path="reportissue" element={<ReportIssue />} />
+      <Route path="chat" element={<Chat />} />
     </Routes>
   </BrowserRouter>
 );
