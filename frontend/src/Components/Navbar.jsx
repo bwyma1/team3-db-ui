@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState, useEffect } from "react";
+import React, { useContext, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,7 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { AppContext } from "../Context/AppContext";
 
 var pages = ["Homepage", "Login", "Sign Up"];
-var settings = ["Profile", "Logout", "Switch to Seller"];
+var settings = ["Profile", "Logout", "Switch to Seller", "Report Issue"];
 
 export default function ResponsiveNavbar() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function ResponsiveNavbar() {
 
   useMemo(() => {
     if (context.currUser && !context.isSeller) pages = ["Homepage", "Truck Rental", "Current Rentals"];
-    else if (context.currUser && context.isSeller) pages = ["Homepage", "List a Truck"];
+    else if (context.currUser && context.isSeller) pages = ["Homepage", "Listing"];
     else pages = ["Homepage", "Login", "Sign Up"];
   }, [context.currUser, context.isSeller]);
 

@@ -365,3 +365,37 @@ app.put('/truck/update_availability', (req, res) => {
         res.send(rows);
     });
 });
+
+app.post('/user_rented_trucks', (req, res) => {
+    const { user_id, truck_id, city, start_date, end_date } = req.body;
+    if (!user_id || !truck_id || !city || !start_date || !end_date) {
+        res.status(400).send('Required fields are missing');
+        return;
+    }
+    const query = `INSERT INTO truck_rent_info (renter_id, truck_id, city, start_date, end_date) VALUES (${user_id}, ${truck_id}, '${city}', '${start_date}', '${end_date}')`;
+    connection.query(query, (error, results) => {
+        if (error) {
+            console.error(`Error saving rented truck: ${error.stack}`);
+            res.status(500).send('Error saving rented truck');
+            return;
+        }
+        res.status(201).send(true);
+    });
+});
+
+// Get user rented trucks by user_id
+app.get('/user_rented_trucks', (req, res) => {
+    const user_id = req.query.user_id;
+    const query = `SELECT t.*, tri.start_date, tri.end_date, tri.city AS selectedCity FROM truck t
+    JOIN truck_rent_info tri ON t.truck_id = tri.truck_id
+    WHERE tri.renter_id = ${user_id};`;
+    connection.query(query, (error, results) => {
+        if (error) {
+            console.error(`Error retrieving rented trucks: ${error.stack}`);
+            res.status(500).send('Error retrieving rented trucks');
+            return;
+        }
+        console.log(`Retrieved ${results.length} rented trucks`);
+        res.status(200).send(results);
+    });
+});

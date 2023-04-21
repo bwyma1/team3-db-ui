@@ -22,7 +22,17 @@ export default function BundleContent(props) {
         (async () => {
             console.log("Removing truckID: ", truckId, " from bundleID: ", bundleId);
             await removeVehicleFromBundle(bundleId, truckId);
+            (async () => {
+                const res = await getBundleTrucks(props.bundleId);
+                if (res) {
+                  //console.log("trucks in bundle: ", res);
+                  setTruckList(res);
+                } else {
+                  //alert("error invalid email");
+                }
+            })();
         })();
+        
     }
 
     return<>
