@@ -59,13 +59,13 @@ app.post('/user', (req, res) => {
     })
 })
 
-// Creates a truck and attaches it to a user by their user id
+// adds truck listing based on user_id (user_id = owner_id)
 app.post('/truck', (req, res) => {
     const {user_id, model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat, 
         truck_image, truck_capacity, cargo_capacity, price} = req.body
     const query = `INSERT INTO truck (owner_id , model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, 
         long_discount_flat, truck_image, is_available, truck_capacity, cargo_capacity, price) 
-        VALUES ( (SELECT user_id AS user_id FROM user WHERE '${user_id}' = user_id), '${model}', '${make}', '${year}', '${mileage}', '${max_miles}', '${long_discount_days}', '${long_discount_percent}', '${long_discount_flat}', '${truck_image}', 1, '${truck_capacity}', '${cargo_capacity}', '${price}')`
+        VALUES ('${user_id}', '${model}', '${make}', '${year}', '${mileage}', '${max_miles}', '${long_discount_days}', '${long_discount_percent}', '${long_discount_flat}', '${truck_image}', 1, '${truck_capacity}', '${cargo_capacity}', '${price}')`
         connection.query(query, (err, rows, fields) => {
             if (err) throw err
 
@@ -74,6 +74,7 @@ app.post('/truck', (req, res) => {
             res.send(true)
         })
 })
+
 
 // get available trucks
 app.get('/trucks', (req, res) => {
