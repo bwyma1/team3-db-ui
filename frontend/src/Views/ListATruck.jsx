@@ -1,4 +1,5 @@
 import React, { useState, useEffect }  from "react";
+import { useNavigate } from "react-router-dom";
 import {
         Box,
         Typography,
@@ -34,6 +35,8 @@ const ListATruck = () => {
   const [truckImage, setTruckImage] = useState('');
   const [truckCapacity, setTruckCapacity] = useState('');
   const [cargoCapacity, setCargoCapacity] = useState('');
+  const navigate = useNavigate();
+
 
   
   useEffect(() => {
@@ -60,6 +63,8 @@ const ListATruck = () => {
       console.log(`ID: ${user.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapacity}, Truck Capacity: ${cargoCapacity}`)
       const addedTruck = addTruck(user.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, truckCapacity, cargoCapacity, dailyPrice);
       event.target.reset();
+      // navigate to profile page
+      navigate("/profile");
     }
   }
 
