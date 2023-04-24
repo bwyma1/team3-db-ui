@@ -50,14 +50,22 @@ app.get('/db', (req, res) => {
 app.post('/user', (req, res) => {
     const {email, user_name, password, security_question, security_question_answer} = req.body
     const query = `INSERT INTO user (email, user_name, password, security_question, security_question_answer) VALUES ('${email}', '${user_name}', '${password}', '${security_question}', '${security_question_answer}')`
+    
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send(true)
+      if (err) throw err
+  
+      const selectQuery = `SELECT * FROM user WHERE email = '${email}'`;
+  
+      connection.query(selectQuery, (err, rows, fields) => {
+        if (err) throw err;
+  
+        const createdUser = rows[0];
+  
+        res.status(200).json(createdUser);
+      });
     })
-})
+  })
+  
 
 // adds truck listing based on user_id (user_id = owner_id)
 app.post('/truck', (req, res) => {

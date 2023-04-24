@@ -20,9 +20,6 @@ export default function SignUp() {
   const [sq, setSq] = useState(0);
   const [sqText, setSqText] = useState("");
   const sqChange = (event) => setSq(event.target.value);
-  // const [errorEmail, setErrorEmail] = useState(false);
-  // const [errorName, setErrorName] = useState(false);
-  // const [errorPassword, setErrorPassword] = useState(false);
 
   useEffect(() => {
     if (sq === 1) {
@@ -34,11 +31,11 @@ export default function SignUp() {
     }
   }, [sq]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
-    addUser(
+  
+    const createdUser = await addUser(
       new user(
         data.get("email"),
         data.get("uname"),
@@ -48,18 +45,29 @@ export default function SignUp() {
         data.get("user_id")
       )
     );
-    context.setCurrUser(
-      new user(
-        data.get("email"),
-        data.get("uname"),
-        data.get("password"),
-        sqText,
-        data.get("sq_answer"),
-        data.get("user_id")
-      )
-    );
-    navigate("/");
+  
+    console.log("Created user:", createdUser);
+  
+    if (createdUser) {
+      context.setCurrUser(
+        new user(
+          createdUser.email,
+          createdUser.user_name,
+          createdUser.password,
+          createdUser.security_question,
+          createdUser.security_question_answer,
+          createdUser.user_id
+        )
+      );
+      navigate("/");
+    } else {
+      console.error("Error: User not created.");
+    }
   };
+  
+  
+
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

@@ -27,13 +27,22 @@ export const sendJSON = (user) => {
 ///╚██████╔╝██████╔╝███████╗██║░░██║
 ///░╚═════╝░╚═════╝░╚══════╝╚═╝░░╚═╝
 
-export const addUser = (user) => {
-   axios.post(url + '/user', user).then((res) => {
-     console.log(JSON.stringify(res.data))
-   }).catch((err) => {
-         console.log(err)
-  })
-}
+export const addUser = async (user) => {
+  try {
+    const response = await axios.post(url + "/user", user);
+    console.log("addUser response:", response); // Add this line
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error("Error: User data not saved properly.");
+      return null;
+    }
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 
   export  const getUsers = () => {
     axios.get(url + '/users').then((res) => {
