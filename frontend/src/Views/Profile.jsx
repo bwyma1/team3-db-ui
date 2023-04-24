@@ -9,6 +9,7 @@ import {
 } from "../API/Api";
 import BundleContent from "./BundleContent";
 import AddToBundle from "./AddToBundle";
+import AmenityListing from "./AmenityListing";
 //import Box from "@mui/material/Box";
 //import IconButton from "@mui/material/IconButton";
 //import Avatar from "@mui/material/Avatar";
@@ -115,10 +116,9 @@ export default function Profile() {
             <h3>{user.email ?? "Loading..."}</h3>
           </div>
         </div>
-        <p>User Id: {response.user_id}</p>
-        <p>Bio: {response.bio ?? "None set"}</p>
+        <p>{response.bio ?? "No bio set"}</p>
         <p>Location: {response.location ?? "None set"}</p>
-        <p>Phone Number: {response.phone ?? "None set"}</p>
+        <p>Phone: {response.phone ?? "None set"}</p>
         <button onClick={navigateToPage} className="profile-button">
           Edit Profile
         </button>
@@ -193,6 +193,9 @@ export default function Profile() {
                           Long Discount Percent: {truck.long_discount_percent}%
                         </p>
                       </div>
+                    </div>
+                    <div className="profile-amenities">
+                      <AmenityListing truckId={truck.truck_id} />
                     </div>
                   </div>
                   <br></br>
