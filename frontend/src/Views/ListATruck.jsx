@@ -32,8 +32,8 @@ const ListATruck = () => {
   const [dailyPrice, setDailyPrice] = useState('');
   const [user, setUser] = useState({})
   const [truckImage, setTruckImage] = useState('');
-  const [truckCapcity, setTruckCapacity] = useState('');
-  const [truckLoad, setTruckLoad] = useState('');
+  const [truckCapacity, setTruckCapacity] = useState('');
+  const [cargoCapacity, setCargoCapacity] = useState('');
 
   
   useEffect(() => {
@@ -42,7 +42,7 @@ const ListATruck = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || dailyPrice === '' || truckImage === '' || truckCapcity === '' || truckLoad === '') {
+    if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || dailyPrice === '' || truckImage === '' || truckCapacity === '' || cargoCapacity === '') {
       alert("Please fill out all fields!");
     }
     else{
@@ -57,8 +57,8 @@ const ListATruck = () => {
       else if(discount === 3){
         discountPCT = 0;
       }
-      console.log(`ID: ${user.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapcity}, Truck Load: ${truckLoad}`)
-      const addedTruck = addTruck(user.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, true, truckCapcity, truckLoad, dailyPrice);
+      console.log(`ID: ${user.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapacity}, Truck Capacity: ${cargoCapacity}`)
+      const addedTruck = addTruck(user.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, truckCapacity, cargoCapacity, dailyPrice);
       event.target.reset();
     }
   }
@@ -192,7 +192,7 @@ const ListATruck = () => {
                   variant="outlined"
                   required
                   margin="normal"
-                  value={truckCapcity}
+                  value={truckCapacity}
                   onChange={(event) => setTruckCapacity(event.target.value)}
                 />
               </Grid>
@@ -202,8 +202,8 @@ const ListATruck = () => {
                   variant="outlined"
                   required
                   margin="normal"
-                  value={truckLoad}
-                  onChange={(event) => setTruckLoad(event.target.value)}
+                  value={cargoCapacity}
+                  onChange={(event) => setCargoCapacity(event.target.value)}
                 />
               </Grid>
             </Grid>
