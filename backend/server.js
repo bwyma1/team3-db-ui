@@ -154,7 +154,7 @@ app.post('/amenity', (req, res) => {
     const truck_id = req.query.truck_id
     const {amenity_name,amenity_price} = req.body
     const query = `INSERT INTO amenity (truck_id, amenity_name, amenity_price)
-        VALUES (${truck_id},'${bundle_id}', '${truck_id}')`
+        VALUES (${truck_id},'${amenity_name}', '${amenity_price}')`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 

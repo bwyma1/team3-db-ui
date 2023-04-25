@@ -14,6 +14,7 @@ import {
         CssBaseline,
         Grid
       } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -23,6 +24,7 @@ const ListAnAmenity = () => {
     const [amenityName, setAmenityName] = useState('');
     const [amenityPrice, setAmenityPrice] = useState('');
     const [truckList, setTruckList] = useState([]);
+    const navigate = useNavigate();
 
     const [currUser, setCurrUser] = useState({})
 
@@ -34,8 +36,9 @@ const ListAnAmenity = () => {
         else{
             const addedAmenity = addTruckAmenity(truckId, amenityName, amenityPrice);
             event.target.reset();
+            navigate("/profile");
+
         }
-        console.log(`Truck ID: ${truckId}, Amenity Name: ${amenityName}, Amenity Price: ${amenityPrice}`);
     }
 
     useEffect(() => {
