@@ -152,7 +152,7 @@ export default function ResponsiveNavbar() {
               textDecoration: "none",
             }}
           >
-            Trucks Brotha
+            Truck Bros.
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
