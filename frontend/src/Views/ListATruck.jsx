@@ -306,29 +306,36 @@ const ListATruck = () => {
               label="Cities"
               variant="outlined"
               fullWidth
-              required
               margin="normal"
               value={cityInput}
               onChange={(event) => setCityInput(event.target.value)}
             />
 
-            <Button
-              variant="contained"
-              margin="normal"
-              color="primary"
-              onClick={handleAddCity}
-            >
-              Add City
-            </Button>
+            <Box marginBottom={2}>
+              <Button
+                variant="contained"
+                margin="normal"
+                color="primary"
+                onClick={handleAddCity}
+                disabled={!cityInput}
+              >
+                Add City
+              </Button>
+            </Box>
 
             {cities.map((city, index) => (
-              <Box key={index} display="flex" alignItems="center">
-                <Typography variant="subtitle1" mr={1}>{city}</Typography>
-                <Button variant="outlined" size="small" onClick={() => handleRemoveCity(index)}>Remove</Button>
+              <Box key={index} display="flex" alignItems="center" marginBottom={1}>
+                <Typography variant="subtitle1" sx={{ marginRight: 2 }}>{city}</Typography>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => handleRemoveCity(index)}
+                  sx={{ marginLeft: "auto" }} // Add marginLeft auto to the "Remove" button
+                >
+                  Remove
+                </Button>
               </Box>
             ))}
-
-
             <TextField
               label="Truck Image URL"
               variant="outlined"
