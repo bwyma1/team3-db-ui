@@ -59,6 +59,7 @@ export default function ResponsiveNavbar() {
       sessionStorage.clear();
       context.setCurrUser(null);
       context.setIsSeller(false);
+      settings[2] = "Switch to Seller";
       navigate(`/`);
     } else if (setting === "Switch to Seller") {
       setAnchorElUser(null);
