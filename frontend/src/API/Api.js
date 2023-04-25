@@ -227,7 +227,7 @@ export const addTruck = async (user_id, model, make, year, mileage, max_miles, l
   return response
 }
 
-export const updateTruck = async (id, year, make, model, mileage, maxMiles, ldDays, ldFlat, ldPercent) => {
+export const updateTruck = async (id, year, make, model, mileage, maxMiles, ldDays, ldFlat, ldPercent,truck_capacity,cargo_capacity,price) => {
   const data = { year: `${year}`, 
     make: `${make}`,
     model: `${model}`,
@@ -235,7 +235,10 @@ export const updateTruck = async (id, year, make, model, mileage, maxMiles, ldDa
     max_miles: `${maxMiles}`,
     long_discount_days: `${ldDays}`,
     long_discount_flat: `${ldFlat}`,
-    long_discount_percent: `${ldPercent}` 
+    long_discount_percent: `${ldPercent}`,
+    truck_capacity:truck_capacity,
+    cargo_capacity:cargo_capacity,
+    price:price
 }
   let response
   try {

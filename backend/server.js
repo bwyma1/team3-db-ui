@@ -95,6 +95,33 @@ app.get('/trucks', (req, res) => {
     });
   });
   
+app.get('/truck', (req, res) => {
+    const truck_id = req.query.truck_id
+    connection.query(`SELECT * FROM truck WHERE truck_id=${truck_id};`, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send(rows)
+    })
+})
+
+app.put('/truck', (req, res) => {
+    const truck_id = req.query.truck_id
+    const {model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat, 
+        truck_image, truck_capacity, cargo_capacity, price} = req.body
+    const query = `UPDATE truck SET model='${model}', make='${make}', year='${year}', mileage='${mileage}', max_miles='${max_miles}', long_discount_days='${long_discount_days}', long_discount_percent='${long_discount_percent}', 
+        long_discount_flat='${long_discount_flat}', truck_image='${truck_image}', truck_capacity='${truck_capacity}', cargo_capacity='${cargo_capacity}', price='${price}' 
+        WHERE truck_id=${truck_id};`
+        connection.query(query, (err, rows, fields) => {
+            if (err) throw err
+
+            console.log(rows)
+            res.status(200)
+            res.send(true)
+        })
+})
+
 // Creates a vehicle bundle profile connected to a users email
 app.post('/vehicle_bundle_profile', (req, res) => {
     const {email, discount_percent, discount_flat} = req.body
