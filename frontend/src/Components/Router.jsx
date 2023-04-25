@@ -7,6 +7,7 @@ import ProfileEdit from "../Views/ProfileEdit";
 import SignUp from "../Views/SignUp";
 import ResponsiveNavbar from "./Navbar";
 import TruckRental from "../Views/TruckRental";
+import TruckEdit from "../Views/TruckEdit";
 import TruckRentalDetails from "../Views/TruckRentalDetails";
 import TruckAmenities from "../Views/TruckAmenities";
 import RentedTrucks from "../Views/RentedTrucks";
@@ -33,6 +34,7 @@ export const Router = () => (
       <Route path="chat" element={<Chat />} />
       <Route path="currentrentals" element={<RentedTrucks />} />
       <Route path="reportissue" element={<ReportIssue />} />
+      <Route path="truckedit/:id" element={<TruckEdit />} />
     </Routes>
   </BrowserRouter>
 );

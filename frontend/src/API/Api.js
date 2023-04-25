@@ -198,7 +198,7 @@ export const getAmenitiesByTruckId = async (truck_id) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(response);
+  //console.log(response);
   return response.data;
 };
 
@@ -222,6 +222,27 @@ export const addTruck = async (user_id, model, make, year, mileage, max_miles, l
     response = await axios.post(
     url + `/truck`, data
   )} catch (err) {
+    console.log(err)
+  }
+  return response.data
+}
+
+export const updateTruck = async (id, year, make, model, mileage, maxMiles, ldDays, ldFlat, ldPercent) => {
+  const data = { year: `${year}`, 
+    make: `${make}`,
+    model: `${model}`,
+    mileage: `${mileage}`,
+    max_miles: `${maxMiles}`,
+    long_discount_days: `${ldDays}`,
+    long_discount_flat: `${ldFlat}`,
+    long_discount_percent: `${ldPercent}` 
+}
+  let response
+  try {
+    response = await axios.put(
+      url + `/truck?truck_id=${id}`, data
+    )
+  } catch (err) {
     console.log(err)
   }
   return response.data

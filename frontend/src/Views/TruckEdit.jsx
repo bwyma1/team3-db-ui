@@ -1,13 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import React, { useState, useContext, useEffect } from "react";
-import { getTruckById, getTrucksByEmail, getUserByEmail, updateProfile } from "../API/Api";
-import { AppContext } from "../Context/AppContext";
-import { user } from "../Models/user";
+import React, { useState, useEffect } from "react";
+import { getTruckById } from "../API/Api";
 
 export default function TruckEdit() {
     const { id } = useParams();
 
-    const [profile, setProfile] = useState({});
     const [response, setResponse] = useState({});
 
     const [truck, setTruck] = useState(null);
@@ -29,16 +26,25 @@ export default function TruckEdit() {
     const lDPercentChange = (event) => updateTruck('long_distance_percent', event.target.value);
 
 
-    useEffect(() => {
-        setProfile(JSON.parse(window.sessionStorage.getItem("user")))
-      }, [])
-
     const navigate = useNavigate();
     const backButton = () => {
         navigate(`/profile`);
     };
 
     const confirmButton = () => {
+      (async () => {
+        await updateTruck(
+          truck.truck_id,
+          truck.year,
+          truck.make,
+          truck.model,
+          truck.mileage,
+          truck.max_miles,
+          truck.long_distance_days,
+          truck.long_distance_flat,
+          truck.long_distance_percent
+        );
+      })();
         navigate(`/profile`);
     };
 
