@@ -1,22 +1,24 @@
-import React, { useState, useEffect }  from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-        Box,
-        Typography,
-        Button,
-        TextField,
-        Select,
-        MenuItem,
-        FormControl,
-        InputAdornment,
-        ThemeProvider,
-        createTheme,
-        Container,
-        CssBaseline,
-        Grid
-      } from "@mui/material";
-import { addTruck } from "../API/Api";
-      
+  Box,
+  Typography,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputAdornment,
+  ThemeProvider,
+  createTheme,
+  Container,
+  CssBaseline,
+  Grid,
+  InputLabel,
+  Input
+} from "@mui/material";
+import { addTruck, postCity, postTruckCity, getCity } from "../API/Api";
+
 
 const theme = createTheme();
 
@@ -35,38 +37,67 @@ const ListATruck = () => {
   const [truckImage, setTruckImage] = useState('');
   const [truckCapacity, setTruckCapacity] = useState('');
   const [cargoCapacity, setCargoCapacity] = useState('');
+  const [cityInput, setCityInput] = useState('');
+  const [cities, setCities] = useState([]);
   const navigate = useNavigate();
 
 
-  
+
   useEffect(() => {
     setUser(JSON.parse(window.sessionStorage.getItem("user")));
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (make === '' || model === '' || year === 'Year' || mileage === '' || maxMileage === '' || dailyPrice === '' || truckImage === '' || truckCapacity === '' || cargoCapacity === '') {
       alert("Please fill out all fields!");
     }
-    else{
-      if(discount === 1){
+    else {
+      if (discount === 1) {
         discountDays = 0;
         discountPCT = 0;
         discountFlat = 0;
       }
-      else if(discount === 2){
+      else if (discount === 2) {
         discountFlat = 0;
       }
-      else if(discount === 3){
+      else if (discount === 3) {
         discountPCT = 0;
       }
       console.log(`ID: ${user.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapacity}, Truck Capacity: ${cargoCapacity}`)
-      const addedTruck = addTruck(user.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, truckCapacity, cargoCapacity, dailyPrice);
+      const addedTruck = await addTruck(user.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, truckCapacity, cargoCapacity, dailyPrice);
+      const truckId = addedTruck.data.truck_id;
+      if (cities.length > 0) {
+        // Add cities to the database and associate them with the truck
+        for (const cityName of cities) {
+          let cityData = await getCity(cityName);
+          if (!cityData || cityData.length === 0) {
+            await postCity(cityName);
+            cityData = await getCity(cityName);
+          }
+          const cityId = cityData[0].city_id;
+          await postTruckCity(truckId, cityId);
+        }
+      }
       event.target.reset();
       // navigate to profile page
       navigate("/profile");
     }
   }
+  const handleAddCity = (event) => {
+    event.preventDefault();
+    if (cityInput !== '') {
+      setCities([...cities, cityInput]);
+      setCityInput('');
+    }
+  };
+
+  const handleRemoveCity = (cityIndex) => {
+    const newCities = [...cities];
+    newCities.splice(cityIndex, 1);
+    setCities(newCities);
+  }
+
 
   let days;
   let discountField;
@@ -89,13 +120,13 @@ const ListATruck = () => {
       );
 
       discountField = (
-        <TextField 
-          label="Discount %" 
+        <TextField
+          label="Discount %"
           variant="outlined"
           type="number"
           required
           margin="normal"
-          value={discountPCT} 
+          value={discountPCT}
           onChange={(event) => setDiscountPCT(event.target.value)}
           InputProps={{
             endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -117,13 +148,13 @@ const ListATruck = () => {
       );
 
       discountField = (
-        <TextField 
-          label="Discount $" 
+        <TextField
+          label="Discount $"
           variant="outlined"
           type="number"
           required
           margin="normal"
-          value={discountFlat} 
+          value={discountFlat}
           onChange={(event) => setDiscountFlat(event.target.value)}
           InputProps={{
             startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -213,18 +244,18 @@ const ListATruck = () => {
               </Grid>
             </Grid>
 
-            <Select 
+            <Select
               label="Year"
               fullWidth
               value={year}
               required
               onChange={(event) => setYear(event.target.value)}
-              >
+            >
 
               <MenuItem value="Year" disabled>
                 Year
               </MenuItem>
-              
+
               {renderYearOptions()}
             </Select>
 
@@ -258,19 +289,45 @@ const ListATruck = () => {
                 />
               </Grid>
             </Grid>
-            <TextField 
-              label="Daily Price" 
+            <TextField
+              label="Daily Price"
               variant="outlined"
               type="number"
               fullWidth
               required
               margin="normal"
-              value={dailyPrice} 
+              value={dailyPrice}
               onChange={(event) => setDailyPrice(event.target.value)}
               InputProps={{
                 startAdornment: <InputAdornment position="start">$</InputAdornment>,
               }}
             />
+            <TextField
+              label="Cities"
+              variant="outlined"
+              fullWidth
+              required
+              margin="normal"
+              value={cityInput}
+              onChange={(event) => setCityInput(event.target.value)}
+            />
+
+            <Button
+              variant="contained"
+              margin="normal"
+              color="primary"
+              onClick={handleAddCity}
+            >
+              Add City
+            </Button>
+
+            {cities.map((city, index) => (
+              <Box key={index} display="flex" alignItems="center">
+                <Typography variant="subtitle1" mr={1}>{city}</Typography>
+                <Button variant="outlined" size="small" onClick={() => handleRemoveCity(index)}>Remove</Button>
+              </Box>
+            ))}
+
 
             <TextField
               label="Truck Image URL"
@@ -282,10 +339,10 @@ const ListATruck = () => {
               onChange={(event) => setTruckImage(event.target.value)}
             />
 
-            <FormControl  fullWidth
-                          sx={{
-                            margin: "normal"
-                          }}
+            <FormControl fullWidth
+              sx={{
+                margin: "normal"
+              }}
             >
               <Select label="Discount?" required value={discount} onChange={(event) => setDiscount(event.target.value)}>
                 <MenuItem value="0" disabled> Discount? </MenuItem>
@@ -293,7 +350,7 @@ const ListATruck = () => {
                 <MenuItem value="2">Yes - % Discount</MenuItem>
                 <MenuItem value="3">Yes - $ Discount</MenuItem>
               </Select>
-              
+
               <Grid container spacing={2}>
                 <Grid item xs={6}>
                   {days}

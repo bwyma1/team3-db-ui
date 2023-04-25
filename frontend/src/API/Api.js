@@ -224,7 +224,7 @@ export const addTruck = async (user_id, model, make, year, mileage, max_miles, l
   )} catch (err) {
     console.log(err)
   }
-  return response.data
+  return response
 }
 
 export const updateTruck = async (id, year, make, model, mileage, maxMiles, ldDays, ldFlat, ldPercent) => {
@@ -359,4 +359,34 @@ export const getUserRentedTrucks = async (user_id) => {
     console.log(err);
   }
   return response.data;
+};
+
+export const postCity = async (name) => {
+  try {
+      const response = await axios.post(`${url}/city`, {name});
+      console.log(response.data);
+      return response.data;
+  } catch (error) {
+      console.error('Error while posting city:', error);
+  }
+};
+
+export const getCity = async (name) => {
+  try {
+      const response = await axios.get(`${url}/city?name=${name}`);
+      console.log(response.data);
+      return response.data;
+  } catch (error) {
+      console.error('Error while getting city:', error);
+  }
+};
+
+// Add a truck-city relationship
+export const postTruckCity = async (truck_id, city_id) => {
+  try {
+      const response = await axios.post(`${url}/truck_city`, {truck_id, city_id});
+      console.log(response.data);
+  } catch (error) {
+      console.error('Error while posting truck-city relationship:', error);
+  }
 };

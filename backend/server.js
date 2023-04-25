@@ -79,7 +79,7 @@ app.post('/truck', (req, res) => {
 
             console.log(rows)
             res.status(200)
-            res.send(true)
+            res.json({ truck_id: rows.insertId });
         })
 })
 
@@ -408,3 +408,43 @@ app.get('/user_rented_trucks', (req, res) => {
         res.status(200).send(results);
     });
 });
+
+app.post('/city', (req, res) => {
+    const {name} = req.body;
+    const query = `INSERT INTO city (name) VALUES ('${name}')`;
+
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err;
+
+        console.log(rows);
+        res.status(200).send(true);
+    });
+});
+
+// get city id by name
+app.get('/city', (req, res) => {
+    const {name} = req.query;
+    const query = `SELECT city_id FROM city WHERE name = '${name}'`;
+
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err;
+
+        console.log(rows);
+        res.status(200).send(rows);
+    });
+});
+
+
+// Add a truck-city relationship
+app.post('/truck_city', (req, res) => {
+    const {truck_id, city_id} = req.body;
+    const query = `INSERT INTO truck_city (truck_id, city_id) VALUES ('${truck_id}', '${city_id}')`;
+
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err;
+
+        console.log(rows);
+        res.status(200).send(true);
+    });
+});  
+
