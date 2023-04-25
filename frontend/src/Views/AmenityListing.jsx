@@ -10,7 +10,7 @@ export default function AmenityListing(props) {
         const res = await getAmenitiesByTruckId(props.truckId);
         if (res) {
           //console.log("trucks in bundle: ", res);
-          console.log(res);
+          //console.log(res);
           setAmenityList(res);
         } else {
           //alert("error invalid email");

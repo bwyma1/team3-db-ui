@@ -10,6 +10,7 @@ import {
 import BundleContent from "./BundleContent";
 import AddToBundle from "./AddToBundle";
 import AmenityListing from "./AmenityListing";
+import Listing from "./Listing";
 //import Box from "@mui/material/Box";
 //import IconButton from "@mui/material/IconButton";
 //import Avatar from "@mui/material/Avatar";
@@ -201,7 +202,6 @@ export default function Profile() {
                   <br></br>
                 </div>
               ))}
-              <button className="profile-button">Add Truck</button>
             </>
           ) : (
             <>
