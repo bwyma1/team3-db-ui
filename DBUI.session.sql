@@ -158,8 +158,8 @@ INSERT INTO truck (
     )
 VALUES (
         1,
-        'Ford-F150',
-        'make',
+        'F150',
+        'Ford',
         '2019',
         '20000',
         100000,
@@ -193,8 +193,8 @@ INSERT INTO truck (
     )
 VALUES (
         1,
-        'Toyota Tundra',
-        'make',
+        'Tundra',
+        'Toyota',
         '2018',
         '30000',
         200000,
@@ -225,8 +225,8 @@ INSERT INTO truck (
     )
 VALUES (
         1,
-        'Chevrolet Colorado',
-        'make',
+        'Colorado',
+        'Chevrolet',
         '2017',
         '10000',
         120000,
