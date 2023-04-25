@@ -164,7 +164,7 @@ VALUES (
         '20000',
         10000,
         7,
-        0.10,
+        10,
         0,
         'https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg',
         1,
