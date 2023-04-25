@@ -162,19 +162,19 @@ VALUES (
         'Ford',
         '2019',
         '20000',
-        100000,
+        10000,
         7,
         0.10,
         0,
         'https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg',
         1,
         4,
-        50,
-        200
+        3325,
+        25
     );
     
 INSERT INTO truck_rent_info (truck_id, renter_id, city, start_date, end_date)
-VALUES (1, 1, 'Los Angeles','2023-10-20', '2023-10-25');
+VALUES (1, 1, 'Los Angeles','2023-4-20', '2023-5-20');
 INSERT INTO truck (
         owner_id,
         model,
@@ -199,13 +199,13 @@ VALUES (
         '30000',
         200000,
         10,
-        0.20,
         0,
+        10,
         'https://www.thedrive.com/content/2022/03/2022-Toyota-Tundra-TRD-Pro_KL_52.jpg?quality=85',
         1,
         4,
-        50,
-        400
+        1800,
+        30
     );
 INSERT INTO truck (
         owner_id,
@@ -229,24 +229,48 @@ VALUES (
         'Chevrolet',
         '2017',
         '10000',
-        120000,
-        4,
-        0.15,
+        500,
+        2,
         0,
+        5,
         'https://www.cnet.com/a/img/resize/785d12a9befd2c0b2694863211aa382e9757b9e6/hub/2021/01/20/3d68a07f-1113-4789-aa40-ec77ca5e7d05/colorado-promo.jpg?auto=webp&fit=crop&height=675&width=1200',
         1,
         4,
-        75,
-        350
+        2000,
+        33
     );
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
-VALUES (3, 'Dolly', 50),
-    (2, 'Bungee Cord', 25),
+VALUES (3, 'Dolly', 6),
+    (2, 'Bungee Cord', 2),
     (1, 'Cooler', 30),
     (1, 'Leather Seat Covers', 25);
+
+INSERT INTO vehicle_bundle_profile (
+    owner_id,
+    discount_percent,
+    discount_flat
+)
+VALUES (
+    1,
+    0.3,
+    0
+);
+
+INSERT INTO bundle_vehicle (
+    bundle_id,
+    truck_id
+)
+VALUES (1, 2),
+    (1, 3);
+
     
 INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
-VALUES (1, 1, "Awesome Truck! Worked very well", "4");
+VALUES (
+        1, 
+        1, 
+        "Awesome Truck! Worked very well", 
+        "4"
+    );
 INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
 VALUES (
         1,

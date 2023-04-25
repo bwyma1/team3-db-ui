@@ -327,6 +327,23 @@ app.delete('/vehicle_to_bundle', (req, res) => {
     })
 })
 
+app.delete('/truck/delete', (req, res) => {
+    const truck_id = req.query.truck_id
+    const query = `DELETE FROM truck WHERE truck_id = ${truck_id};`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send("Successfully deleted truck!")
+    })
+})
+
+app.delete('/bundle/delete', (req, res) => {
+    const bundle_id = req.query.bundle_id
+    const query = `DELETE FROM vehicle_bundle_profile WHERE bundle_id = ${bundle_id};
+    DELETE FROM truck`
+})
+
 app.delete('/users/clear', (req, res) => {
     connection.query('DELETE FROM user;', (err, rows, feilds) => {
         if (err) throw err
