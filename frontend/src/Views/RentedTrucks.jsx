@@ -18,10 +18,11 @@ const RentedTrucks = () => {
   const [updatedCity, setUpdatedCity] = useState('');
 
   useEffect(() => {
-    if (availableDates.length > 0) {
-      setUpdatedEndDate(availableDates[0]);
+    if (editingTruck) {
+      setUpdatedEndDate(editingTruck.end_date);
     }
-  }, [availableDates]);
+  }, [editingTruck]);
+    
 
   useEffect(() => {
     if (truckCities.length > 0) {
@@ -32,15 +33,20 @@ const RentedTrucks = () => {
   const getNextTwelveDays = () => {
     const days = [];
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     for (let i = 1; i <= 12; i++) {
       const nextDay = new Date(today);
       nextDay.setDate(today.getDate() + i);
-      days.push(nextDay.toISOString().split("T")[0]);
+      const year = nextDay.getFullYear();
+      const month = String(nextDay.getMonth() + 1).padStart(2, "0");
+      const day = String(nextDay.getDate()).padStart(2, "0");
+      days.push(`${year}-${month}-${day}`);
     }
-
+  
     return days;
   };
+  
 
   useEffect(() => {
     setAvailableDates(getNextTwelveDays());
@@ -60,12 +66,14 @@ const RentedTrucks = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    const year = localDate.getFullYear();
+    const month = String(localDate.getMonth() + 1).padStart(2, "0");
+    const day = String(localDate.getDate() + 1).padStart(2, "0");
+  
     return `${year}-${month}-${day}`;
   };
+  
 
   const handleSaveClick = async () => {
     try {
@@ -73,7 +81,7 @@ const RentedTrucks = () => {
       setOpenDialog(false);
       const updatedRentedTrucks = rentedTrucks.map((truck) =>
         truck.truck_rent_id === editingTruck.truck_rent_id
-          ? { ...truck, end_date: updatedEndDate, city: updatedCity }
+          ? { ...truck, end_date: updatedEndDate, selectedCity: updatedCity }
           : truck
       );
       setRentedTrucks(updatedRentedTrucks);
@@ -81,6 +89,7 @@ const RentedTrucks = () => {
       console.error('Error updating rented truck:', err);
     }
   };
+  
 
   const handleEditClick = (rentedTruck) => {
     setEditingTruck(rentedTruck);
