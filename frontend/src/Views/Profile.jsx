@@ -11,6 +11,7 @@ import BundleContent from "./BundleContent";
 import AddToBundle from "./AddToBundle";
 import AmenityListing from "./AmenityListing";
 import Listing from "./Listing";
+import { Button } from "@mui/material";
 //import Box from "@mui/material/Box";
 //import IconButton from "@mui/material/IconButton";
 //import Avatar from "@mui/material/Avatar";
@@ -81,7 +82,6 @@ export default function Profile() {
   }
 
   const addBundle = () => {
-    console.log("add bundle");
     (async () => {
       await createVehicleBundle(user.email, 50, 100);
       (async () => {
@@ -106,12 +106,12 @@ export default function Profile() {
       </header>
       <div className="profile-sub">
         <div className="profile-user">
-          <button onClick={""} className="profile-avatar">
+          <div className="profile-avatar">
             <img
               alt={user.user_name}
               src="http://via.placeholder.com/250x250"
             />
-          </button>
+          </div>
           <div>
             <h1>{user.user_name ?? "Loading..."}</h1>
             <h3>{user.email ?? "Loading..."}</h3>
@@ -120,9 +120,9 @@ export default function Profile() {
         <p>{response.bio ?? "No bio set"}</p>
         <p>Location: {response.location ?? "None set"}</p>
         <p>Phone: {response.phone ?? "None set"}</p>
-        <button onClick={navigateToPage} className="profile-button">
+        <Button variant="contained" onClick={navigateToPage} className="profile-button">
           Edit Profile
-        </button>
+        </Button>
         <br></br>
         <br></br>
         <div className="profile-flex-display">
@@ -168,16 +168,21 @@ export default function Profile() {
                       <h3>
                         {truck.year} {truck.make} {truck.model}
                       </h3>
-                      <button
-                        onClick={() => navigateToTruckEditPage(truck.truck_id)}
-                        className="profile-button profile-truck-edit-button"
-                      >
-                        Edit
-                      </button>
-                      <AddToBundle
-                        bundleList={bundleList}
-                        truckId={truck.truck_id}
-                      />
+                      <div className="profile-padding">
+                        <Button
+                          variant="contained"
+                          onClick={() => navigateToTruckEditPage(truck.truck_id)}
+                          className="profile-button profile-truck-edit-button"
+                        >
+                          Edit
+                        </Button>
+                      </div>
+                      <div className="profile-padding">
+                        <AddToBundle
+                          bundleList={bundleList}
+                          truckId={truck.truck_id}
+                        />
+                      </div>
                     </div>
                     <div className="profile-truck-display">
                       <img
@@ -213,9 +218,9 @@ export default function Profile() {
                   />
                 </div>
               ))}
-              <button onClick={addBundle} className="profile-button">
+              <Button variant="contained" onClick={addBundle} className="profile-button">
                 Create New Bundle
-              </button>
+              </Button>
             </>
           )}
         </div>
