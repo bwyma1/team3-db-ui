@@ -29,9 +29,9 @@ const ListATruck = () => {
   const [mileage, setMileage] = useState('');
   const [maxMileage, setMaxMileage] = useState('');
   const [discount, setDiscount] = useState(0);
-  const [discountDays, setDiscountDays] = useState('');
-  const [discountPCT, setDiscountPCT] = useState('');
-  const [discountFlat, setDiscountFlat] = useState('');
+  const [discountDays, setDiscountDays] = useState(0);
+  const [discountPCT, setDiscountPCT] = useState(0);
+  const [discountFlat, setDiscountFlat] = useState(0);
   const [dailyPrice, setDailyPrice] = useState('');
   const [user, setUser] = useState({})
   const [truckImage, setTruckImage] = useState('');
@@ -53,17 +53,22 @@ const ListATruck = () => {
       alert("Please fill out all fields!");
     }
     else {
+      let updatedDiscountDays = discountDays;
+      let updatedDiscountPCT = discountPCT;
+      let updatedDiscountFlat = discountFlat;
+  
       if (discount === 1) {
-        discountDays = 0;
-        discountPCT = 0;
-        discountFlat = 0;
+        updatedDiscountDays = 0;
+        updatedDiscountPCT = 0;
+        updatedDiscountFlat = 0;
       }
       else if (discount === 2) {
-        discountFlat = 0;
+        updatedDiscountFlat = 0;
       }
       else if (discount === 3) {
-        discountPCT = 0;
+        updatedDiscountPCT = 0;
       }
+
       console.log(`ID: ${user.user_id}, Make: ${make}, Model: ${model}, Year: ${year}, Mileage: ${mileage}, Max Mileage: ${maxMileage}, Discount: ${discount}, Discount Days: ${discountDays}, Discount PCT: ${discountPCT}, Discount Flat: ${discountFlat}, Daily Price: ${dailyPrice}, Truck Image: ${truckImage}, Truck Capacity: ${truckCapacity}, Truck Capacity: ${cargoCapacity}`)
       const addedTruck = await addTruck(user.user_id, model, make, year, mileage, maxMileage, discountDays, discountPCT, discountFlat, truckImage, truckCapacity, cargoCapacity, dailyPrice);
       const truckId = addedTruck.data.truck_id;
