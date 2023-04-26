@@ -24,7 +24,7 @@
 .profile-avatar>img {
   width: 10rem;
   height: 10rem;
-  border-radius: 5rem;
+  border-radius: 50%;
   border: 0;
 }
 
@@ -66,10 +66,15 @@
 }
 
 .profile-bundle-button {
+  padding: 0.3rem;
   margin: 0;
-  background-color: rgb(32,116,212);
+  background: rgba(0,0,0,0);
   color: white;
   border: 0;
+}
+
+.profile-padding {
+  padding: 0.8rem;
 }
 
 .profile-bundle-outer {
@@ -129,4 +134,27 @@
 
 .profile-edit-button {
   margin-right: 1rem;
+}
+
+.profile-edit-form>input {
+  border: 1px solid rgb(120, 120, 120);
+  padding: 0.2rem;;
+  border-radius: 0.5rem;
+}
+
+.profile-edit-form>div>input {
+  border: 1px solid rgb(120, 120, 120);
+  margin-left: 1rem;;
+  padding: 0.2rem;;
+  border-radius: 0.5rem;
+}
+
+.profile-edit-form>textarea {
+  border: 1px solid rgb(120, 120, 120);
+  padding: 0.4rem;;
+  border-radius: 0.5rem;
+}
+
+.profile-margin-left {
+  margin-left: 1rem;
 }

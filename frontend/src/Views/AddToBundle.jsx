@@ -6,6 +6,7 @@ import {
   getUserByEmail,
   getUserTruckBundles,
 } from "../API/Api";
+import { Button } from "@mui/material";
 
 export default function AddToBundle(props) {
   const [option, setOption] = useState(0);
@@ -31,12 +32,12 @@ export default function AddToBundle(props) {
 
   return (
     <>
-      <div className="profile-bundle-outer profile-truck-edit-button">
+      <Button variant="contained" className="profile-bundle-outer profile-truck-edit-button">
         <button
           onClick={() => addToBundle(option, props.truckId)}
           className="profile-bundle-button"
         >
-          Add to Bundle
+          ADD TO BUNDLE
         </button>
         <select
           name="selectList"
@@ -51,7 +52,7 @@ export default function AddToBundle(props) {
             </option>
           ))}
         </select>
-      </div>
+      </Button>
     </>
   );
 }

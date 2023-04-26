@@ -1,29 +1,30 @@
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { getTruckById } from "../API/Api";
+import { getTruckById, updateTruckById } from "../API/Api";
+import { Button } from "@mui/material";
 
 export default function TruckEdit() {
     const { id } = useParams();
 
     const [response, setResponse] = useState({});
 
-    const [truck, setTruck] = useState(null);
+    const [truck, setTruck] = useState({});
 
-    function updateTruck(field, value) {
-      setTruck((truck) => ({
-        [field]: value,
+    const updateTruck = (field, value) => {
+      setTruck({
         ...truck,
-      }))
-    }
+        [field]: value
+      });
+    };
 
-    const yearChange = (event) => updateTruck('year', event.target.value);
+    const yearChange = (event) => updateTruck("year", event.target.value);
     const makeChange = (event) => updateTruck('make', event.target.value);
     const modelChange = (event) => updateTruck('model', event.target.value);
     const mileageChange = (event) => updateTruck('mileage', event.target.value);
     const maxMilesChange = (event) => updateTruck('max_miles', event.target.value);
-    const lDDaysChange = (event) => updateTruck('long_distance_days', event.target.value);
-    const lDFlatChange = (event) => updateTruck('long_distance_flat', event.target.value);
-    const lDPercentChange = (event) => updateTruck('long_distance_percent', event.target.value);
+    const lDDaysChange = (event) => updateTruck('long_discount_days', event.target.value);
+    const lDFlatChange = (event) => updateTruck('long_discount_flat', event.target.value);
+    const lDPercentChange = (event) => updateTruck('long_discount_percent', event.target.value);
 
 
     const navigate = useNavigate();
@@ -32,17 +33,23 @@ export default function TruckEdit() {
     };
 
     const confirmButton = () => {
+      console.log("TRUCK: ", truck);
+      
       (async () => {
-        await updateTruck(
-          truck.truck_id,
+        await updateTruckById(
+          id,
           truck.year,
           truck.make,
           truck.model,
           truck.mileage,
           truck.max_miles,
-          truck.long_distance_days,
-          truck.long_distance_flat,
-          truck.long_distance_percent
+          truck.long_discount_days,
+          truck.long_discount_flat,
+          truck.long_discount_percent,
+          1,
+          2,
+          3,
+          truck.truck_image
         );
       })();
         navigate(`/profile`);
@@ -50,11 +57,10 @@ export default function TruckEdit() {
 
     useEffect(() => {
         (async () => {
-          console.log(id);
+          //console.log(id);
           const res = await getTruckById(id);
           if (res) {
-            //console.log(user);
-            console.log(res);
+            //console.log(res);
             setResponse(res);
             setTruck(res);
           } else {
@@ -63,70 +69,95 @@ export default function TruckEdit() {
         })();
       }, [id])
 
-    return<div className="profile-main"><br></br>
-      <h2>Edit Truck</h2>
-      <div className="profile-sub">
-        <p>Year:</p>
-        <input
-            label="Bio"
-            name="bio"
-            defaultValue={response.year}
-            onChange={yearChange}
-        />
+    return(<div className="profile-main"><br></br>
+      <h2>Edit Truck Info</h2>
+      <div className="profile-sub profile-edit-form">
+        <div className="profile-flex-display">
+          Year:
+          <input
+              label="Year"
+              name="year"
+              defaultValue={response.year}
+              onChange={yearChange}
+          />
+        </div>
         <br></br>
-        <p>Make:</p>
-        <input
-            label="Location"
-            name="location"
-            defaultValue={response.make}
-            onChange={makeChange}
-        />
+        <div className="profile-flex-display">
+          Make:
+          <input
+              label="Location"
+              name="location"
+              defaultValue={response.make}
+              onChange={makeChange}
+          />
+        </div>
         <br></br>
-        <p>Model:</p>
+        <div className="profile-flex-display">
+        Model:
         <input
             label="Phone Number"
             name="phone"
             defaultValue={response.model}
             onChange={modelChange}
         />
-        <p>Mileage:</p>
+        </div>
+        <br></br>
+        <div className="profile-flex-display">
+        Mileage:
         <input
             label="Phone Number"
             name="phone"
             defaultValue={response.mileage}
             onChange={mileageChange}
         />
-        <p>Max Miles:</p>
+        </div>
+        <br></br>
+        <div className="profile-flex-display">
+        Max Miles:
         <input
             label="Phone Number"
             name="phone"
             defaultValue={response.max_miles}
             onChange={maxMilesChange}
         />
-        <p>Long Discount Days:</p>
+        </div>
+        <br></br>
+        <div className="profile-flex-display">
+        Long Discount Days:
         <input
             label="Phone Number"
             name="phone"
             defaultValue={response.long_discount_days}
             onChange={lDDaysChange}
         />
-        <p>Long Discount Flat:</p>
+        </div>
+        <br></br>
+        <div className="profile-flex-display">
+        Long Discount Flat:
         <input
             label="Phone Number"
             name="phone"
             defaultValue={response.long_discount_flat}
             onChange={lDFlatChange}
         />
-        <p>Long Discount Percent:</p>
+        </div>
+        <br></br>
+        <div className="profile-flex-display">
+        Long Discount Percent:
         <input
             label="Phone Number"
             name="phone"
             defaultValue={response.long_discount_percent}
             onChange={lDPercentChange}
         />
-        <br></br><br></br>
-        <button onClick={backButton} className="profile-button profile-edit-button">Cancel</button>
-        <button onClick={confirmButton} className="profile-button">Save Changes</button>
+        </div>
+        <br></br>
+        <div className="profile-flex-display">
+          <Button variant="contained" color="grey" onClick={backButton} className="profile-button profile-edit-button">Cancel</Button>
+          <div className="profile-margin-left">
+            <Button variant="contained" onClick={confirmButton} className="profile-button">Save Changes</Button>
+          </div>
+        </div>
       </div>
-    </div>;
+    </div>);
 }

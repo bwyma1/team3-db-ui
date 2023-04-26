@@ -107,7 +107,7 @@ app.get('/truck', (req, res) => {
 })
 
 app.put('/truck', (req, res) => {
-    const truck_id = req.query.truck_id
+    const truck_id = parseInt(req.query.truck_id)
     const {model, make, year, mileage, max_miles, long_discount_days, long_discount_percent, long_discount_flat, 
         truck_image, truck_capacity, cargo_capacity, price} = req.body
     const query = `UPDATE truck SET model='${model}', make='${make}', year='${year}', mileage='${mileage}', max_miles='${max_miles}', long_discount_days='${long_discount_days}', long_discount_percent='${long_discount_percent}', 

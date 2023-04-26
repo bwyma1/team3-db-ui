@@ -99,7 +99,7 @@ export default function ResponsiveNavbar() {
               textDecoration: "none",
             }}
           >
-            Trucks Brotha
+            Truck Bros.
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton

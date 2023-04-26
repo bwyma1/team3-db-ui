@@ -150,7 +150,7 @@ export const getTruckById = async (truck_id) => {
   )} catch (err) {
     console.log(err)
   }
-  return response.data
+  return response.data[0]
 }
 
 //Gets all trucks that are currently available for rent
@@ -227,7 +227,7 @@ export const addTruck = async (user_id, model, make, year, mileage, max_miles, l
   return response
 }
 
-export const updateTruck = async (id, year, make, model, mileage, maxMiles, ldDays, ldFlat, ldPercent,truck_capacity,cargo_capacity,price) => {
+export const updateTruckById = async (id, year, make, model, mileage, maxMiles, ldDays, ldFlat, ldPercent, truck_capacity, cargo_capacity, price, truck_image) => {
   const data = { year: `${year}`, 
     make: `${make}`,
     model: `${model}`,
@@ -236,12 +236,14 @@ export const updateTruck = async (id, year, make, model, mileage, maxMiles, ldDa
     long_discount_days: `${ldDays}`,
     long_discount_flat: `${ldFlat}`,
     long_discount_percent: `${ldPercent}`,
-    truck_capacity:truck_capacity,
-    cargo_capacity:cargo_capacity,
-    price:price
+    truck_capacity:`${truck_capacity}`,
+    cargo_capacity:`${cargo_capacity}`,
+    price:`${price}`,
+    truck_image:`${truck_image}`
 }
   let response
   try {
+    console.log("DATA: ", data);
     response = await axios.put(
       url + `/truck?truck_id=${id}`, data
     )

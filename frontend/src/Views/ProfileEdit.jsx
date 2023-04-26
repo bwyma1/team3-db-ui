@@ -3,26 +3,27 @@ import React, { useState, useContext, useEffect } from "react";
 import { getUserByEmail, updateProfile } from "../API/Api";
 import { AppContext } from "../Context/AppContext";
 import { user } from "../Models/user";
+import { Button } from "@mui/material";
 
 
 export default function ProfileEdit() {
-    //const currUser = JSON.parse(window.sessionStorage.getItem("user"));
-    const context = useContext(AppContext);
+  //const currUser = JSON.parse(window.sessionStorage.getItem("user"));
+  const context = useContext(AppContext);
 
-    const [bio, setBio] = useState("");
-    const [location, setLocation] = useState("");
-    const [phone, setPhone] = useState("");
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
+  const [phone, setPhone] = useState("");
 
-    const bioChange = (event) => setBio(event.target.value);
-    const locationChange = (event) => setLocation(event.target.value);
-    const phoneChange = (event) => setPhone(event.target.value);
+  const bioChange = (event) => setBio(event.target.value);
+  const locationChange = (event) => setLocation(event.target.value);
+  const phoneChange = (event) => setPhone(event.target.value);
 
-    const navigate = useNavigate();
-    const backButton = () => {
-        navigate(`/profile`);
-    };
+  const navigate = useNavigate();
+  const backButton = () => {
+      navigate(`/profile`);
+  };
 
-    const [profile, setProfile] = useState({})
+  const [profile, setProfile] = useState({})
   const [response, setResponse] = useState({});
 
   useEffect(() => {
@@ -88,34 +89,43 @@ export default function ProfileEdit() {
 
     return<div className="profile-main"><br></br>
       <h2>Edit Profile</h2>
-      <div className="profile-sub">
+      <div className="profile-sub profile-edit-form">
         <p>Bio:</p>
-        <input
-            type="text"
+        <textarea 
             label="Bio"
-            name="bio"
-            defaultValue={response.bio}
-            onChange={bioChange}
-        />
+            name="bio" 
+            cols="40" 
+            rows="5" 
+            defaultValue={response.bio} 
+            onChange={bioChange}>
+        </textarea>
+        <br></br><br></br>
+        <div className="profile-flex-display">
+          Location:
+          <input
+              label="Location"
+              name="location"
+              defaultValue={response.location}
+              onChange={locationChange}
+          />
+        </div>
         <br></br>
-        <p>Location:</p>
-        <input
-            label="Location"
-            name="location"
-            defaultValue={response.location}
-            onChange={locationChange}
-        />
-        <br></br>
-        <p>Phone Number:</p>
+        <div className="profile-flex-display">
+        Phone Number:
         <input
             label="Phone Number"
             name="phone"
             defaultValue={response.phone}
             onChange={phoneChange}
         />
+        </div>
         <br></br><br></br>
-        <button onClick={backButton} className="profile-button profile-edit-button">Cancel</button>
-        <button onClick={confirmButton} className="profile-button">Save Changes</button>
+        <div className="profile-flex-display">
+          <Button variant="contained" color="grey" onClick={backButton} className="profile-button profile-edit-button">Cancel</Button>
+          <div className="profile-margin-left">
+            <Button variant="contained" onClick={confirmButton} className="profile-button">Save Changes</Button>
+          </div>
+        </div>
       </div>
     </div>;
 }
