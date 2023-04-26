@@ -364,6 +364,19 @@ export const getUserRentedTrucks = async (user_id) => {
   return response.data;
 };
 
+// Update rented truck information by truck_rent_id
+export const updateUserRentedTruck = async (truck_rent_id, end_date, city) => {
+  const data = { end_date, city };
+  let response;
+  try {
+    response = await axios.put(`${url}/user_rented_trucks/${truck_rent_id}`, data);
+  } catch (err) {
+    console.log(err);
+  }
+  return response.data;
+};
+
+
 export const postCity = async (name) => {
   try {
       const response = await axios.post(`${url}/city`, {name});

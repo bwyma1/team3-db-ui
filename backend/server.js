@@ -439,9 +439,9 @@ app.post('/user_rented_trucks', (req, res) => {
 // Get user rented trucks by user_id
 app.get('/user_rented_trucks', (req, res) => {
     const user_id = req.query.user_id;
-    const query = `SELECT t.*, tri.start_date, tri.end_date, tri.city AS selectedCity FROM truck t
-    JOIN truck_rent_info tri ON t.truck_id = tri.truck_id
-    WHERE tri.renter_id = ${user_id};`;
+    const query = `
+      SELECT t.*, tri.start_date, tri.end_date, tri.city AS selectedCity, tri.truck_rent_id
+      FROM truck t JOIN truck_rent_info tri ON t.truck_id = tri.truck_id WHERE tri.renter_id = ${user_id}`;
     connection.query(query, (error, results) => {
         if (error) {
             console.error(`Error retrieving rented trucks: ${error.stack}`);
@@ -452,6 +452,25 @@ app.get('/user_rented_trucks', (req, res) => {
         res.status(200).send(results);
     });
 });
+
+
+// Update user rented truck by truck_rent_id
+app.put('/user_rented_trucks/:truck_rent_id', (req, res) => {
+    const { end_date, city } = req.body;
+    const { truck_rent_id } = req.params; // Get the truck_rent_id from the params
+    const query = `UPDATE truck_rent_info SET end_date='${end_date}', city='${city}' WHERE truck_rent_id=${truck_rent_id}`;
+  
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(`Error updating rented truck: ${error.stack}`);
+        res.status(500).send('Error updating rented truck');
+        return;
+      }
+      res.status(200).send(true);
+    });
+  });
+  
+  
 
 app.post('/city', (req, res) => {
     const {name} = req.body;

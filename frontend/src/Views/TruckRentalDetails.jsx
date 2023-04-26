@@ -22,7 +22,7 @@ import ReviewList from "./reviewList";
 
 const TruckRentalDetails = () => {
 
-  const getNextFiveDays = () => {
+  const getNextTwelveDays = () => {
     const days = [];
     const today = new Date();
 
@@ -43,7 +43,7 @@ const TruckRentalDetails = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [user, setUser] = useState({});
   const [selectedEndDate, setSelectedEndDate] = useState("");
-  const availableDates = getNextFiveDays();
+  const availableDates = getNextTwelveDays();
 
   useEffect(() => {
     setUser(JSON.parse(window.sessionStorage.getItem("user")));
@@ -93,7 +93,7 @@ const TruckRentalDetails = () => {
       await updateTruckAvailability(selectedTruck.truck_id, false);
       const today = new Date().toISOString().split("T")[0];
       await addToUserRentedTrucks(user.user_id, selectedTruck.truck_id, today, selectedEndDate, selectedCity);
-      navigate("/currentrentals");
+      navigate("/currentrentals", { state: { availableDates, truckCities } });
     } catch (err) {
       console.log(err);
     }
