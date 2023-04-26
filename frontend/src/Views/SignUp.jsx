@@ -107,7 +107,6 @@ export default function SignUp() {
               label="User Name"
               name="uname"
               autoComplete="uname"
-              autoFocus
             />
             <TextField
               margin="normal"
