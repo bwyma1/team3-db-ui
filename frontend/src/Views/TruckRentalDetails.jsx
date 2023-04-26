@@ -130,7 +130,7 @@ const TruckRentalDetails = () => {
           </Box>
           <Box>
             <Typography component="h2" variant="h6" fontWeight="bold" mb={1}>
-            {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
+              {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
             </Typography>
             <Typography component="p" variant="h5" mb={1}>
               Mileage: {selectedTruck.mileage}
@@ -167,18 +167,19 @@ const TruckRentalDetails = () => {
                   Location:
                 </Typography>
                 <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
-                  {truckCities.map((city) => (
-                    <MenuItem key={city.city_id} value={city.name}>
+                  {truckCities.map((city, index) => (
+                    <MenuItem key={city.city_id + '-' + index} value={city.name}>
                       {city.name}
                     </MenuItem>
                   ))}
+
                 </Select>
                 <Typography component="p" variant="subtitle1" fontWeight="bold" mt={2}>
                   End Date:
                 </Typography>
                 <Select value={selectedEndDate} onChange={handleEndDateChange} sx={{ marginTop: 1 }}>
-                  {availableDates.map((date) => (
-                    <MenuItem key={date} value={date}>
+                  {availableDates.map((date, index) => (
+                    <MenuItem key={'date-' + date + '-' + index} value={date}>
                       {date}
                     </MenuItem>
                   ))}
