@@ -59,7 +59,7 @@ const RentedTrucks = () => {
             />
             <CardContent>
               <Typography component="h2" variant="h6" fontWeight="bold" mb={1}>
-                {rentedTruck.model} ({rentedTruck.year})
+                {rentedTruck.make} {rentedTruck.model} ({rentedTruck.year})
               </Typography>
               <Typography component="p" variant="h5" mb={1}>
                 Price: ${rentedTruck.price}/day

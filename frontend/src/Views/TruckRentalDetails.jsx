@@ -130,7 +130,7 @@ const TruckRentalDetails = () => {
           </Box>
           <Box>
             <Typography component="h2" variant="h6" fontWeight="bold" mb={1}>
-              {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
+            {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
             </Typography>
             <Typography component="p" variant="h5" mb={1}>
               Mileage: {selectedTruck.mileage}
@@ -148,10 +148,10 @@ const TruckRentalDetails = () => {
               Long-Term Discount Days: {selectedTruck.long_discount_days} days
             </Typography>
             <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-              Long-Term Percent Discount: {selectedTruck.long_discount_percent * 100}%
+              Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
             </Typography>
             <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-              Flat Discount: {selectedTruck.long_discount_flat * 100}%
+              Flat Discount: ${selectedTruck.long_discount_flat} off per day pricing
             </Typography>
             <div>
               <TruckAmenities truck_id={selectedTruck.truck_id} />
