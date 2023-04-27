@@ -14,6 +14,7 @@ import RentedTrucks from "../Views/RentedTrucks";
 import ListATruck from "../Views/ListATruck";
 import ListAnAmenity from "../Views/ListAnAmenity";
 import ReportIssue from "../Views/ReportIssue";
+import BundleRental from "../Views/BundleRental"; 
 
 
 export const Router = () => (
@@ -35,6 +36,7 @@ export const Router = () => (
       <Route path="currentrentals" element={<RentedTrucks />} />
       <Route path="reportissue" element={<ReportIssue />} />
       <Route path="truckedit/:id" element={<TruckEdit />} />
+      <Route path="bundlerental" element={<BundleRental />} />
     </Routes>
   </BrowserRouter>
 );

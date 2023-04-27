@@ -343,6 +343,30 @@ export const removeVehicleFromBundle = async (bundle_id,truck_id) => {
   }
 }
 
+export const getAllBundles = async () => {
+  let response;
+  try {
+    response = await axios.get(url + `/all_bundles`);
+  } catch (err) {
+    console.log(err);
+  }
+  return response.data;
+};
+
+export const addToUserBundleTrucks = async (user_id, trucks, startDate, endDate, city) => {
+  const rentedTrucksPromises = trucks.map((truck) =>
+    axios.post(url + '/user_rented_trucks', {
+      user_id: user_id,
+      truck_id: truck.truck_id,
+      start_date: startDate,
+      end_date: endDate,
+      city: city,
+    })
+  );
+  return Promise.all(rentedTrucksPromises);
+};
+
+
 // Add a rented truck by user_id, truck_id, start_date, and end_date
 export const addToUserRentedTrucks = async (user_id, truck_id, start_date, end_date, city) => {
   const data = { user_id, truck_id, start_date, end_date, city };

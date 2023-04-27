@@ -327,6 +327,19 @@ app.delete('/vehicle_to_bundle', (req, res) => {
     })
 })
 
+// get all bundles
+app.get('/all_bundles', (req, res) => {
+    const query = `SELECT * FROM vehicle_bundle_profile;`;
+    connection.query(query, (err, rows, fields) => {
+      if (err) throw err;
+  
+      res.status(200);
+      res.send(rows);
+    });
+  });
+  
+
+  
 app.delete('/truck/delete', (req, res) => {
     const truck_id = req.query.truck_id
     const query = `DELETE FROM truck WHERE truck_id = ${truck_id};`
