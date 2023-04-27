@@ -64,7 +64,7 @@ const ListAnAmenity = () => {
         truckList.forEach((truck, index) => {
           truckOptions.push(
             <MenuItem key={index} value={truck.truck_id}>
-              {`${truck.model} (${truck.year})`}
+              {`${truck.make} ${truck.model} (${truck.year})`}
             </MenuItem>
           );
         });
