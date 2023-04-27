@@ -123,16 +123,16 @@ const RentedTrucks = () => {
         alignItems: "center",
       }}
     >
-      <Typography component="h1" variant="h4" sx={{ marginBottom: 4 }}>
+      <Typography component="h1" variant="h3" sx={{ marginBottom: 4 }}>
         Your Rented Trucks
       </Typography>
       <Grid container spacing={4}>
         {rentedTrucks.map((rentedTruck) => (
           <Grid item xs={12} sm={6} key={rentedTruck.truck_id}>
-            <Card sx={{ minWidth: "90%", margin: "2rem" }}>
+            <Card sx={{ maxWidth: "90%", margin: "2rem" }}>
               <CardMedia
                 component="img"
-                height="220rem"
+                height="250rem"
                 image={rentedTruck.truck_image}
                 alt={rentedTruck.model}
               />
@@ -147,21 +147,21 @@ const RentedTrucks = () => {
                 >
                   <Typography
                     component="h2"
-                    variant="h6"
+                    variant="h4"
                     fontWeight="bold"
                   >
                     {rentedTruck.make} {rentedTruck.model} ({rentedTruck.year})
                   </Typography>
                   <Typography
                     component="p"
-                    variant="h5"
+                    variant="h4"
                     fontWeight="bold"
                   >
                     ${rentedTruck.price}/day
                   </Typography>
                 </Box>
                 <Typography component="p" variant="h5" mb={1}>
-                  Location: {rentedTruck.selectedCity}
+                  Return Location: {rentedTruck.selectedCity}
                 </Typography>
                 <Typography component="p" variant="h5" mb={1}>
                   Start Date: {formatDate(rentedTruck.start_date)}

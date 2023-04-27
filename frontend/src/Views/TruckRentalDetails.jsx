@@ -5,6 +5,7 @@ import {
   Button,
   Select,
   MenuItem,
+  Container
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import TruckAmenities from "./TruckAmenities";
@@ -100,110 +101,145 @@ const TruckRentalDetails = () => {
   };
 
   return (
-    <Box
-      sx={{
-        marginTop: 8,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography component="h1" variant="h4" sx={{
-        textAlign: "center", color: "black", padding: "2rem", width: "100%", backgroundColor: "rgba(211, 211, 211, 0.2)"
-      }}>
-        Truck Rental Details
-      </Typography>
-      <Box sx={{
-        width: "100%", borderTop: "2px solid", borderColor: "gray", borderRadius: "0px",
-        marginBottom: "3rem", backgroundColor: "rgba(211, 211, 211, 0.2)"
-      }}>
-        <Box
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          component='h2'
+          variant='h3'
           sx={{
-            display: "flex",
-            alignItems: "center",
-            p: 3,
-            borderBottom: "1px solid #ccc",
+            textAlign: 'center',
+            color: 'black',
+            padding: '2rem',
+            width: '94.5%',
+            backgroundColor: 'rgba(211, 211, 211, 0.2)',
           }}
         >
-          <Box sx={{ mr: 2 }}>
-            <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="700" />
-          </Box>
-          <Box>
-            <Typography component="h2" variant="h6" fontWeight="bold" mb={1}>
-              {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year}) Price: ${selectedTruck.price}/day
-            </Typography>
-            <Typography component="p" variant="h5" mb={1}>
-              Mileage: {selectedTruck.mileage}
-            </Typography>
-            <Typography component="p" variant="h5" mb={1}>
-              Max Miles: {selectedTruck.max_miles}
-            </Typography>
-            <Typography component="p" variant="h5" mb={1}>
-              Truck Capacity: {selectedTruck.truck_capacity} seats
-            </Typography>
-            <Typography component="p" variant="h5" mb={1}>
-              Owner ID: {selectedTruck.owner_id}
-            </Typography>
-            <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-              Long-Term Discount Days: {selectedTruck.long_discount_days} days
-            </Typography>
-            <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-              Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
-            </Typography>
-            <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-              Flat Discount: ${selectedTruck.long_discount_flat} off per day pricing
-            </Typography>
-            <div>
-              <TruckAmenities truck_id={selectedTruck.truck_id} />
+          Truck Rental Details
+        </Typography>
+        <Box
+          sx={{
+            width: '100%',
+            borderTop: '2px solid',
+            borderColor: 'gray',
+            borderRadius: '0px',
+            marginBottom: '3rem',
+            backgroundColor: 'rgba(211, 211, 211, 0.2)',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              p: 3,
+              borderBottom: '1px solid #ccc',
+            }}
+          >
+            <Box sx={{ mr: 2 }}>
+              <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="550" height="600rem" />
+            </Box>
+            <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+              <Typography component="h4" variant="h4" fontWeight="bold" mb={"4.5rem"}>
+                {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year})
+                <Box component="span" sx={{ fontWeight: 'bold', float: 'left' }}>
+                  Price: ${selectedTruck.price}/day
+                </Box>
+              </Typography>
+              <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Box>
+                  <Typography component="p" variant="h5" mb={1}>
+                    Mileage: {selectedTruck.mileage}
+                  </Typography>
+                  <Typography component="p" variant="h5" mb={1}>
+                    Max Miles: {selectedTruck.max_miles}
+                  </Typography>
+                  <Typography component="p" variant="h5" mb={1}>
+                    Truck Capacity: {selectedTruck.truck_capacity} seats
+                  </Typography>
+                  <Typography component="p" variant="h5" mb={1}>
+                    Owner ID: {selectedTruck.owner_id}
+                  </Typography>
+                  <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
+                    Long-Term Discount Days: {selectedTruck.long_discount_days} days
+                  </Typography>
+                  <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
+                    Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
+                  </Typography>
+                  <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
+                    Flat Discount: ${selectedTruck.long_discount_flat} off per day pricing
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography component="p" variant="subtitle1" fontWeight="bold">
+                    Location:
+                  </Typography>
+                  <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
+                    {truckCities.map((city, index) => (
+                      <MenuItem key={city.city_id + '-' + index} value={city.name}>
+                        {city.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <Typography component="p" variant="subtitle1" fontWeight="bold" mt={2}>
+                    End Date:
+                  </Typography>
+                  <Select value={selectedEndDate} onChange={handleEndDateChange} sx={{ marginTop: 1 }}>
+                    {availableDates.map((date, index) => (
+                      <MenuItem key={'date-' + date + '-' + index} value={date}>
+                        {date}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Box>
+              </Box>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  marginLeft: 4,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  mt: 3,
                 }}
               >
-                <Typography component="p" variant="subtitle1" fontWeight="bold">
-                  Location:
-                </Typography>
-                <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
-                  {truckCities.map((city, index) => (
-                    <MenuItem key={city.city_id + '-' + index} value={city.name}>
-                      {city.name}
-                    </MenuItem>
-                  ))}
-
-                </Select>
-                <Typography component="p" variant="subtitle1" fontWeight="bold" mt={2}>
-                  End Date:
-                </Typography>
-                <Select value={selectedEndDate} onChange={handleEndDateChange} sx={{ marginTop: 1 }}>
-                  {availableDates.map((date, index) => (
-                    <MenuItem key={'date-' + date + '-' + index} value={date}>
-                      {date}
-                    </MenuItem>
-                  ))}
-                </Select>
+                <Button
+                  variant="contained"
+                  onClick={handleRentTruck}
+                  sx={{ mt: 3.5, mb: 2, mr: 2, minWidth: '2rem', minHeight: '1rem', fontSize: '1rem' }}
+                >
+                  Rent this truck
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{mt: 3.5, mb: 2, mr: 2, minWidth: '2rem', minHeight: '1rem', fontSize: '1rem' }}
+                  onClick={() => navigate("/truckrental")}
+                >
+                  Back to Truck Rental
+                </Button>
               </Box>
-              <Button variant="contained" onClick={handleRentTruck} sx={{ mt: 2, mr: 2 }}>
-                Rent this truck
-              </Button>
-              <Button variant="outlined" sx={{ mt: 2 }} onClick={() => navigate("/truckrental")}>
-                Back to Truck Rental
-              </Button>
-            </div>
+            </Box>
+          </Box>
+          <Box sx={{ p: 3 }}>
+            <ReviewList reviews={truckReviews} />
+            <ReviewForm
+              userId={selectedTruck.owner_id}
+              truckId={selectedTruck.truck_id}
+              onReviewAdded={handleReviewAdded}
+            />
           </Box>
         </Box>
-        <Box sx={{ p: 10 }}>
-          <ReviewList reviews={truckReviews} />
-          <ReviewForm userId={selectedTruck.owner_id} truckId={selectedTruck.truck_id} onReviewAdded={handleReviewAdded} />
-        </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };
 
 export default TruckRentalDetails;
+
 
 
 
