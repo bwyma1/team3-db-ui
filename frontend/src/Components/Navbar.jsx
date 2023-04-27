@@ -10,7 +10,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import ChatIcon from '@mui/icons-material/Chat';
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { AppContext } from "../Context/AppContext";
@@ -170,16 +169,6 @@ export default function ResponsiveNavbar() {
             <></>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={() => navigate("/chat")}
-            >
-              <ChatIcon />
-            </IconButton>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar

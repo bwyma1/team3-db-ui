@@ -11,7 +11,6 @@ import TruckEdit from "../Views/TruckEdit";
 import TruckRentalDetails from "../Views/TruckRentalDetails";
 import TruckAmenities from "../Views/TruckAmenities";
 import RentedTrucks from "../Views/RentedTrucks";
-import Chat from "../Views/chat";
 import ListATruck from "../Views/ListATruck";
 import ListAnAmenity from "../Views/ListAnAmenity";
 import ReportIssue from "../Views/ReportIssue";
@@ -33,7 +32,6 @@ export const Router = () => (
       <Route path="truckamenities" element={<TruckAmenities />} />
       <Route path="listatruck" element={<ListATruck />} />
       <Route path="listanamenity" element={<ListAnAmenity />} />
-      <Route path="chat" element={<Chat />} />
       <Route path="currentrentals" element={<RentedTrucks />} />
       <Route path="reportissue" element={<ReportIssue />} />
       <Route path="truckedit/:id" element={<TruckEdit />} />
