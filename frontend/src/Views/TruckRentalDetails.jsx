@@ -142,10 +142,10 @@ const TruckRentalDetails = () => {
             }}
           >
             <Box sx={{ mr: 2 }}>
-              <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="550" height="600rem" />
+              <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="550rem" height="500rem" />
             </Box>
             <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-              <Typography component="h4" variant="h4" fontWeight="bold" mb={"4.5rem"}>
+              <Typography component="h4" variant="h4" fontWeight="bold" mb={"1.5rem"}>
                 {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year})
                 <Box component="span" sx={{ fontWeight: 'bold', float: 'left' }}>
                   Price: ${selectedTruck.price}/day
@@ -153,31 +153,29 @@ const TruckRentalDetails = () => {
               </Typography>
               <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Box>
-                  <Typography component="p" variant="h5" mb={1}>
-                    Mileage: {selectedTruck.mileage}
+                  <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
+                    Truck Mileage: {selectedTruck.mileage}
                   </Typography>
-                  <Typography component="p" variant="h5" mb={1}>
+                  <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
                     Max Miles: {selectedTruck.max_miles}
                   </Typography>
-                  <Typography component="p" variant="h5" mb={1}>
+                  <Typography component="p" variant="h5" fontWeight="bold" mb={4}>
                     Truck Capacity: {selectedTruck.truck_capacity} seats
                   </Typography>
-                  <Typography component="p" variant="h5" mb={1}>
-                    Owner ID: {selectedTruck.owner_id}
+                  <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
+                    Minimum For % Discount: {selectedTruck.long_discount_days} days
                   </Typography>
-                  <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
-                    Long-Term Discount Days: {selectedTruck.long_discount_days} days
-                  </Typography>
-                  <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
+                  <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
                     Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
                   </Typography>
-                  <Typography component="p" variant="h8" fontWeight="bold" mb={1}>
+                  <Typography component="p" variant="h6" fontWeight="bold" mb={4}>
                     Flat Discount: ${selectedTruck.long_discount_flat} off per day pricing
                   </Typography>
+                  <TruckAmenities truck_id={selectedTruck.truck_id} />
                 </Box>
                 <Box>
-                  <Typography component="p" variant="subtitle1" fontWeight="bold">
-                    Location:
+                  <Typography component="p" variant="h6" fontWeight="bold">
+                    Pickup Location:
                   </Typography>
                   <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
                     {truckCities.map((city, index) => (
@@ -186,7 +184,7 @@ const TruckRentalDetails = () => {
                       </MenuItem>
                     ))}
                   </Select>
-                  <Typography component="p" variant="subtitle1" fontWeight="bold" mt={2}>
+                  <Typography component="p" variant="h6" fontWeight="bold" mt={2}>
                     End Date:
                   </Typography>
                   <Select value={selectedEndDate} onChange={handleEndDateChange} sx={{ marginTop: 1 }}>
@@ -216,7 +214,7 @@ const TruckRentalDetails = () => {
                 </Button>
                 <Button
                   variant="outlined"
-                  sx={{mt: 3.5, mb: 2, mr: 2, minWidth: '2rem', minHeight: '1rem', fontSize: '1rem' }}
+                  sx={{ mt: 3.5, mb: 2, mr: 2, minWidth: '2rem', minHeight: '1rem', fontSize: '1rem' }}
                   onClick={() => navigate("/truckrental")}
                 >
                   Back to Truck Rental

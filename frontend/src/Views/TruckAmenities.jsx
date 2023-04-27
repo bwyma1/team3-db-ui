@@ -17,7 +17,7 @@ const TruckAmenities = ({ truck_id }) => {
 
     return (
         <div>
-            <Typography component="h3" variant="h6" fontWeight="bold">
+            <Typography component="h3" variant="h5" fontWeight="bold">
                 Amenities:
             </Typography>
             <ul>
