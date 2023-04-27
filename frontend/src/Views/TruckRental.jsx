@@ -67,7 +67,14 @@ const TruckRental = () => {
                     <Typography variant="h6" gutterBottom>
                       ({truck.year})
                     </Typography>
-                    <Button variant="contained" onClick={() => handleSelectTruck(truck)} color="primary" fullWidth sx={{ fontWeight: "bold" }}>
+                    <Button variant="contained" onClick={() => handleSelectTruck(truck)} color="primary" fullWidth 
+                    sx={{ 
+                      fontWeight: "bold", 
+                      backgroundColor: "#C1292E",
+                      "&:hover": {
+                        backgroundColor: "#C1292E"
+                      }
+                        }}>
                       ${truck.price} / day
                     </Button>
                   </CardContent>

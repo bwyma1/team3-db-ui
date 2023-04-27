@@ -81,7 +81,7 @@ export default function ResponsiveNavbar() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ backgroundColor: "#13293D"}}>
         <Toolbar disableGutters>
           <Typography
             variant="h6"
