@@ -10,7 +10,7 @@ import {
 import BundleContent from "./BundleContent";
 import AddToBundle from "./AddToBundle";
 import AmenityListing from "./AmenityListing";
-import Listing from "./Listing";
+import ListATruck from "./ListATruck";
 import { Button } from "@mui/material";
 //import Box from "@mui/material/Box";
 //import IconButton from "@mui/material/IconButton";

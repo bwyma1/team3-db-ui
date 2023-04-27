@@ -27,7 +27,7 @@ export default function ResponsiveNavbar() {
 
   useMemo(() => {
     if (context.currUser && !context.isSeller) pages = ["Homepage", "Truck Rental", "Current Rentals"];
-    else if (context.currUser && context.isSeller) pages = ["Homepage", "Listing"];
+    else if (context.currUser && context.isSeller) pages = ["Homepage", "List A Truck", "List an Amenity"];
     else pages = ["Homepage", "Login", "Sign Up"];
   }, [context.currUser, context.isSeller]);
 
