@@ -12,7 +12,8 @@ import TruckRentalDetails from "../Views/TruckRentalDetails";
 import TruckAmenities from "../Views/TruckAmenities";
 import RentedTrucks from "../Views/RentedTrucks";
 import Chat from "../Views/chat";
-import Listing from "../Views/Listing";
+import ListATruck from "../Views/ListATruck";
+import ListAnAmenity from "../Views/ListAnAmenity";
 import ReportIssue from "../Views/ReportIssue";
 import BundleRental from "../Views/BundleRental"; 
 
@@ -31,7 +32,8 @@ export const Router = () => (
       <Route path="truckrental" element={<TruckRental />} />
       <Route path="truckrentaldetails" element={<TruckRentalDetails />} />
       <Route path="truckamenities" element={<TruckAmenities />} />
-      <Route path="listing" element={<Listing />} />
+      <Route path="listatruck" element={<ListATruck />} />
+      <Route path="listanamenity" element={<ListAnAmenity />} />
       <Route path="chat" element={<Chat />} />
       <Route path="currentrentals" element={<RentedTrucks />} />
       <Route path="reportissue" element={<ReportIssue />} />

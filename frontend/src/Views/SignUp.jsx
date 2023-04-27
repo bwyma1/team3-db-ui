@@ -127,11 +127,10 @@ export default function SignUp() {
               label="Security Question"
               onChange={sqChange}
             >
+              <MenuItem value={0} disabled>Select a Security Question</MenuItem>
               <MenuItem value={1}>What is your mothers maiden name?</MenuItem>
               <MenuItem value={2}>What is the name of your first pet?</MenuItem>
-              <MenuItem value={3}>
-                What is the name of the city you were born in?
-              </MenuItem>
+              <MenuItem value={3}>What is the name of the city you were born in?</MenuItem>
             </Select>
             {sq === 0 ? (
               <></>
