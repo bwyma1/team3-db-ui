@@ -70,13 +70,16 @@ CREATE TABLE IF NOT EXISTS issue_report(
     issue_reports INT AUTO_INCREMENT PRIMARY KEY,
     issue_text VARCHAR(1000) NOT NULL
 );
+
 CREATE TABLE IF NOT EXISTS vehicle_bundle_profile(
     bundle_id INT AUTO_INCREMENT PRIMARY KEY,
     owner_id INT NOT NULL,
     discount_percent FLOAT,
     discount_flat FLOAT,
+    is_available BOOLEAN DEFAULT 1,
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
+
 CREATE TABLE IF NOT EXISTS bundle_vehicle(
     vehicle_bundle_id INT AUTO_INCREMENT PRIMARY KEY,
     bundle_id INT NOT NULL,
@@ -252,8 +255,8 @@ INSERT INTO vehicle_bundle_profile (
 )
 VALUES (
     1,
-    0.3,
-    0
+    30,
+    15
 );
 
 INSERT INTO bundle_vehicle (

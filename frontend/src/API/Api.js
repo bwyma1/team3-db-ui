@@ -366,6 +366,15 @@ export const addToUserBundleTrucks = async (user_id, trucks, startDate, endDate,
   return Promise.all(rentedTrucksPromises);
 };
 
+export const updateBundleAvailability = async (bundle_id, is_available) => {
+  try {
+    const response = await axios.put(url + `/update_bundle_availability`, { bundle_id, is_available });
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 
 // Add a rented truck by user_id, truck_id, start_date, and end_date
 export const addToUserRentedTrucks = async (user_id, truck_id, start_date, end_date, city) => {

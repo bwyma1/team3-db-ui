@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, List, ListItem, ListItemText, Button } from "@mui/material";
-import { getAllBundles, getBundleTrucks, addToUserBundleTrucks } from "../API/Api";
+import { getAllBundles, getBundleTrucks, addToUserBundleTrucks, updateBundleAvailability } from "../API/Api";
 
 const BundleRental = () => {
     const [bundles, setBundles] = useState([]);
@@ -9,22 +9,6 @@ const BundleRental = () => {
     const [response, setResponse] = useState({});
 
     const navigate = useNavigate();
-
-    const handleRentBundle = async (bundle) => {
-        try {
-          const today = new Date();
-          const endDate = new Date(today);
-          endDate.setDate(today.getDate() + 7);
-      
-          const todayISO = today.toISOString().split("T")[0];
-          const endDateISO = endDate.toISOString().split("T")[0];
-      
-          await addToUserBundleTrucks(user.user_id, bundle.trucks, todayISO, endDateISO, "Los Angeles");
-          navigate("/currentrentals");
-        } catch (err) {
-          console.log(err);
-        }
-      };
 
     useEffect(() => {
         setUser(JSON.parse(window.sessionStorage.getItem("user")));
@@ -47,6 +31,23 @@ const BundleRental = () => {
         fetchBundles();
     }, []);
 
+    const handleRentBundle = async (bundle) => {
+        try {
+          const today = new Date();
+          const endDate = new Date(today);
+          endDate.setDate(today.getDate() + 7);
+      
+          const todayISO = today.toISOString().split("T")[0];
+          const endDateISO = endDate.toISOString().split("T")[0];
+      
+          await addToUserBundleTrucks(user.user_id, bundle.trucks, todayISO, endDateISO, "Los Angeles");
+          await updateBundleAvailability(bundle.bundle_id, 0); // Update bundle availability after renting
+          navigate("/currentrentals");
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      
 
     return (
         <Box

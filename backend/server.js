@@ -272,6 +272,19 @@ app.get('/bundle_trucks', (req, res) => {
     })
 })
 
+app.put('/update_bundle_availability', (req, res) => {
+    const { bundle_id, is_available } = req.body;
+    const query = `UPDATE vehicle_bundle_profile SET is_available = ${is_available} WHERE bundle_id = ${bundle_id};`;
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err;
+
+        res.status(200);
+        res.send(true);
+    });
+});
+
+  
+
 // login user with '/user?email='someEmail'&password='somePassword'
 app.get('/login', async (req, res) => {
     const email = req.query.email
@@ -329,14 +342,15 @@ app.delete('/vehicle_to_bundle', (req, res) => {
 
 // get all bundles
 app.get('/all_bundles', (req, res) => {
-    const query = `SELECT * FROM vehicle_bundle_profile;`;
+    const query = `SELECT * FROM vehicle_bundle_profile WHERE is_available = 1;`;
     connection.query(query, (err, rows, fields) => {
       if (err) throw err;
   
       res.status(200);
       res.send(rows);
     });
-  });
+});
+
   
 
   
