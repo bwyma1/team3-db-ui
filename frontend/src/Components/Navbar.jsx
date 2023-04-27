@@ -26,7 +26,7 @@ export default function ResponsiveNavbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   useMemo(() => {
-    if (context.currUser && !context.isSeller) pages = ["Homepage", "Truck Rental", "Current Rentals"];
+    if (context.currUser && !context.isSeller) pages = ["Homepage", "Truck Rental", "Bundle Rental", "Current Rentals"];
     else if (context.currUser && context.isSeller) pages = ["Homepage", "Listing"];
     else pages = ["Homepage", "Login", "Sign Up"];
   }, [context.currUser, context.isSeller]);
