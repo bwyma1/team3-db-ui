@@ -242,6 +242,106 @@ VALUES (
         2000,
         33
     );
+
+INSERT INTO truck (
+        owner_id,
+        model,
+        make,
+        year,
+        mileage,
+        max_miles,
+        long_discount_days,
+        long_discount_percent,
+        long_discount_flat,
+        truck_image,
+        is_available,
+        truck_capacity,
+        cargo_capacity,
+        price
+    )
+VALUES (
+        1,
+        'Sierra',
+        'GMC',
+        '1996',
+        '8000',
+        500,
+        4,
+        25,
+        8,
+        'https://as1.ftcdn.net/jpg/02/00/14/06/220_F_200140659_MMinjYYvGsk37lwP9lQCskgMC3uZgBmt.jpg',
+        1,
+        5,
+        2300,
+        14
+    );
+
+INSERT INTO truck (
+        owner_id,
+        model,
+        make,
+        year,
+        mileage,
+        max_miles,
+        long_discount_days,
+        long_discount_percent,
+        long_discount_flat,
+        truck_image,
+        is_available,
+        truck_capacity,
+        cargo_capacity,
+        price
+    )
+VALUES (
+        1,
+        'Tacoma',
+        'Toyota',
+        '2014',
+        '12000',
+        550,
+        2,
+        10,
+        6,
+        'https://as1.ftcdn.net/jpg/00/60/93/48/220_F_60934802_c4SfkBbyRD7fLXn379CEbnXlbcFdxINP.jpg',
+        1,
+        5,
+        2200,
+        35
+    );
+
+INSERT INTO truck (
+        owner_id,
+        model,
+        make,
+        year,
+        mileage,
+        max_miles,
+        long_discount_days,
+        long_discount_percent,
+        long_discount_flat,
+        truck_image,
+        is_available,
+        truck_capacity,
+        cargo_capacity,
+        price
+    )
+VALUES (
+        1,
+        '1500',
+        'Ram',
+        '2018',
+        '15000',
+        600,
+        3,
+        15,
+        7,
+        'https://as2.ftcdn.net/jpg/04/92/12/07/220_F_492120789_fyaFBcNx6otam7MLTDGDXUVAJVFXu1Ng.jpg',
+        1,
+        5,
+        2500,
+        40
+    );
+
 INSERT INTO amenity (truck_id, amenity_name, amenity_price)
 VALUES (3, 'Dolly', 6),
     (2, 'Bungee Cord', 2),
@@ -301,3 +401,9 @@ INSERT INTO truck_city (truck_id, city_id) VALUES (2, 1); -- Toyota Tundra in Sa
 INSERT INTO truck_city (truck_id, city_id) VALUES (2, 3); -- Toyota Tundra in San Diego
 INSERT INTO truck_city (truck_id, city_id) VALUES (3, 2); -- Chevrolet Colorado in Los Angeles
 INSERT INTO truck_city (truck_id, city_id) VALUES (3, 4); -- Chevrolet Colorado in Sacramento
+INSERT INTO truck_city (truck_id, city_id) VALUES (4, 1); -- Ford F-150 in San Francisco
+INSERT INTO truck_city (truck_id, city_id) VALUES (4, 2); 
+INSERT INTO truck_city (truck_id, city_id) VALUES (5, 1); 
+INSERT INTO truck_city (truck_id, city_id) VALUES (5, 3); 
+INSERT INTO truck_city (truck_id, city_id) VALUES (6, 2); 
+INSERT INTO truck_city (truck_id, city_id) VALUES (6, 4);
