@@ -239,7 +239,7 @@ const ListATruck = () => {
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  label="Load Capacity"
+                  label="Load Capacity (lbs)"
                   variant="outlined"
                   required
                   margin="normal"

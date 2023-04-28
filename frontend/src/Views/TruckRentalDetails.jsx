@@ -162,6 +162,9 @@ const TruckRentalDetails = () => {
                   <Typography component="p" variant="h5" fontWeight="bold" mb={4}>
                     Truck Capacity: {selectedTruck.truck_capacity} seats
                   </Typography>
+                  <Typography component="p" variant="h5" fontWeight="bold" mb={4}>
+                    Cargo Capacity: {selectedTruck.cargo_capacity} pounds
+                  </Typography>
                   <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
                     Minimum Days For Discount: {selectedTruck.long_discount_days}
                   </Typography>
