@@ -366,6 +366,24 @@ INSERT INTO bundle_vehicle (
 VALUES (1, 2),
     (1, 3);
 
+INSERT INTO vehicle_bundle_profile (
+    owner_id,
+    discount_percent,
+    discount_flat
+)
+VALUES (
+    1,
+    40,
+    25
+);
+
+INSERT INTO bundle_vehicle (
+    bundle_id,
+    truck_id
+)
+VALUES (2, 4),
+    (2, 5);
+
     
 INSERT INTO truck_review (user_id, truck_id, review_text, review_rating)
 VALUES (
