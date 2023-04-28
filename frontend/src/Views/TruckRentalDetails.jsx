@@ -118,7 +118,7 @@ const TruckRentalDetails = () => {
             color: 'black',
             padding: '2rem',
             width: '94.5%',
-            backgroundColor: 'rgba(211, 211, 211, 0.2)',
+            backgroundColor: 'rgba(211, 211, 211, 0.5)',
           }}
         >
           Truck Rental Details
@@ -126,11 +126,11 @@ const TruckRentalDetails = () => {
         <Box
           sx={{
             width: '100%',
-            borderTop: '2px solid',
-            borderColor: 'gray',
-            borderRadius: '0px',
+            borderTop: '1rem solid',
+            borderColor: 'white',
+            borderRadius: '0rem',
             marginBottom: '3rem',
-            backgroundColor: 'rgba(211, 211, 211, 0.2)',
+            backgroundColor: 'rgba(211, 211, 211, 0.1)',
           }}
         >
           <Box
@@ -145,9 +145,9 @@ const TruckRentalDetails = () => {
               <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="550rem" height="500rem" />
             </Box>
             <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-              <Typography component="h4" variant="h4" fontWeight="bold" mb={"1.5rem"}>
+              <Typography component="h4" variant="h4" fontWeight="bold" mt={"5rem"} textAlign={"center"}>
                 {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year})
-                <Box component="span" sx={{ fontWeight: 'bold', float: 'left' }}>
+                <Box component="span" sx={{ fontWeight: 'bold', float: 'left', marginBottom: "2rem", marginTop: "2rem"}}>
                   Price: ${selectedTruck.price}/day
                 </Box>
               </Typography>
@@ -163,7 +163,7 @@ const TruckRentalDetails = () => {
                     Truck Capacity: {selectedTruck.truck_capacity} seats
                   </Typography>
                   <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
-                    Minimum For % Discount: {selectedTruck.long_discount_days} days
+                    Minimum Days For Discount: {selectedTruck.long_discount_days}
                   </Typography>
                   <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
                     Long-Term Percent Discount: {selectedTruck.long_discount_percent}%

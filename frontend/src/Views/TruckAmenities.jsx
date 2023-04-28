@@ -17,17 +17,22 @@ const TruckAmenities = ({ truck_id }) => {
 
     return (
         <div>
-            <Typography component="h3" variant="h5" fontWeight="bold">
-                Amenities:
-            </Typography>
-            <ul>
-                {amenities.map((amenity) => (
-                    <li key={amenity.amenity_id}>{amenity.amenity_name}: ${amenity.amenity_price}</li>
-                ))}
-            </ul>
+          <Typography component="h3" variant="h5" fontWeight="bold">
+            Amenities:
+          </Typography>
+          <ul>
+            {amenities.map((amenity) => (
+              <li key={amenity.amenity_id}>
+                <Typography component="span" variant="h6" fontWeight="bold">
+                  {amenity.amenity_name}: ${amenity.amenity_price}
+                </Typography>
+              </li>
+            ))}
+          </ul>
         </div>
-    );
-};
+      );
+    };
+    
 
 export default TruckAmenities;
 
