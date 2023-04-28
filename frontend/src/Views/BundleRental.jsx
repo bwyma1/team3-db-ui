@@ -82,60 +82,76 @@ const BundleRental = () => {
                 >
                     Available Bundles
                 </Typography>
-                <Box
-                    sx={{
-                        width: "100%",
-                        borderTop: ".1rem solid",
-                        borderColor: "gray",
-                        borderRadius: "0px",
-                        marginBottom: "3rem",
-                        backgroundColor: "rgba(211, 211, 211, 0.2)",
-                    }}
-                >
-                    {bundles.map((bundle, index) => {
-                        const bundlePrice = bundle.trucks.reduce((total, truck) => total + truck.price, 0);
-                        return (
-                            <Card key={bundle.bundle_id} sx={{ p: 3, borderBottom: "1px solid #ccc", mb: 3 }}>
-                                <CardContent>
-                                    <Typography component="h2" variant="h5" fontWeight="bold" marginBottom={".5rem"}>
-                                        Bundle {index + 1}
-                                    </Typography>
-                                    <Typography component="h2" variant="h6" fontWeight="bold" marginBottom={".5rem"}>
-                                        Bundle Price: ${bundlePrice.toFixed(2)}
-                                    </Typography>
-                                    <Typography component="p" variant="h6">
-                                        Discount Percent: {bundle.discount_percent}%
-                                    </Typography>
-                                    <Typography component="p" variant="h6" marginBottom={".5rem"}>
-                                        Discount Flat: ${bundle.discount_flat.toFixed(2)}
-                                    </Typography>
-                                    <Typography component="h3" variant="h6" fontWeight="bold" mt={2} marginBottom={".5rem"}>
-                                        Trucks in Bundle:
-                                    </Typography>
-                                    <List>
-                                        {bundle.trucks.map((truck) => (
-                                            <ListItem key={truck.truck_id}>
-                                                <Box sx={{ mr: 2 }}>
-                                                    <img src={truck.truck_image} alt={truck.model} width="300" />
-                                                </Box>
-                                                <ListItemText>
-                                                    <Typography variant="h6" fontWeight="bold">
-                                                        {truck.make} {truck.model} ({truck.year})
-                                                    </Typography>
-                                                </ListItemText>
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                </CardContent>
-                                <CardActions>
-                                    <Button variant="contained" onClick={() => handleRentBundle(bundle)} sx={{ mt: 2, mr: 2 }}>
-                                        Rent this bundle
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        );
-                    })}
-                </Box>
+                {bundles.length === 0 ? (
+                    <Typography
+                        component="h2"
+                        variant="h5"
+                        sx={{
+                            textAlign: "center",
+                            color: "black",
+                            padding: "1rem",
+                            width: "100%",
+                            backgroundColor: "rgba(211, 211, 211, 0.2)",
+                        }}
+                    >
+                        No Truck Bundles Currently Available!
+                    </Typography>
+                ) : (
+                    <Box
+                        sx={{
+                            width: "100%",
+                            borderTop: ".1rem solid",
+                            borderColor: "gray",
+                            borderRadius: "0px",
+                            marginBottom: "3rem",
+                            backgroundColor: "rgba(211, 211, 211, 0.2)",
+                        }}
+                    >
+                        {bundles.map((bundle, index) => {
+                            const bundlePrice = bundle.trucks.reduce((total, truck) => total + truck.price, 0);
+                            return (
+                                <Card key={bundle.bundle_id} sx={{ p: 3, borderBottom: "1px solid #ccc", mb: 3 }}>
+                                    <CardContent>
+                                        <Typography component="h2" variant="h5" fontWeight="bold" marginBottom={".5rem"}>
+                                            Bundle {index + 1}
+                                        </Typography>
+                                        <Typography component="h2" variant="h6" fontWeight="bold" marginBottom={".5rem"}>
+                                            Bundle Price: ${bundlePrice.toFixed(2)}
+                                        </Typography>
+                                        <Typography component="p" variant="h6" marginBottom={".5rem"}>
+                                            Discount Percent: {bundle.discount_percent}%
+                                        </Typography>
+                                        <Typography component="p" variant="h6" marginBottom={".5rem"}>
+                                            Discount Flat: ${bundle.discount_flat.toFixed(2)}
+                                        </Typography>
+                                        <Typography component="h3" variant="h6" fontWeight="bold" mt={2} marginBottom={".5rem"}>
+                                            Trucks in Bundle:
+                                        </Typography>
+                                        <List>
+                                            {bundle.trucks.map((truck) => (
+                                                <ListItem key={truck.truck_id}>
+                                                    <Box sx={{ mr: 2 }}>
+                                                        <img src={truck.truck_image} alt={truck.model} width="300" />
+                                                    </Box>
+                                                    <ListItemText>
+                                                        <Typography variant="h6" fontWeight="bold">
+                                                            {truck.make} {truck.model} ({truck.year})
+                                                        </Typography>
+                                                    </ListItemText>
+                                                </ListItem>
+                                            ))}
+                                        </List>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button variant="contained" onClick={() => handleRentBundle(bundle)} sx={{ mt: 2, mr: 2 }}>
+                                            Rent this bundle
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            );
+                        })}
+                    </Box>
+                )}
             </Box>
         </Container>
     );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Card, CardContent, CardMedia } from "@mui/material";
 import { getUserRentedTrucks, updateUserRentedTruck, getTruckCities } from "../API/Api";
 import { useLocation } from 'react-router-dom';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, Grid} from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, Grid } from "@mui/material";
 
 
 
@@ -23,7 +23,7 @@ const RentedTrucks = () => {
       setUpdatedEndDate(editingTruck.end_date);
     }
   }, [editingTruck]);
-    
+
 
   useEffect(() => {
     if (truckCities.length > 0) {
@@ -44,10 +44,10 @@ const RentedTrucks = () => {
       const day = String(nextDay.getDate()).padStart(2, "0");
       days.push(`${year}-${month}-${day}`);
     }
-  
+
     return days;
   };
-  
+
 
   useEffect(() => {
     setAvailableDates(getNextTwelveDays());
@@ -71,10 +71,10 @@ const RentedTrucks = () => {
     const year = localDate.getFullYear();
     const month = String(localDate.getMonth() + 1).padStart(2, "0");
     const day = String(localDate.getDate() + 1).padStart(2, "0");
-  
+
     return `${year}-${month}-${day}`;
   };
-  
+
 
   const handleSaveClick = async () => {
     try {
@@ -90,7 +90,7 @@ const RentedTrucks = () => {
       console.error('Error updating rented truck:', err);
     }
   };
-  
+
 
   const handleEditClick = (rentedTruck) => {
     setEditingTruck(rentedTruck);
@@ -126,61 +126,67 @@ const RentedTrucks = () => {
       <Typography component="h1" variant="h3" sx={{ marginBottom: 4 }}>
         Your Rented Trucks
       </Typography>
-      <Grid container spacing={4}>
-        {rentedTrucks.map((rentedTruck) => (
-          <Grid item xs={12} sm={6} key={rentedTruck.truck_id}>
-            <Card sx={{ maxWidth: "90%", margin: "2rem" }}>
-              <CardMedia
-                component="img"
-                height="250rem"
-                image={rentedTruck.truck_image}
-                alt={rentedTruck.model}
-              />
-              <CardContent>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 1,
-                  }}
-                >
-                  <Typography
-                    component="h2"
-                    variant="h4"
-                    fontWeight="bold"
+      {rentedTrucks.length === 0 ? (
+        <Typography component="h2" variant="h5" sx={{ marginBottom: 4 }}>
+          Rent Your First Truck Today!
+        </Typography>
+      ) : (
+        <Grid container spacing={4}>
+          {rentedTrucks.map((rentedTruck) => (
+            <Grid item xs={12} sm={6} key={rentedTruck.truck_id}>
+              <Card sx={{ maxWidth: "90%", margin: "2rem" }}>
+                <CardMedia
+                  component="img"
+                  height="250rem"
+                  image={rentedTruck.truck_image}
+                  alt={rentedTruck.model}
+                />
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 1,
+                    }}
                   >
-                    {rentedTruck.make} {rentedTruck.model} ({rentedTruck.year})
+                    <Typography
+                      component="h2"
+                      variant="h4"
+                      fontWeight="bold"
+                    >
+                      {rentedTruck.make} {rentedTruck.model} ({rentedTruck.year})
+                    </Typography>
+                    <Typography
+                      component="p"
+                      variant="h4"
+                      fontWeight="bold"
+                    >
+                      ${rentedTruck.price}/day
+                    </Typography>
+                  </Box>
+                  <Typography component="p" variant="h5" mb={1}>
+                    Return Location: {rentedTruck.selectedCity}
                   </Typography>
-                  <Typography
-                    component="p"
-                    variant="h4"
-                    fontWeight="bold"
+                  <Typography component="p" variant="h5" mb={1}>
+                    Start Date: {formatDate(rentedTruck.start_date)}
+                  </Typography>
+                  <Typography component="p" variant="h5" mb={1}>
+                    End Date: {formatDate(rentedTruck.end_date)}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleEditClick(rentedTruck)}
+                    sx={{ mt: 2, mr: 2 }}
                   >
-                    ${rentedTruck.price}/day
-                  </Typography>
-                </Box>
-                <Typography component="p" variant="h5" mb={1}>
-                  Return Location: {rentedTruck.selectedCity}
-                </Typography>
-                <Typography component="p" variant="h5" mb={1}>
-                  Start Date: {formatDate(rentedTruck.start_date)}
-                </Typography>
-                <Typography component="p" variant="h5" mb={1}>
-                  End Date: {formatDate(rentedTruck.end_date)}
-                </Typography>
-                <Button
-                  variant="contained"
-                  onClick={() => handleEditClick(rentedTruck)}
-                  sx={{ mt: 2, mr: 2 }}
-                >
-                  Edit
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+                    Edit
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      )}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Edit Truck Rental Details</DialogTitle>
         <DialogContent>

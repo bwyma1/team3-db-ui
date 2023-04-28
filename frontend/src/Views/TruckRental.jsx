@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { getAvailableTrucks } from "../API/Api";
 import { CardMedia } from "@mui/material";
 
-
 const theme = createTheme();
 
 const TruckRental = () => {
@@ -50,38 +49,44 @@ const TruckRental = () => {
           }}>
             Truck Rental Selection
           </Typography>
-          <Grid container spacing={3} sx={{ marginTop: 1}}>
-            {trucks.map((truck) => (
-              <Grid item key={truck.truck_id} xs={12} md={4}>
-                <Card sx={{ height: '100%' }}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={truck.truck_image}
-                    alt={truck.model}
-                  />
-                  <CardContent sx={{ textAlign: 'center' }}>
-                    <Typography variant="h5" gutterBottom>
-                      {truck.make} {truck.model}
-                    </Typography>
-                    <Typography variant="h6" gutterBottom>
-                      ({truck.year})
-                    </Typography>
-                    <Button variant="contained" onClick={() => handleSelectTruck(truck)} color="primary" fullWidth 
-                    sx={{ 
-                      fontWeight: "bold", 
-                      backgroundColor: "#C1292E",
-                      "&:hover": {
-                        backgroundColor: "#C1292E"
-                      }
-                        }}>
-                      ${truck.price} / day
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-        </Grid>
+          {trucks.length === 0 ? (
+            <Typography component="h2" variant="h5" sx={{ textAlign: "center", marginTop: 3 }}>
+              No Trucks Currently Available!
+            </Typography>
+          ) : (
+            <Grid container spacing={3} sx={{ marginTop: 1 }}>
+              {trucks.map((truck) => (
+                <Grid item key={truck.truck_id} xs={12} md={4}>
+                  <Card sx={{ height: '100%' }}>
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={truck.truck_image}
+                      alt={truck.model}
+                    />
+                    <CardContent sx={{ textAlign: 'center' }}>
+                      <Typography variant="h5" gutterBottom>
+                        {truck.make} {truck.model}
+                      </Typography>
+                      <Typography variant="h6" gutterBottom>
+                        ({truck.year})
+                      </Typography>
+                      <Button variant="contained" onClick={() => handleSelectTruck(truck)} color="primary" fullWidth 
+                      sx={{ 
+                        fontWeight: "bold", 
+                        backgroundColor: "#C1292E",
+                        "&:hover": {
+                          backgroundColor: "#C1292E"
+                        }
+                          }}>
+                        ${truck.price} / day
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Box>
       </Container>
     </ThemeProvider>
@@ -89,5 +94,6 @@ const TruckRental = () => {
 };
 
 export default TruckRental;
+
 
 
