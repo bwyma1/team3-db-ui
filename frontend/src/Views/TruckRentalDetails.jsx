@@ -5,7 +5,8 @@ import {
   Button,
   Select,
   MenuItem,
-  Container
+  Container,
+  Grid
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import TruckAmenities from "./TruckAmenities";
@@ -18,7 +19,6 @@ import {
 } from "../API/Api";
 import ReviewForm from "./reviewForm";
 import ReviewList from "./reviewList";
-
 
 
 const TruckRentalDetails = () => {
@@ -105,142 +105,153 @@ const TruckRentalDetails = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography
-          component='h2'
-          variant='h3'
+          component="h2"
+          variant="h3"
           sx={{
-            textAlign: 'center',
-            color: 'black',
-            padding: '2rem',
-            width: '94.5%',
-            backgroundColor: 'rgba(211, 211, 211, 0.5)',
+            textAlign: "center",
+            color: "black",
+            padding: "2rem",
+            width: "100%",
+            backgroundColor: "rgba(211, 211, 211, 0.5)",
           }}
         >
           Truck Rental Details
         </Typography>
         <Box
           sx={{
-            width: '100%',
-            borderTop: '1rem solid',
-            borderColor: 'white',
-            borderRadius: '0rem',
-            marginBottom: '3rem',
-            backgroundColor: 'rgba(211, 211, 211, 0.1)',
+            width: "100%",
+            borderTop: "1rem solid",
+            borderColor: "white",
+            borderRadius: "0rem",
+            marginBottom: "3rem",
+            backgroundColor: "rgba(211, 211, 211, 0.1)",
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              p: 3,
-              borderBottom: '1px solid #ccc',
-            }}
-          >
-            <Box sx={{ mr: 2 }}>
-              <img src={selectedTruck.truck_image} alt={selectedTruck.model} width="550rem" height="500rem" />
-            </Box>
-            <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-              <Typography component="h4" variant="h4" fontWeight="bold" mt={"5rem"} textAlign={"center"}>
-                {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year})
-                <Box component="span" sx={{ fontWeight: 'bold', float: 'left', marginBottom: "2rem", marginTop: "2rem"}}>
-                  Price: ${selectedTruck.price}/day
-                </Box>
-              </Typography>
-              <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Box>
-                  <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
-                    Truck Mileage: {selectedTruck.mileage}
-                  </Typography>
-                  <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
-                    Max Miles: {selectedTruck.max_miles}
-                  </Typography>
-                  <Typography component="p" variant="h5" fontWeight="bold" mb={4}>
-                    Truck Capacity: {selectedTruck.truck_capacity} seats
-                  </Typography>
-                  <Typography component="p" variant="h5" fontWeight="bold" mb={4}>
-                    Cargo Capacity: {selectedTruck.cargo_capacity} pounds
-                  </Typography>
-                  <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
-                    Minimum Days For Discount: {selectedTruck.long_discount_days}
-                  </Typography>
-                  <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
-                    Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
-                  </Typography>
-                  <Typography component="p" variant="h6" fontWeight="bold" mb={4}>
-                    Flat Discount: ${selectedTruck.long_discount_flat} off per day pricing
-                  </Typography>
-                  <TruckAmenities truck_id={selectedTruck.truck_id} />
-                </Box>
-                <Box>
-                  <Typography component="p" variant="h6" fontWeight="bold">
-                    Pickup Location:
-                  </Typography>
-                  <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1 }}>
-                    {truckCities.map((city, index) => (
-                      <MenuItem key={city.city_id + '-' + index} value={city.name}>
-                        {city.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <Typography component="p" variant="h6" fontWeight="bold" mt={2}>
-                    End Date:
-                  </Typography>
-                  <Select value={selectedEndDate} onChange={handleEndDateChange} sx={{ marginTop: 1 }}>
-                    {availableDates.map((date, index) => (
-                      <MenuItem key={'date-' + date + '-' + index} value={date}>
-                        {date}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
+          <Grid container spacing={2} sx={{ p: 3, borderBottom: "1px solid #ccc" }}>
+            <Grid item xs={12} md={6}>
+              <img
+                src={selectedTruck.truck_image}
+                alt={selectedTruck.model}
+                style={{ width: "100%", height: "auto" }}
+              />
+              <Box>
+                <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
+                  Truck Mileage: {selectedTruck.mileage}
+                </Typography>
+                <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
+                  Max Miles: {selectedTruck.max_miles}
+                </Typography>
+                <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
+                  Truck Capacity: {selectedTruck.truck_capacity} seats
+                </Typography>
+                <Typography component="p" variant="h5" fontWeight="bold" mb={2}>
+                  Cargo Capacity: {selectedTruck.cargo_capacity} pounds
+                </Typography>
               </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+                <Typography component="h4" variant="h4" fontWeight="bold" mt={"5rem"} textAlign={"center"}>
+                  {selectedTruck.make} {selectedTruck.model} ({selectedTruck.year})
+                  <Box
+                    component="span"
+                    sx={{
+                      fontWeight: "bold",
+                      display: "block",
+                      marginBottom: "3rem",
+                      marginTop: "1rem",
+                    }}
+                  >
+                    Price: ${selectedTruck.price}/day
+                  </Box>
+                </Typography>
+                <Grid container spacing={10}>
+                  <Grid item xs={12} sm={6}>
+                    <Box>
+                      <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
+                        Minimum Days For Discount: {selectedTruck.long_discount_days}
+                      </Typography>
+                      <Typography component="p" variant="h6" fontWeight="bold" mb={2}>
+                        Long-Term Percent Discount: {selectedTruck.long_discount_percent}%
+                      </Typography>
+                      <Typography component="p" variant="h6" fontWeight="bold" mb={4}>
+                        Flat Discount: ${selectedTruck.long_discount_flat} off per day pricing
+                      </Typography>
+                      <TruckAmenities truck_id={selectedTruck.truck_id} />
+                      </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Box>
+                    <Typography component="p" variant="h6" fontWeight="bold">
+                      Pickup Location:
+                    </Typography>
+                    <Select value={selectedCity} onChange={handleCityChange} sx={{ marginTop: 1, width: "100%" }}>
+                      {truckCities.map((city, index) => (
+                        <MenuItem key={city.city_id + "-" + index} value={city.name}>
+                          {city.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <Typography component="p" variant="h6" fontWeight="bold" mt={2}>
+                      End Date:
+                    </Typography>
+                    <Select value={selectedEndDate} onChange={handleEndDateChange} sx={{ marginTop: 1, width: "100%" }}>
+                      {availableDates.map((date, index) => (
+                        <MenuItem key={"date-" + date + "-" + index} value={date}>
+                          {date}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </Box>
+                </Grid>
+              </Grid>
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
                   mt: 3,
                 }}
               >
                 <Button
                   variant="contained"
                   onClick={handleRentTruck}
-                  sx={{ mt: 3.5, mb: 2, mr: 2, minWidth: '2rem', minHeight: '1rem', fontSize: '1rem' }}
+                  sx={{ mt: 3.5, mb: 2, mr: 2, minWidth: "2rem", minHeight: "1rem", fontSize: "1rem" }}
                 >
                   Rent this truck
                 </Button>
                 <Button
                   variant="outlined"
-                  sx={{ mt: 3.5, mb: 2, mr: 2, minWidth: '2rem', minHeight: '1rem', fontSize: '1rem' }}
+                  sx={{ mt: 3.5, mb: 2, mr: 2, minWidth: "2rem", minHeight: "1rem", fontSize: "1rem" }}
                   onClick={() => navigate("/truckrental")}
                 >
                   Back to Truck Rental
                 </Button>
               </Box>
             </Box>
-          </Box>
-          <Box sx={{ p: 3 }}>
-            <ReviewList reviews={truckReviews} />
-            <ReviewForm
-              userId={selectedTruck.owner_id}
-              truckId={selectedTruck.truck_id}
-              onReviewAdded={handleReviewAdded}
-            />
-          </Box>
+          </Grid>
+        </Grid>
+        <Box sx={{ p: 3 }}>
+          <ReviewList reviews={truckReviews} />
+          <ReviewForm
+            userId={selectedTruck.owner_id}
+            truckId={selectedTruck.truck_id}
+            onReviewAdded={handleReviewAdded}
+          />
         </Box>
       </Box>
-    </Container>
-  );
+    </Box>
+  </Container>
+);
 };
 
 export default TruckRentalDetails;
 
-
-
-
+  
